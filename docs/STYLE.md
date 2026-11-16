@@ -1,20 +1,28 @@
-# Fantasy Pack Style: vanilla+
+# Fantasy Pack Style: Heroic Chunky
 
-Original art only. Reference packs are for learning, never for copying.
+Original art only. Reference images and packs are for learning, never for copying.
 
-## What we take from the references
-- Painterly noise on fur, bark and metal, not flat fills.
-- Muted, warm palettes with one bright accent per character (gold, red, orange eyes).
-- Dark 1px outline on the lower and right edges of body parts.
-- Readable silhouettes: big head, clear horns, simple weapon shapes.
+## Direction
+Not vanilla. Big, bold, readable creatures with heroic proportions and strong accents.
 
-## What we do not copy
-- Any model, texture, UV layout, entity file, or name from third-party packs.
+## Proportions
+- Bosses and brutes: oversized chest and shoulders, long heavy arms, small head set low and forward, short thick legs.
+- Limbs are thick blocks (8–12 units wide on big mobs). Hands and fists are separate cubes.
+- Horns, tusks and armor stick out of the silhouette so the mob reads from far away.
 
-## Rules
-- Mob textures: 1 texel per model unit. Minotaur 128×128, axe 64×64.
-- Palette: 3 shades per material (dark, base, light). Keep accents to one hue per object.
-- Outline: 1px darker edge on the bottom and right of body parts; no outline on hard metal edges.
-- Weapons: head about 40% of total length; grip wraps at the center of mass.
-- Geometry: no rotations in base models, so animation stays simple.
-- Bones: mirror left and right sides with `mirror: true` instead of duplicate UVs.
+## Texture rules
+- 1 texel per model unit. Atlas sized to fit (128×128, 256×128 or 256×256).
+- Fur and skin: mottled base with darker patches (2–3 px) and a few lighter ones. No fine per-pixel noise.
+- Painted muscles: pecs, abs, biceps and knees as lighter blocks with a dark line under them.
+- Gradient on every side face: lighter at the top, darker at the bottom.
+- Armor: saturated gold with an orange rim and a lighter inner panel. One engraved labyrinth icon is our signature mark.
+- Cloth and fur gear: off-white fur with dirt spots; uneven strips instead of transparency.
+- Eyes: glowing red or ember. Every boss has a separate `_glow.png` emissive layer.
+
+## Weapons
+- Large heads (about 40% of total length), chunky collars with coloured bands, patterned hafts (twisted wood, wraps).
+
+## Code and files
+- Namespace `studio:`; one model, one texture, one glow texture per mob.
+- Left/right parts mirror with `mirror: true`.
+- Small rest-pose rotations only (lean, open jaw, horn tilt), documented per mob.

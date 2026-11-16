@@ -1,29 +1,29 @@
-# Minotaur: Hunched Warden
+# Minotaur: Heroic Brute
 
-Original design in the Mythforge style (see `STYLE.md`, `STYLE_ANALYSIS.md`). Resource pack only for now.
+Original model in the chunky, heroic style (see `STYLE.md`). Resource pack only for now.
 
 ## Files
-- `RP/models/entity/minotaur.geo.json`, identifier `geometry.minotaur`, 128×128
+- `RP/models/entity/minotaur.geo.json`, identifier `geometry.minotaur`, texture 256×128
 - `RP/textures/entity/minotaur.png`, base texture
-- `RP/textures/entity/minotaur_glow.png`, emissive layer (eyes, chest glyph, forearm runes). Not wired to a render controller yet.
+- `RP/textures/entity/minotaur_glow.png`, emissive layer (red eyes, pauldron gem, buckle gem). Not wired to a render controller yet.
 - `RP/models/entity/minotaur_axe.geo.json`, identifier `geometry.minotaur_axe`, 64×64
-- `RP/textures/attachables/minotaur_axe.png` and `minotaur_axe_glow.png`
+- `RP/textures/attachables/minotaur_axe.png` and `minotaur_axe_glow.png` (collar rune)
 
 ## Design
-- Hunched brute: torso leans 22° forward, thick neck, heavy shoulder mass, long arms.
-- Digitigrade legs: thigh forward, shin back, flat hoof.
-- Bull head: wide skull, brow ridge, long muzzle with nose pad, jaw with two tusks.
-- Horns: three segments per side (base, mid, tip) with rotation, bone fading to a dark tip.
-- Gear: leather chest band, belt with gold buckle, bronze shoulder plate (left), bronze bracer (right), broken iron shackle with chain (left wrist), maroon loincloth.
-- Accent colour: gold. Glow colour: ember orange.
+- **Proportions:** massive chest (24 wide) and shoulder hump, gorilla arms that reach the knees, small head pushed low and forward, short thick legs.
+- **Head:** big bull head, dark brow ridge, light muzzle with nostrils, gold nose ring, open jaw with fangs, glowing red eyes, scar on the forehead.
+- **Horns:** L-shaped bone horns (out, then up), with gold bands under the tips.
+- **Armor:** gold bracers on both forearms with an engraved labyrinth icon, gold pauldron on the left shoulder with a red gem.
+- **Gear:** dark studded belt with gold buckle, white fur loincloth in uneven strips (front and back), tufted tail.
+- **Paint:** mottled brown fur with painted muscles (pecs, abs, biceps), light-to-dark gradient on every side, white claws on the fists.
+- **Axe:** double-crescent blades with curled tips, twisted wooden haft, blue-steel collar with red bands and a glowing rune.
 
 ## Bones
-`root` > `hips` > `torso` > (`neck` > `head` > `jaw`), (`arm_l` > `forearm_l`), (`arm_r` > `forearm_r`);
-`hips` > (`leg_*` > `shin_*` > `hoof_*`), `tail`.
-Rest-pose rotations: torso 22, neck -10, head -10, arms -30, forearms -20, legs -25, shins 50, hoofs -25, tail 15, jaw 6 (degrees, X axis).
+`root` > `leg_l`, `leg_r`, `hips` > (`tail`), (`torso` > `head` > `jaw`, `horn_l`, `horn_r`), (`arm_l` > `forearm_l`), (`arm_r` > `forearm_r`).
+Rest-pose rotations (degrees): torso X 10, head X -10, jaw X 18, horns X 10 / Z ±12, arms X -10 / Z ±6, forearms X -15, tail X 20.
 
 ## Notes
-- Left and right sides share UVs through `mirror: true` (arms, forearms, fists, thighs, shins, hoofs, ears, horns, tusks).
+- Left and right share UVs through `mirror: true`.
 - Geometry is shifted so the hooves touch y = 0.
 - Rotation signs follow the Bedrock file convention (X and Y inverted against standard math). Confirm in Blockbench.
 - Previews were rendered with a custom script, not the game.
