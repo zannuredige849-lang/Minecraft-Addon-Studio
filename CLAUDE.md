@@ -86,6 +86,18 @@ studio/config/studio.json     Studio settings (mode, namespace, versions)
 
 ---
 
+## Model routing (Haiku / Sonnet / Opus)
+
+Full policy: `knowledge/AI Model Routing.md`. Efficiency policy: `docs/PROMPT_EFFICIENCY.md`.
+
+- **Two decisions, kept separate.** The main session model is set by the user (`/model`); delegating to subagents does not change it. Subagent models come from `model:` in `.claude/agents/<name>.md`, or a per-call `model` override. Subagents use the same Claude Pro limit.
+- **Use the cheapest suitable model.** Haiku: simple, local, repetitive. Sonnet: primary development. Opus: complex architecture, hard bugs, complex solutions.
+- **Assess first:** complexity, risk, files affected, depth of analysis. Any single high factor raises the level.
+- **Never** send a simple task to Opus, and never use several agents for one simple task. Run agents in parallel only for independent work.
+- **Escalate** Haiku → Sonnet → Opus only after a failure with no new information. Add context first. Pass a short handoff (brief, files, check output), never the whole history.
+- **Defaults:** Project Manager and QA Engineer = haiku; all other agents = sonnet. Escalate per the table in the routing note.
+- **Save tokens:** don't reread the repo; batch edits before running checks; don't repeat full reviews after minor edits; save verified answers to `knowledge/`.
+
 ## Knowledge base (Obsidian)
 
 The vault is the nested folder `knowledge/` (open it in Obsidian). Start at `knowledge/Home.md`.

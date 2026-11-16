@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "validate": "node validators/validate-addon.mjs",
-    "test": "node --test tests/validator.test.mjs tests/build.test.mjs tests/templates-config.test.mjs tests/knowledge.test.mjs",
+    "test": "node --test tests/validator.test.mjs tests/build.test.mjs tests/templates-config.test.mjs tests/knowledge.test.mjs tests/routing.test.mjs",
     "build": "node scripts/build-mcaddon.mjs",
     "mct:validate": "mct validate main PRJINT,UNKJSON",
     "texture:sample": "python3 scripts/generate_sample_texture.py"

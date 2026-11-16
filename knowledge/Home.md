@@ -29,6 +29,10 @@ Start here. Every category has an index note; open an index and follow its links
 
 Mob · Boss · Model · Animation · Script · Add-on Analysis · Journal Entry
 
+## Process
+
+- [[AI Model Routing]] — which model handles which task, and when to escalate
+
 ## How Claude uses this vault
 
 Rules: [[KNOWLEDGE-RULES]]. Claude reads the relevant index before a task and writes a journal entry and any new error notes after it. Notes marked `status: unverified` are not facts yet.
