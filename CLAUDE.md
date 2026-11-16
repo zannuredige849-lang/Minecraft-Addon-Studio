@@ -26,6 +26,11 @@ Developed from an iPhone via Claude Code Cloud, so keep work small and fast.
 - Keep `format_version` values consistent with the engine version in each manifest.
 - Keep manifest UUIDs stable once published. Generate new ones only for new packs.
 
+## Documentation (Obsidian vault)
+- Docs live in `obsidian/`. When BP/RP change, update the matching note (entity note, Balance, Dashboard, Changelog).
+- Mark anything not built as `planned`. Never document features that are not in the repo.
+- Keep `[[wikilinks]]` valid and note names unique.
+
 ## Git
 - Commit messages: short imperative summary, then body if needed.
 - Push only to the session's designated branch.

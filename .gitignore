@@ -155,3 +155,12 @@ vite.config.ts.timestamp-*
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+
+# Obsidian vault (obsidian/): ignore per-device state, keep notes and shared config
+obsidian/.obsidian/workspace.json
+obsidian/.obsidian/workspace-mobile.json
+obsidian/.obsidian/workspaces.json
+obsidian/.obsidian/cache
+obsidian/.obsidian/plugins/*/data.json
+obsidian/.trash/
+.DS_Store

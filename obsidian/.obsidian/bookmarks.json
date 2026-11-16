@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "type": "file",
+      "path": "Home.md",
+      "title": "Home"
+    },
+    {
+      "type": "file",
+      "path": "00 - Dashboard/Dashboard.md",
+      "title": "Dashboard"
+    },
+    {
+      "type": "file",
+      "path": "07 - Tasks and Roadmap/Backlog.md",
+      "title": "Backlog"
+    }
+  ]
+}
