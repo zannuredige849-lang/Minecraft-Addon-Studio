@@ -1,0 +1,23 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Studio Demo (Resources)",
+    "description": "Demo resource pack from Minecraft-Addon-Studio: pixel slime model, texture and idle animation.",
+    "uuid": "19a45c35-2cdb-43b0-b31e-e9b9998d8177",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 40]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "442cc35e-3731-4974-ba15-02129be987a0",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "22c21ac7-7118-4e32-b616-164dcaa3f796",
+      "version": [1, 0, 0]
+    }
+  ]
+}

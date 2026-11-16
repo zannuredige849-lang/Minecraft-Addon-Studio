@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "__NAME__ (Behavior)",
+    "description": "__NAME__ behavior pack",
+    "uuid": "__NEW_UUID__",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 40]
+  },
+  "modules": [
+    { "type": "data", "uuid": "__NEW_UUID__", "version": [1, 0, 0] },
+    { "type": "script", "language": "javascript", "uuid": "__NEW_UUID__", "version": [1, 0, 0], "entry": "scripts/main.js" }
+  ],
+  "dependencies": [
+    { "uuid": "__NEW_UUID__", "version": [1, 0, 0] },
+    { "module_name": "@minecraft/server", "version": "2.11.0" }
+  ]
+}

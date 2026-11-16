@@ -1,0 +1,34 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Studio Demo (Behavior)",
+    "description": "Demo behavior pack from Minecraft-Addon-Studio: a pixel slime and a join message.",
+    "uuid": "22c21ac7-7118-4e32-b616-164dcaa3f796",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 40]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "4ed2445d-0566-4ebc-a9a4-8eb4f69669e3",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "44b99fcb-d2a5-4dda-9318-264588c28fe0",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "19a45c35-2cdb-43b0-b31e-e9b9998d8177",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ]
+}

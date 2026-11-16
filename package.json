@@ -1,0 +1,21 @@
+{
+  "name": "minecraft-addon-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI studio for professional Minecraft Bedrock Add-on development",
+  "type": "module",
+  "scripts": {
+    "validate": "node validators/validate-addon.mjs",
+    "test": "node --test tests/validator.test.mjs tests/build.test.mjs tests/templates-config.test.mjs",
+    "build": "node scripts/build-mcaddon.mjs",
+    "mct:validate": "mct validate main PRJINT101,UNKJSON101",
+    "texture:sample": "python3 scripts/generate_sample_texture.py"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@minecraft/creator-tools": "0.21.0",
+    "@minecraft/server": "2.11.0"
+  }
+}

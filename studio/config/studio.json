@@ -1,0 +1,25 @@
+{
+  "name": "Minecraft-Addon-Studio",
+  "mode": "development",
+  "namespace": "studio",
+  "packs": {
+    "behavior": "behavior_packs/studio_demo_bp",
+    "resource": "resource_packs/studio_demo_rp"
+  },
+  "packName": "studio_demo",
+  "versions": {
+    "creatorTools": "0.21.0",
+    "minecraftServerScript": "2.11.0",
+    "packVersion": [1, 0, 0],
+    "formats": {
+      "manifest": 2,
+      "entity": "1.26.60",
+      "geometry": "1.12.0",
+      "animation": "1.10.0",
+      "renderController": "1.8.0"
+    }
+  },
+  "validation": {
+    "failOnWarnings": false
+  }
+}
