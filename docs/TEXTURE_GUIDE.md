@@ -12,6 +12,17 @@ Every material uses one consistent palette of **4 clearly distinguishable shades
 
 The shades must belong to the same color family. They should read as one material under different lighting, never as unrelated colors.
 
+### Shade count by model size
+
+| Model size | Normal materials | Metal |
+|---|---|---|
+| Normal (items, blocks, weapons, mobs up to about 2 blocks) | 4 | 7–8 |
+| Big (bosses and mobs larger than about 2 blocks) | 5 | 8 |
+
+On big models the extra shade is a **light mid-tone** between base and highlight. Use it for rounded surfaces (muscles, horns, folds) so the transition from base to highlight takes two steps. The highlight stays on top edges only.
+
+Small materials on a big model (mouth, hooves, small straps) may stay at 4 shades.
+
 | Shade | Role | Where it goes |
 |---|---|---|
 | **1 – Deep shadow** | Darkest value | Deep creases, joints, undersides, areas hidden from direct light |
@@ -101,7 +112,7 @@ Avoid excessive contrast that makes the model look dirty, damaged or noisy.
 
 - Clean pixel-art appearance.
 - Consistent color palettes.
-- Four shades per base material color (7–8 for metal).
+- Four shades per material (5 on big models); 7–8 for metal (8 on big models).
 - Clearly readable separation between materials.
 
 **Not allowed**
@@ -129,7 +140,7 @@ The result should look like an official high-quality Minecraft texture: clean, r
 
 Use this before a texture is accepted.
 
-- [ ] Each material uses exactly 4 shades of one color family (metal: 7–8).
+- [ ] Each material uses one color family: 4 shades (5 on big models); metal 7–8 (8 on big models).
 - [ ] Base color covers most of each material; highlights are the smallest group.
 - [ ] Shadows sit where the shape creates them (undersides, joints, gaps, contact areas).
 - [ ] Highlights sit on upper surfaces and exposed edges only.

@@ -15,7 +15,8 @@ Original model in the chunky, heroic style (see `STYLE.md`). Resource pack only 
 - **Horns:** L-shaped bone horns (out, then up), with gold bands under the tips.
 - **Armor:** gold bracers on both forearms with an engraved labyrinth icon, gold pauldron on the left shoulder with a red gem.
 - **Gear:** dark studded belt with gold buckle, white fur loincloth in uneven strips (front and back), tufted tail.
-- **Paint:** follows `TEXTURE_GUIDE.md`. 38 colors in total: 4 shades each for fur, skin, mouth, bone, hoof, leather, white fur and red; 7 of 8 gold shades. Muscles are shade blocks with crease shadows, contact shadows sit where parts meet, white claws on the fists. Under 2% isolated pixels.
+- **Paint:** follows `TEXTURE_GUIDE.md` with the big-model rule. 43 colors in total: 5 shades each for fur, skin, bone and white fur; 4 for mouth, hoof and leather; 3 of 4 for the red eyes and gems; all 8 gold shades. Muscles step base → light mid → highlight with crease shadows; contact shadows where parts meet; white claws on the fists. About 2% isolated pixels.
+- **Axe paint:** normal-model rule. 8 steel shades (bevel toward the edge, polished band, glint), 8 blue-steel shades on the collar, 4 wood shades in a twisted pattern, red enamel bands (2 of 4). 0.2% isolated pixels.
 - **Axe:** double-crescent blades with curled tips, twisted wooden haft, blue-steel collar with red bands and a glowing rune.
 
 ## Bones
