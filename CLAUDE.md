@@ -86,6 +86,18 @@ studio/config/studio.json     Studio settings (mode, namespace, versions)
 
 ---
 
+## Knowledge base (Obsidian)
+
+The vault is the nested folder `knowledge/` (open it in Obsidian). Start at `knowledge/Home.md`.
+
+- **Read first:** before a task, open the matching category index in `knowledge/` and search for an existing note (`grep -ril`). Extend it instead of duplicating.
+- **Read before debugging:** `knowledge/Errors & Solutions/Common Errors.md`.
+- **Write after work:** add a dated entry to `knowledge/Development Journal/` for each session that changes the repo. Record new validator or tool errors and their fixes in `Errors & Solutions/`.
+- **Templates:** `knowledge/_templates/` (mob, boss, model, animation, script, add-on analysis, journal entry).
+- **Full rules:** `knowledge/_meta/KNOWLEDGE-RULES.md`. Sync options and the iPhone setup: `docs/OBSIDIAN_SYNC.md`.
+- Never put tokens or secrets in `knowledge/`. Never delete or move notes without the user asking.
+- `npm test` checks wiki links, category coverage, and secret-like strings.
+
 ## Commands
 
 | Command | Purpose |

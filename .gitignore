@@ -155,3 +155,9 @@ vite.config.ts.timestamp-*
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+
+# Obsidian knowledge vault: per-device state (never commit)
+knowledge/.obsidian/workspace*.json
+knowledge/.obsidian/cache
+knowledge/.obsidian/plugins/*/data.json
+knowledge/.trash/
