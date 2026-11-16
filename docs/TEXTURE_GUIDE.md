@@ -8,7 +8,9 @@ Universal rules for any texture in this project: mobs, items, blocks, armor and 
 
 Every material uses one consistent palette of **4 clearly distinguishable shades of the same base color**.
 
-The four shades must belong to the same color family. They should read as one material under different lighting, never as four unrelated colors.
+**Exception – metal:** metal materials (gold, iron, steel, bronze and similar) use **7–8 shades** of one color family. Metal needs the extra steps for reflections and sharp highlights.
+
+The shades must belong to the same color family. They should read as one material under different lighting, never as unrelated colors.
 
 | Shade | Role | Where it goes |
 |---|---|---|
@@ -30,6 +32,21 @@ One base color, four variations:
 
 - The difference between shades must be visible, but not excessively strong.
 - Do not create four completely different colors. The result must look like one material under different lighting conditions.
+
+### Metal palette (7–8 shades)
+
+| Shade | Role |
+|---|---|
+| 1 | Deepest shadow: undersides, engraving bottoms |
+| 2 | Shadow: lower rims, recessed lines |
+| 3 | Dark mid-tone: side edges turned away from light |
+| 4 | Base metal |
+| 5 | Light mid-tone: main lit panels |
+| 6 | Reflection: upper rims |
+| 7 | Bright highlight: top edges |
+| 8 | Glint (optional): 1–3 pixel specular spots only |
+
+Keep the steps even. Highlights 7–8 cover the smallest area.
 
 ## 3. Texture application and pixel distribution
 
@@ -58,7 +75,7 @@ Every material has its own visual character.
 | Skin | Controlled tonal variation and subtle surface details |
 | Stone | Larger irregular pixel clusters and mineral-like variation |
 | Wood | Directional grain patterns following the structure |
-| Metal | Strong contrast between shadows and highlights |
+| Metal | Strong contrast between shadows and highlights, 7–8 shades |
 | Leather | Matte appearance with subtle tonal irregularities |
 | Cloth | Simple folds and directional shading |
 | Bone | Smooth ivory tonal transitions |
@@ -84,7 +101,7 @@ Avoid excessive contrast that makes the model look dirty, damaged or noisy.
 
 - Clean pixel-art appearance.
 - Consistent color palettes.
-- Four shades per base material color.
+- Four shades per base material color (7–8 for metal).
 - Clearly readable separation between materials.
 
 **Not allowed**
@@ -112,7 +129,7 @@ The result should look like an official high-quality Minecraft texture: clean, r
 
 Use this before a texture is accepted.
 
-- [ ] Each material uses exactly 4 shades of one color family.
+- [ ] Each material uses exactly 4 shades of one color family (metal: 7–8).
 - [ ] Base color covers most of each material; highlights are the smallest group.
 - [ ] Shadows sit where the shape creates them (undersides, joints, gaps, contact areas).
 - [ ] Highlights sit on upper surfaces and exposed edges only.

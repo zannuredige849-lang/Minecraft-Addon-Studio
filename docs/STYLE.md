@@ -11,12 +11,13 @@ Not vanilla. Big, bold, readable creatures with heroic proportions and strong ac
 - Horns, tusks and armor stick out of the silhouette so the mob reads from far away.
 
 ## Texture rules
+All textures follow `TEXTURE_GUIDE.md`: 4 shades per material, 7–8 for metal, no random noise, no gradients, shading follows the shape.
 - 1 texel per model unit. Atlas sized to fit (128×128, 256×128 or 256×256).
-- Fur and skin: mottled base with darker patches (2–3 px) and a few lighter ones. No fine per-pixel noise.
-- Painted muscles: pecs, abs, biceps and knees as lighter blocks with a dark line under them.
-- Gradient on every side face: lighter at the top, darker at the bottom.
-- Armor: saturated gold with an orange rim and a lighter inner panel. One engraved labyrinth icon is our signature mark.
-- Cloth and fur gear: off-white fur with dirt spots; uneven strips instead of transparency.
+- Fur: base shade with small shadow clumps (1×2) and a few highlight pairs on upper areas.
+- Muscles (pecs, abs, biceps, knees): highlight blocks with a shadow line under them; deep shadow in creases.
+- Contact shadows where parts meet (under belts, above and below bracers, under hips).
+- Armor: gold panels with rim shadows, lit top edges and a small glint. One engraved labyrinth icon is our signature mark.
+- Cloth and fur gear: directional strands; uneven strips instead of transparency.
 - Eyes: glowing red or ember. Every boss has a separate `_glow.png` emissive layer.
 
 ## Weapons
