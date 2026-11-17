@@ -1,13 +1,29 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Pixel Slime RP",
-    "description": "Visuals for studio:pixel_slime",
+    "name": "Odyssey Creatures RP",
+    "description": "HD models, textures and animations for the Odyssey creatures",
     "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a03",
-    "version": [1, 0, 0],
-    "min_engine_version": [1, 21, 0]
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
   },
   "modules": [
-    { "type": "resources", "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a04", "version": [1, 0, 0] }
+    {
+      "type": "resources",
+      "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a04",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
   ]
 }

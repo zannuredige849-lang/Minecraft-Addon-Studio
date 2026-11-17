@@ -5,77 +5,144 @@
       "identifier": "studio:scylla",
       "is_spawnable": true,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "snatch"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {
         "family": [
           "scylla",
           "monster",
+          "aquatic",
+          "studio_odyssey",
           "mob"
         ]
       },
       "minecraft:collision_box": {
         "width": 2.4,
-        "height": 3.2
+        "height": 3.0
       },
       "minecraft:health": {
-        "value": 250,
-        "max": 250
+        "value": 300,
+        "max": 300
       },
       "minecraft:movement": {
-        "value": 0.17
+        "value": 0.18
       },
-      "minecraft:navigation.walk": {
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:follow_range": {
+        "value": 32,
+        "max": 48
+      },
+      "minecraft:ambient_sound_interval": {
+        "value": 8,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/scylla.json"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.12
+      },
+      "minecraft:movement.amphibious": {
+        "max_turn": 5
+      },
+      "minecraft:navigation.generic": {
+        "is_amphibious": true,
         "can_path_over_water": false,
-        "avoid_water": true
+        "can_swim": true,
+        "can_walk": true,
+        "can_breach": true,
+        "can_sink": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:breathable": {
+        "breathes_water": true,
+        "breathes_air": true,
+        "total_supply": 15,
+        "suffocate_time": 0
       },
       "minecraft:jump.static": {},
-      "minecraft:physics": {},
       "minecraft:pushable": {
         "is_pushable": false,
         "is_pushable_by_piston": false
       },
-      "minecraft:fall_damage": {
-        "value": 0
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "fall",
+            "deals_damage": false
+          },
+          {
+            "cause": "drowning",
+            "deals_damage": false
+          }
+        ]
       },
       "minecraft:attack": {
-        "damage": 18
+        "damage": 8
       },
-      "minecraft:behavior.float": {
-        "priority": 0
+      "minecraft:behavior.random_swim": {
+        "priority": 7,
+        "speed_multiplier": 1.0,
+        "xz_dist": 10,
+        "y_dist": 7
       },
       "minecraft:behavior.random_stroll": {
-        "priority": 6,
-        "speed_multiplier": 1.0
+        "priority": 8,
+        "speed_multiplier": 0.8
       },
-      "minecraft:behavior.look_at_player": {
-        "priority": 7,
-        "look_distance": 12
-      },
-      "minecraft:behavior.random_look_around": {
-        "priority": 8
-      },
-      "minecraft:knockback_resistance": {
-        "value": 0.9
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
+        "reselect_targets": true,
+        "scan_interval": 5,
         "entity_types": [
           {
             "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "villager"
+                }
+              ]
             },
-            "max_dist": 20
+            "max_dist": 28
           }
         ]
       },
       "minecraft:behavior.melee_attack": {
         "priority": 3,
-        "speed_multiplier": 1.1,
+        "speed_multiplier": 1.2,
         "track_target": true
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 9,
+        "look_distance": 16
       }
     }
   }

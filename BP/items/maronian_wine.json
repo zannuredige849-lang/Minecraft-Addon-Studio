@@ -1,0 +1,32 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "studio:maronian_wine",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "studio_maronian_wine"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.studio:maronian_wine.name"
+      },
+      "minecraft:max_stack_size": 8,
+      "minecraft:food": {
+        "nutrition": 2,
+        "saturation_modifier": 0.4,
+        "can_always_eat": true
+      },
+      "minecraft:use_animation": "drink",
+      "minecraft:use_modifiers": {
+        "use_duration": 1.6,
+        "movement_modifier": 0.35
+      }
+    }
+  }
+}

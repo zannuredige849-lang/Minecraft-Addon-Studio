@@ -7,29 +7,54 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/cyclops"
+        "default": "textures/entity/cyclops",
+        "blinded": "textures/entity/cyclops_blind"
       },
       "geometry": {
         "default": "geometry.cyclops"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.studio_cyclops"
       ],
       "animations": {
+        "idle": "animation.cyclops.idle",
         "walk": "animation.cyclops.walk",
-        "idle": "animation.cyclops.idle"
+        "grab": "animation.cyclops.grab",
+        "throw": "animation.cyclops.throw",
+        "cry": "animation.cyclops.cry",
+        "drunk": "animation.cyclops.drunk",
+        "asleep": "animation.cyclops.asleep",
+        "blind_search": "animation.cyclops.blind_search"
       },
       "scripts": {
         "animate": [
+          "idle",
           {
-            "walk": "query.modified_distance_moved > 0.01"
+            "walk": "q.modified_move_speed > 0.05 && q.property('studio:state') != 'asleep'"
           },
-          "idle"
+          {
+            "grab": "q.property('studio:anim') == 'grab'"
+          },
+          {
+            "throw": "q.property('studio:anim') == 'throw'"
+          },
+          {
+            "cry": "q.property('studio:anim') == 'cry'"
+          },
+          {
+            "drunk": "q.property('studio:state') == 'drunk'"
+          },
+          {
+            "asleep": "q.property('studio:state') == 'asleep'"
+          },
+          {
+            "blind_search": "q.property('studio:blind')"
+          }
         ]
       },
       "spawn_egg": {
-        "base_color": "#B0805C",
-        "overlay_color": "#3A281C"
+        "base_color": "#8C7A5E",
+        "overlay_color": "#3B2A22"
       }
     }
   }

@@ -1,0 +1,21 @@
+{
+  "resource_pack_name": "odyssey",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "studio_moly": {
+      "textures": "textures/items/moly"
+    },
+    "studio_beeswax": {
+      "textures": "textures/items/beeswax"
+    },
+    "studio_maronian_wine": {
+      "textures": "textures/items/maronian_wine"
+    },
+    "studio_olive_stake": {
+      "textures": "textures/items/olive_stake"
+    },
+    "studio_circe_feast": {
+      "textures": "textures/items/circe_feast"
+    }
+  }
+}

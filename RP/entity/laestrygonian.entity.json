@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:laestrygonian",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/laestrygonian"
+      },
+      "geometry": {
+        "default": "geometry.laestrygonian"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.laestrygonian.idle",
+        "walk": "animation.laestrygonian.walk",
+        "charge": "animation.laestrygonian.charge",
+        "throw": "animation.laestrygonian.throw"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.05"
+          },
+          {
+            "charge": "q.property('studio:anim') == 'charge'"
+          },
+          {
+            "throw": "q.property('studio:anim') == 'throw'"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#36383E",
+        "overlay_color": "#966834"
+      }
+    }
+  }
+}

@@ -7,29 +7,31 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/siren"
+        "dusk": "textures/entity/siren_dusk",
+        "ash": "textures/entity/siren_ash",
+        "sea": "textures/entity/siren_sea"
       },
       "geometry": {
         "default": "geometry.siren"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.studio_siren"
       ],
       "animations": {
-        "walk": "animation.siren.walk",
-        "idle": "animation.siren.idle"
+        "fly": "animation.siren.fly",
+        "sing": "animation.siren.sing"
       },
       "scripts": {
         "animate": [
+          "fly",
           {
-            "walk": "query.modified_distance_moved > 0.01"
-          },
-          "idle"
+            "sing": "q.property('studio:anim') == 'sing'"
+          }
         ]
       },
       "spawn_egg": {
-        "base_color": "#30969A",
-        "overlay_color": "#D2AA5A"
+        "base_color": "#5C4636",
+        "overlay_color": "#C4B296"
       }
     }
   }

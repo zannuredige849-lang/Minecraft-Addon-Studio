@@ -1,91 +1,163 @@
 {
   "format_version": "1.10.0",
   "animations": {
-    "animation.circe.walk": {
+    "animation.circe.idle": {
       "loop": true,
-      "animation_length": 1.0,
       "bones": {
+        "hair": {
+          "rotation": [
+            "math.sin(q.life_time*50)*3",
+            0,
+            "math.sin(q.life_time*37)*2"
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(q.life_time*30)*3",
+            "math.sin(q.life_time*18)*10",
+            0
+          ]
+        },
         "arm_r": {
-          "rotation": {
-            "0.0": [
-              -10,
-              0,
-              0
-            ],
-            "0.5": [
-              10,
-              0,
-              0
-            ],
-            "1.0": [
-              -10,
-              0,
-              0
-            ]
-          }
+          "rotation": [
+            "math.sin(q.life_time*40)*2",
+            0,
+            0
+          ]
         },
         "arm_l": {
-          "rotation": {
-            "0.0": [
-              10,
-              0,
-              0
-            ],
-            "0.5": [
-              -10,
-              0,
-              0
-            ],
-            "1.0": [
-              10,
-              0,
-              0
-            ]
-          }
+          "rotation": [
+            "-math.sin(q.life_time*40)*2",
+            0,
+            0
+          ]
+        },
+        "skirt": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(q.life_time*45)*1"
+          ]
         }
       }
     },
-    "animation.circe.idle": {
+    "animation.circe.walk": {
       "loop": true,
-      "animation_length": 4.0,
+      "bones": {
+        "arm_r": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*30)*18",
+            0,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*30)*18",
+            0,
+            0
+          ]
+        },
+        "skirt": {
+          "rotation": [
+            0,
+            0,
+            "math.cos(q.modified_distance_moved*30)*3"
+          ]
+        },
+        "body": {
+          "position": [
+            0,
+            "math.abs(math.sin(q.modified_distance_moved*30))*0.4",
+            0
+          ]
+        }
+      }
+    },
+    "animation.circe.mold": {
+      "loop": true,
+      "bones": {
+        "arm_r": {
+          "rotation": [
+            -65,
+            10,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            -65,
+            -10,
+            0
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            "-25+math.sin(q.life_time*720)*18",
+            0,
+            0
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            "-25-math.sin(q.life_time*720)*18",
+            0,
+            0
+          ]
+        },
+        "hand_r": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(q.life_time*900)*20"
+          ]
+        },
+        "hand_l": {
+          "rotation": [
+            0,
+            0,
+            "-math.sin(q.life_time*900)*20"
+          ]
+        },
+        "head": {
+          "rotation": [
+            15,
+            0,
+            0
+          ]
+        },
+        "hair": {
+          "rotation": [
+            -8,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.circe.yielded": {
+      "loop": true,
       "bones": {
         "head": {
-          "rotation": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "2.0": [
-              0,
-              5,
-              0
-            ],
-            "4.0": [
-              0,
-              0,
-              0
-            ]
-          }
+          "rotation": [
+            8,
+            0,
+            0
+          ]
         },
-        "staff": {
-          "rotation": {
-            "0.0": [
-              0,
-              0,
-              0
-            ],
-            "2.0": [
-              0,
-              0,
-              3
-            ],
-            "4.0": [
-              0,
-              0,
-              0
-            ]
-          }
+        "arm_r": {
+          "rotation": [
+            -12,
+            0,
+            6
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            -12,
+            0,
+            -6
+          ]
         }
       }
     }

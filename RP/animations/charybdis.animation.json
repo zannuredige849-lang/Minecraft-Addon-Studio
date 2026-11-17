@@ -1,0 +1,115 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.charybdis.swirl": {
+      "loop": true,
+      "bones": {
+        "core": {
+          "rotation": [
+            0,
+            "q.life_time*360",
+            0
+          ]
+        },
+        "ringa_0": {
+          "rotation": [
+            0,
+            "q.life_time*90",
+            0
+          ]
+        },
+        "ringb_0": {
+          "rotation": [
+            0,
+            "q.life_time*90",
+            0
+          ]
+        },
+        "ringa_1": {
+          "rotation": [
+            0,
+            "q.life_time*135",
+            0
+          ]
+        },
+        "ringb_1": {
+          "rotation": [
+            0,
+            "q.life_time*135",
+            0
+          ]
+        },
+        "ringa_2": {
+          "rotation": [
+            0,
+            "q.life_time*180",
+            0
+          ]
+        },
+        "ringb_2": {
+          "rotation": [
+            0,
+            "q.life_time*180",
+            0
+          ]
+        },
+        "ringa_3": {
+          "rotation": [
+            0,
+            "q.life_time*225",
+            0
+          ]
+        },
+        "ringb_3": {
+          "rotation": [
+            0,
+            "q.life_time*225",
+            0
+          ]
+        },
+        "ringa_4": {
+          "rotation": [
+            0,
+            "q.life_time*270",
+            0
+          ]
+        },
+        "ringb_4": {
+          "rotation": [
+            0,
+            "q.life_time*270",
+            0
+          ]
+        },
+        "ringa_5": {
+          "rotation": [
+            0,
+            "q.life_time*315",
+            0
+          ]
+        },
+        "ringb_5": {
+          "rotation": [
+            0,
+            "q.life_time*315",
+            0
+          ]
+        },
+        "ringa_6": {
+          "rotation": [
+            0,
+            "q.life_time*360",
+            0
+          ]
+        },
+        "ringb_6": {
+          "rotation": [
+            0,
+            "q.life_time*360",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

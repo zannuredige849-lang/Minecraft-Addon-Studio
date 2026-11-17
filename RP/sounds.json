@@ -1,0 +1,78 @@
+{
+  "entity_sounds": {
+    "entities": {
+      "studio:cyclops": {
+        "volume": 1.0,
+        "pitch": [
+          0.5,
+          0.65
+        ],
+        "events": {
+          "ambient": "mob.ravager.ambient",
+          "hurt": "mob.ravager.hurt",
+          "death": "mob.ravager.death",
+          "step": "mob.ravager.step"
+        }
+      },
+      "studio:siren": {
+        "volume": 1.0,
+        "pitch": [
+          0.55,
+          0.75
+        ],
+        "events": {
+          "ambient": "mob.allay.idle",
+          "hurt": "mob.phantom.hurt",
+          "death": "mob.phantom.death"
+        }
+      },
+      "studio:circe": {
+        "volume": 1.0,
+        "pitch": [
+          0.8,
+          0.95
+        ],
+        "events": {
+          "ambient": "mob.witch.ambient",
+          "hurt": "mob.witch.hurt",
+          "death": "mob.witch.death"
+        }
+      },
+      "studio:scylla": {
+        "volume": 1.2,
+        "pitch": [
+          0.45,
+          0.6
+        ],
+        "events": {
+          "ambient": "mob.hoglin.ambient",
+          "hurt": "mob.hoglin.hurt",
+          "death": "mob.ravager.death"
+        }
+      },
+      "studio:charybdis": {
+        "volume": 0.8,
+        "pitch": [
+          0.5,
+          0.7
+        ],
+        "events": {
+          "ambient": "bubble.downinside"
+        }
+      },
+      "studio:laestrygonian": {
+        "volume": 1.0,
+        "pitch": [
+          0.5,
+          0.6
+        ],
+        "events": {
+          "ambient": "mob.vindicator.idle",
+          "hurt": "mob.irongolem.hit",
+          "death": "mob.irongolem.death",
+          "step": "mob.irongolem.walk"
+        }
+      }
+    }
+  }
+}

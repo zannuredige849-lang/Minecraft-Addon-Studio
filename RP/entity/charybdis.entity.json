@@ -1,0 +1,32 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:charybdis",
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/charybdis"
+      },
+      "geometry": {
+        "default": "geometry.charybdis"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "swirl": "animation.charybdis.swirl"
+      },
+      "scripts": {
+        "animate": [
+          "swirl"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#1E4A5C",
+        "overlay_color": "#E1EEEE"
+      }
+    }
+  }
+}

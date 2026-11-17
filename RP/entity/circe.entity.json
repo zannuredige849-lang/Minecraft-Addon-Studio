@@ -16,20 +16,28 @@
         "controller.render.default"
       ],
       "animations": {
+        "idle": "animation.circe.idle",
         "walk": "animation.circe.walk",
-        "idle": "animation.circe.idle"
+        "mold": "animation.circe.mold",
+        "yielded": "animation.circe.yielded"
       },
       "scripts": {
         "animate": [
+          "idle",
           {
-            "walk": "query.modified_distance_moved > 0.01"
+            "walk": "q.modified_move_speed > 0.05"
           },
-          "idle"
+          {
+            "mold": "q.property('studio:anim') == 'mold'"
+          },
+          {
+            "yielded": "q.property('studio:yielded')"
+          }
         ]
       },
       "spawn_egg": {
-        "base_color": "#2C2256",
-        "overlay_color": "#D6AA3C"
+        "base_color": "#743C28",
+        "overlay_color": "#3A4630"
       }
     }
   }
