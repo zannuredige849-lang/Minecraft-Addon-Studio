@@ -38,7 +38,12 @@
           }
         }
       },
-      "animation_length": 1.8
+      "animation_length": 1.8,
+      "sound_effects": {
+        "0.05": {
+          "effect": "rise"
+        }
+      }
     },
     "animation.tiresias.sink": {
       "loop": false,
@@ -58,24 +63,69 @@
           }
         }
       },
-      "animation_length": 2.0
+      "animation_length": 2.0,
+      "sound_effects": {
+        "0.05": {
+          "effect": "sink"
+        }
+      }
     },
     "animation.tiresias.speak": {
-      "loop": true,
+      "loop": false,
       "bones": {
         "arm_r": {
-          "rotation": [
-            "-50+math.sin(q.life_time*80)*12",
-            0,
-            10
-          ]
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.60": [
+              "-52+math.sin(q.anim_time*80)*12",
+              0,
+              10
+            ],
+            "2.80": [
+              "-52+math.sin(q.anim_time*80)*12",
+              0,
+              10
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
         },
         "head": {
-          "rotation": [
-            "math.sin(q.life_time*120)*5",
-            0,
-            0
-          ]
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.60": [
+              "math.sin(q.anim_time*120)*5",
+              0,
+              0
+            ],
+            "2.80": [
+              "math.sin(q.anim_time*120)*5",
+              0,
+              0
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "animation_length": 3.4,
+      "sound_effects": {
+        "0.20": {
+          "effect": "voice"
         }
       }
     }

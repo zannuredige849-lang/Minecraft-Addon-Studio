@@ -57,18 +57,21 @@ def world_transforms(bones, pose=None):
         b = by_name[name]
         r = list(b.get("rotation", [0, 0, 0]))
         pr = pose.get(name)
+        pos = (0.0, 0.0, 0.0)
         if pr:
             r = [r[0] + pr[0], r[1] + pr[1], r[2] + pr[2]]
+            if len(pr) >= 6:                       # an animated position offset, in model units (x mirrors in bb space)
+                pos = (-pr[3], pr[4], pr[5])
         R = rot_matrix(r)
         p = bb(b["pivot"])
         if "parent" in b:
             PR, Pt = solve(b["parent"])
             pp = bb(by_name[b["parent"]]["pivot"])
-            off = (p[0] - pp[0], p[1] - pp[1], p[2] - pp[2])
+            off = (p[0] - pp[0] + pos[0], p[1] - pp[1] + pos[1], p[2] - pp[2] + pos[2])
             t = tuple(a + o for a, o in zip(_mv(PR, off), Pt))
             out[name] = (_mm(PR, R), t)
         else:
-            out[name] = (R, p)
+            out[name] = (R, (p[0] + pos[0], p[1] + pos[1], p[2] + pos[2]))
         return out[name]
 
     for b in bones:

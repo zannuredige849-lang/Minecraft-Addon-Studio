@@ -5,7 +5,19 @@
       "identifier": "studio:calypso",
       "is_spawnable": true,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "offer",
+            "embrace"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {
@@ -69,6 +81,11 @@
                     "test": "is_family",
                     "subject": "other",
                     "value": "player"
+                  },
+                  {
+                    "test": "is_sneaking",
+                    "subject": "other",
+                    "value": false
                   }
                 ]
               },
@@ -77,6 +94,28 @@
             },
             "cooldown": 5,
             "interact_text": "action.interact.studio.lotus"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_sneaking",
+                    "subject": "other",
+                    "value": true
+                  }
+                ]
+              },
+              "event": "studio:embrace",
+              "target": "self"
+            },
+            "cooldown": 5,
+            "interact_text": "action.interact.studio.embrace"
           }
         ]
       }
@@ -88,6 +127,13 @@
     },
     "events": {
       "studio:offer_lotus": {
+        "add": {
+          "component_groups": [
+            "studio:visited"
+          ]
+        }
+      },
+      "studio:embrace": {
         "add": {
           "component_groups": [
             "studio:visited"

@@ -19,20 +19,17 @@
         "idle": "animation.tiresias.idle",
         "rise": "animation.tiresias.rise",
         "sink": "animation.tiresias.sink",
-        "speak": "animation.tiresias.speak"
+        "speak": "animation.tiresias.speak",
+        "moves": "controller.animation.tiresias.moves"
+      },
+      "sound_effects": {
+        "rise": "odyssey.tiresias.rise",
+        "sink": "odyssey.tiresias.sink",
+        "voice": "odyssey.tiresias.voice"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "rise": "q.property('studio:anim') == 'rise'"
-          },
-          {
-            "sink": "q.property('studio:anim') == 'sink'"
-          },
-          {
-            "speak": "q.property('studio:anim') == 'speak'"
-          }
+          "moves"
         ]
       },
       "spawn_egg": {

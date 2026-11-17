@@ -25,9 +25,13 @@
           "type": "enum",
           "values": [
             "none",
-            "grab",
+            "devour",
+            "kick",
+            "stomp",
             "throw",
-            "cry"
+            "cry",
+            "tend",
+            "wake"
           ],
           "default": "none",
           "client_sync": true
@@ -55,7 +59,7 @@
       "minecraft:physics": {},
       "minecraft:nameable": {},
       "minecraft:ambient_sound_interval": {
-        "value": 9,
+        "value": 8,
         "range": 10,
         "event_name": "ambient"
       },
@@ -88,7 +92,7 @@
         "value": 1.0
       },
       "minecraft:attack": {
-        "damage": 16
+        "damage": 3
       },
       "minecraft:damage_sensor": {
         "triggers": [

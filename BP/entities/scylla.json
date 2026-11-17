@@ -11,7 +11,11 @@
           "type": "enum",
           "values": [
             "none",
-            "snatch"
+            "lunge",
+            "snatch",
+            "devour",
+            "rend",
+            "recoil"
           ],
           "default": "none",
           "client_sync": true

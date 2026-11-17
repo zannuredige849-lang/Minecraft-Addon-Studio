@@ -22,7 +22,9 @@
             "none",
             "rise",
             "sink",
-            "grab"
+            "speak_sinon",
+            "speak_agamemnon",
+            "grasp"
           ],
           "default": "none",
           "client_sync": true

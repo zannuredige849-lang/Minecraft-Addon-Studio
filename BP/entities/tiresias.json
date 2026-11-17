@@ -12,8 +12,8 @@
           "values": [
             "none",
             "rise",
-            "sink",
-            "speak"
+            "speak",
+            "sink"
           ],
           "default": "none",
           "client_sync": true

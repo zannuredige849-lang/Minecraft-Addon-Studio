@@ -11,7 +11,10 @@
           "type": "enum",
           "values": [
             "none",
-            "mold"
+            "serve",
+            "scream",
+            "mold",
+            "counsel"
           ],
           "default": "none",
           "client_sync": true

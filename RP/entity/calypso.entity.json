@@ -17,14 +17,21 @@
       ],
       "animations": {
         "idle": "animation.calypso.idle",
-        "walk": "animation.calypso.walk"
+        "walk": "animation.calypso.walk",
+        "offer": "animation.calypso.offer",
+        "embrace": "animation.calypso.embrace",
+        "moves": "controller.animation.calypso.moves",
+        "steps": "controller.animation.calypso.steps"
+      },
+      "sound_effects": {
+        "lotus_chime": "odyssey.calypso.lotus_chime",
+        "sigh": "odyssey.calypso.sigh",
+        "step": "odyssey.calypso.step"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          }
+          "moves",
+          "steps"
         ]
       },
       "spawn_egg": {

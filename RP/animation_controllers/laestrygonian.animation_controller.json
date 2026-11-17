@@ -1,0 +1,196 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.laestrygonian.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle",
+            {
+              "walk": "q.modified_move_speed > 0.02"
+            }
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "slash": "q.property('studio:anim') == 'slash'"
+            },
+            {
+              "impale": "q.property('studio:anim') == 'impale'"
+            },
+            {
+              "crush": "q.property('studio:anim') == 'crush'"
+            },
+            {
+              "cleave": "q.property('studio:anim') == 'cleave'"
+            },
+            {
+              "smash": "q.property('studio:anim') == 'smash'"
+            }
+          ]
+        },
+        "slash": {
+          "animations": [
+            "slash"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "impale": "q.property('studio:anim') == 'impale'"
+            },
+            {
+              "crush": "q.property('studio:anim') == 'crush'"
+            },
+            {
+              "cleave": "q.property('studio:anim') == 'cleave'"
+            },
+            {
+              "smash": "q.property('studio:anim') == 'smash'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "impale": {
+          "animations": [
+            "impale"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "slash": "q.property('studio:anim') == 'slash'"
+            },
+            {
+              "crush": "q.property('studio:anim') == 'crush'"
+            },
+            {
+              "cleave": "q.property('studio:anim') == 'cleave'"
+            },
+            {
+              "smash": "q.property('studio:anim') == 'smash'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "crush": {
+          "animations": [
+            "crush"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "slash": "q.property('studio:anim') == 'slash'"
+            },
+            {
+              "impale": "q.property('studio:anim') == 'impale'"
+            },
+            {
+              "cleave": "q.property('studio:anim') == 'cleave'"
+            },
+            {
+              "smash": "q.property('studio:anim') == 'smash'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "cleave": {
+          "animations": [
+            "cleave"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "slash": "q.property('studio:anim') == 'slash'"
+            },
+            {
+              "impale": "q.property('studio:anim') == 'impale'"
+            },
+            {
+              "crush": "q.property('studio:anim') == 'crush'"
+            },
+            {
+              "smash": "q.property('studio:anim') == 'smash'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "smash": {
+          "animations": [
+            "smash"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "slash": "q.property('studio:anim') == 'slash'"
+            },
+            {
+              "impale": "q.property('studio:anim') == 'impale'"
+            },
+            {
+              "crush": "q.property('studio:anim') == 'crush'"
+            },
+            {
+              "cleave": "q.property('studio:anim') == 'cleave'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.laestrygonian.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*90) >= 0"
+            },
+            {
+              "b": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*90) < 0"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*90) < 0"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*90) >= 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

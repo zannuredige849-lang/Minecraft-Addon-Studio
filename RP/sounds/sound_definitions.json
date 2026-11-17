@@ -1,0 +1,1092 @@
+{
+ "format_version": "1.20.20",
+ "sound_definitions": {
+  "odyssey.athena.chime": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/athena/chime",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.athena.shimmer": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/athena/shimmer",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.athena.step": {
+   "category": "neutral",
+   "min_distance": 4.0,
+   "max_distance": 20.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/athena/step_0",
+     "volume": 0.6,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/athena/step_1",
+     "volume": 0.6,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.boulder.impact": {
+   "category": "hostile",
+   "min_distance": 20.0,
+   "max_distance": 128.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/boulder/impact",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.boulder.whoosh": {
+   "category": "hostile",
+   "min_distance": 16.0,
+   "max_distance": 100.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/boulder/whoosh",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.calypso.lotus_chime": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 36.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/calypso/lotus_chime",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.calypso.sigh": {
+   "category": "neutral",
+   "min_distance": 5.0,
+   "max_distance": 28.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/calypso/sigh",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.calypso.step": {
+   "category": "neutral",
+   "min_distance": 4.0,
+   "max_distance": 20.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/calypso/step_0",
+     "volume": 0.6,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/calypso/step_1",
+     "volume": 0.6,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.charybdis.gulp": {
+   "category": "hostile",
+   "min_distance": 16.0,
+   "max_distance": 100.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/charybdis/gulp",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.charybdis.roar": {
+   "category": "hostile",
+   "min_distance": 20.0,
+   "max_distance": 110.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/charybdis/roar",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.charybdis.surge": {
+   "category": "hostile",
+   "min_distance": 24.0,
+   "max_distance": 128.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/charybdis/surge",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe.ladle": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 32.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe/ladle",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe.murmur": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe/murmur",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe.scream": {
+   "category": "neutral",
+   "min_distance": 10.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe/scream",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe.squelch": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe/squelch",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe.step": {
+   "category": "neutral",
+   "min_distance": 5.0,
+   "max_distance": 24.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe/step_0",
+     "volume": 0.7,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/circe/step_1",
+     "volume": 0.7,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe_sister.chirp": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 32.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe_sister/chirp",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.circe_sister.screech": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/circe_sister/screech",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.bite": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/bite_0",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/cyclops/bite_1",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.breath": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/breath",
+     "volume": 0.7,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.cry_voice": {
+   "category": "hostile",
+   "min_distance": 20.0,
+   "max_distance": 110.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/cry_voice",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.death": {
+   "category": "hostile",
+   "min_distance": 16.0,
+   "max_distance": 100.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/death",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.debris": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/debris",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.devour_grab": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/devour_grab",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.gulp": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 60.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/gulp",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.hum": {
+   "category": "neutral",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/hum",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.hurt": {
+   "category": "hostile",
+   "min_distance": 16.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/hurt",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.kick_hit": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/kick_hit",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.kick_whoosh": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/kick_whoosh",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.pain_roar": {
+   "category": "hostile",
+   "min_distance": 24.0,
+   "max_distance": 128.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/pain_roar",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.rock_lift": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/rock_lift",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.sniff": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 50.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/sniff",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.snore": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/snore",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.sob": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/sob",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.stake_pierce": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/stake_pierce",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.step": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 110.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/step_0",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/cyclops/step_1",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/cyclops/step_2",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.stomp_boom": {
+   "category": "hostile",
+   "min_distance": 20.0,
+   "max_distance": 128.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/stomp_boom",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.throw_grunt": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/throw_grunt",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.cyclops.wake_groan": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/cyclops/wake_groan",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.blade_ring": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/blade_ring",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.boat_smash": {
+   "category": "hostile",
+   "min_distance": 16.0,
+   "max_distance": 100.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/boat_smash",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.breath": {
+   "category": "hostile",
+   "min_distance": 6.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/breath",
+     "volume": 0.6,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.cleave_whoosh": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/cleave_whoosh",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.death": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/death",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.debris": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/debris",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.fling": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 64.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/fling",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.hurt": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 60.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/hurt",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.mace_slam": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 96.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/mace_slam",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.slash_whoosh": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/slash_whoosh",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.stab": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/stab",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.step": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 64.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/step_0",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/laestrygonian/step_1",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/laestrygonian/step_2",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.thrust": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/thrust",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian.war_cry": {
+   "category": "hostile",
+   "min_distance": 24.0,
+   "max_distance": 110.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian/war_cry",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian_child.laugh": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian_child/laugh",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian_child.scream": {
+   "category": "neutral",
+   "min_distance": 10.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian_child/scream",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.laestrygonian_child.step": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 32.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/laestrygonian_child/step_0",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/laestrygonian_child/step_1",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.bite": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/bite",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.chew": {
+   "category": "hostile",
+   "min_distance": 10.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/chew",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.hiss": {
+   "category": "hostile",
+   "min_distance": 12.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/hiss",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.rend": {
+   "category": "hostile",
+   "min_distance": 14.0,
+   "max_distance": 100.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/rend",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.roar": {
+   "category": "hostile",
+   "min_distance": 20.0,
+   "max_distance": 110.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/roar",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.scylla.snatch_scream": {
+   "category": "neutral",
+   "min_distance": 16.0,
+   "max_distance": 90.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/scylla/snatch_scream",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.death": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/death",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.grasp_moan": {
+   "category": "hostile",
+   "min_distance": 6.0,
+   "max_distance": 36.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/grasp_moan",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.hurt": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 36.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/hurt",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.moan": {
+   "category": "neutral",
+   "min_distance": 6.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/moan",
+     "volume": 0.7,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.rise": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 48.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/rise",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.sink": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 48.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/sink",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.voice": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/voice",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.shade.whispers": {
+   "category": "ambient",
+   "min_distance": 8.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/shade/whispers",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.siren.beckon_breath": {
+   "category": "hostile",
+   "min_distance": 6.0,
+   "max_distance": 36.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/siren/beckon_breath",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.siren.drag_hiss": {
+   "category": "hostile",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/siren/drag_hiss",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.siren.song": {
+   "category": "ambient",
+   "min_distance": 30.0,
+   "max_distance": 72.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/siren/song",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.siren.song_muffled": {
+   "category": "ambient",
+   "min_distance": 6.0,
+   "max_distance": 40.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/siren/song_muffled",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.siren.splash": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/siren/splash",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.sun_cattle.chew": {
+   "category": "neutral",
+   "min_distance": 5.0,
+   "max_distance": 28.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/sun_cattle/chew",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.sun_cattle.low": {
+   "category": "neutral",
+   "min_distance": 14.0,
+   "max_distance": 80.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/sun_cattle/low",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.sun_cattle.step": {
+   "category": "neutral",
+   "min_distance": 5.0,
+   "max_distance": 32.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/sun_cattle/step_0",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/sun_cattle/step_1",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    },
+    {
+     "name": "sounds/odyssey/sun_cattle/step_2",
+     "volume": 0.8,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.tiresias.rise": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 48.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/tiresias/rise",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.tiresias.sink": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 48.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/tiresias/sink",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.tiresias.voice": {
+   "category": "neutral",
+   "min_distance": 8.0,
+   "max_distance": 44.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/tiresias/voice",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.trojan_horse.creak": {
+   "category": "neutral",
+   "min_distance": 10.0,
+   "max_distance": 60.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/trojan_horse/creak",
+     "volume": 0.9,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.trojan_horse.hatch_open": {
+   "category": "neutral",
+   "min_distance": 10.0,
+   "max_distance": 56.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/trojan_horse/hatch_open",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.trojan_horse.shudder": {
+   "category": "neutral",
+   "min_distance": 12.0,
+   "max_distance": 70.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/trojan_horse/shudder",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.world.arrive": {
+   "category": "ambient",
+   "min_distance": 16.0,
+   "max_distance": 64.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/world/arrive",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  },
+  "odyssey.world.storm": {
+   "category": "weather",
+   "min_distance": 30.0,
+   "max_distance": 128.0,
+   "sounds": [
+    {
+     "name": "sounds/odyssey/world/storm",
+     "volume": 1.0,
+     "load_on_low_memory": true
+    }
+   ]
+  }
+ }
+}

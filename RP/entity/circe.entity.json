@@ -18,21 +18,25 @@
       "animations": {
         "idle": "animation.circe.idle",
         "walk": "animation.circe.walk",
+        "yielded": "animation.circe.yielded",
+        "serve": "animation.circe.serve",
+        "scream": "animation.circe.scream",
         "mold": "animation.circe.mold",
-        "yielded": "animation.circe.yielded"
+        "counsel": "animation.circe.counsel",
+        "moves": "controller.animation.circe.moves",
+        "steps": "controller.animation.circe.steps"
+      },
+      "sound_effects": {
+        "ladle": "odyssey.circe.ladle",
+        "murmur": "odyssey.circe.murmur",
+        "scream": "odyssey.circe.scream",
+        "squelch": "odyssey.circe.squelch",
+        "step": "odyssey.circe.step"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          },
-          {
-            "mold": "q.property('studio:anim') == 'mold'"
-          },
-          {
-            "yielded": "q.property('studio:yielded')"
-          }
+          "moves",
+          "steps"
         ]
       },
       "spawn_egg": {

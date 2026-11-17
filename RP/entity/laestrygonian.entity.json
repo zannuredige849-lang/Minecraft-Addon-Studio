@@ -18,21 +18,30 @@
       "animations": {
         "idle": "animation.laestrygonian.idle",
         "walk": "animation.laestrygonian.walk",
-        "swing": "animation.laestrygonian.swing",
-        "smash": "animation.laestrygonian.smash"
+        "slash": "animation.laestrygonian.slash",
+        "impale": "animation.laestrygonian.impale",
+        "crush": "animation.laestrygonian.crush",
+        "cleave": "animation.laestrygonian.cleave",
+        "smash": "animation.laestrygonian.smash",
+        "moves": "controller.animation.laestrygonian.moves",
+        "steps": "controller.animation.laestrygonian.steps"
+      },
+      "sound_effects": {
+        "blade_ring": "odyssey.laestrygonian.blade_ring",
+        "boat_smash": "odyssey.laestrygonian.boat_smash",
+        "cleave_whoosh": "odyssey.laestrygonian.cleave_whoosh",
+        "debris": "odyssey.laestrygonian.debris",
+        "fling": "odyssey.laestrygonian.fling",
+        "mace_slam": "odyssey.laestrygonian.mace_slam",
+        "slash_whoosh": "odyssey.laestrygonian.slash_whoosh",
+        "stab": "odyssey.laestrygonian.stab",
+        "step": "odyssey.laestrygonian.step",
+        "thrust": "odyssey.laestrygonian.thrust"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          },
-          {
-            "swing": "q.property('studio:anim') == 'swing'"
-          },
-          {
-            "smash": "q.property('studio:anim') == 'smash'"
-          }
+          "moves",
+          "steps"
         ],
         "scale": "0.8931"
       },

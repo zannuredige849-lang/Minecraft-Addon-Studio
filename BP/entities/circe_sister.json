@@ -5,7 +5,18 @@
       "identifier": "studio:circe_sister",
       "is_spawnable": false,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "flap"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {

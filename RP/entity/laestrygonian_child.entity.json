@@ -19,20 +19,19 @@
         "idle": "animation.laestrygonian_child.idle",
         "walk": "animation.laestrygonian_child.walk",
         "laugh": "animation.laestrygonian_child.laugh",
-        "scream": "animation.laestrygonian_child.scream"
+        "scream": "animation.laestrygonian_child.scream",
+        "moves": "controller.animation.laestrygonian_child.moves",
+        "steps": "controller.animation.laestrygonian_child.steps"
+      },
+      "sound_effects": {
+        "laugh": "odyssey.laestrygonian_child.laugh",
+        "scream": "odyssey.laestrygonian_child.scream",
+        "step": "odyssey.laestrygonian_child.step"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          },
-          {
-            "laugh": "q.property('studio:anim') == 'laugh'"
-          },
-          {
-            "scream": "q.property('studio:anim') == 'scream'"
-          }
+          "moves",
+          "steps"
         ]
       },
       "spawn_egg": {

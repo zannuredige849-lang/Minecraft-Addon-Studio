@@ -20,7 +20,10 @@
           "type": "enum",
           "values": [
             "none",
-            "swing",
+            "slash",
+            "impale",
+            "crush",
+            "cleave",
             "smash"
           ],
           "default": "none",
@@ -89,7 +92,7 @@
         "max": 48
       },
       "minecraft:attack": {
-        "damage": 14
+        "damage": 3
       }
     },
     "component_groups": {
@@ -142,26 +145,6 @@
             }
           ]
         }
-      },
-      "studio:w_sword": {
-        "minecraft:attack": {
-          "damage": 14
-        }
-      },
-      "studio:w_glaive": {
-        "minecraft:attack": {
-          "damage": 12
-        }
-      },
-      "studio:w_mace": {
-        "minecraft:attack": {
-          "damage": 18
-        }
-      },
-      "studio:w_scimitar": {
-        "minecraft:attack": {
-          "damage": 20
-        }
       }
     },
     "events": {
@@ -180,44 +163,24 @@
                 "weight": 4,
                 "set_property": {
                   "studio:weapon": 0
-                },
-                "add": {
-                  "component_groups": [
-                    "studio:w_sword"
-                  ]
                 }
               },
               {
                 "weight": 3,
                 "set_property": {
                   "studio:weapon": 1
-                },
-                "add": {
-                  "component_groups": [
-                    "studio:w_glaive"
-                  ]
                 }
               },
               {
                 "weight": 3,
                 "set_property": {
                   "studio:weapon": 2
-                },
-                "add": {
-                  "component_groups": [
-                    "studio:w_mace"
-                  ]
                 }
               },
               {
                 "weight": 1,
                 "set_property": {
                   "studio:weapon": 3
-                },
-                "add": {
-                  "component_groups": [
-                    "studio:w_scimitar"
-                  ]
                 }
               }
             ]

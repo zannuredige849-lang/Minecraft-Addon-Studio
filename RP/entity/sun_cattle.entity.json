@@ -17,14 +17,21 @@
       ],
       "animations": {
         "idle": "animation.sun_cattle.idle",
-        "walk": "animation.sun_cattle.walk"
+        "walk": "animation.sun_cattle.walk",
+        "graze": "animation.sun_cattle.graze",
+        "low": "animation.sun_cattle.low",
+        "moves": "controller.animation.sun_cattle.moves",
+        "steps": "controller.animation.sun_cattle.steps"
+      },
+      "sound_effects": {
+        "chew": "odyssey.sun_cattle.chew",
+        "low": "odyssey.sun_cattle.low",
+        "step": "odyssey.sun_cattle.step"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          }
+          "moves",
+          "steps"
         ]
       },
       "spawn_egg": {

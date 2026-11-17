@@ -1,0 +1,78 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.tiresias.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            }
+          ]
+        },
+        "rise": {
+          "animations": [
+            "rise"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak": {
+          "animations": [
+            "speak"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "sink": {
+          "animations": [
+            "sink"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

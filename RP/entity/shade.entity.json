@@ -22,23 +22,20 @@
         "walk": "animation.shade.walk",
         "rise": "animation.shade.rise",
         "sink": "animation.shade.sink",
-        "grab": "animation.shade.grab"
+        "speak_sinon": "animation.shade.speak_sinon",
+        "speak_agamemnon": "animation.shade.speak_agamemnon",
+        "grasp": "animation.shade.grasp",
+        "moves": "controller.animation.shade.moves"
+      },
+      "sound_effects": {
+        "grasp_moan": "odyssey.shade.grasp_moan",
+        "rise": "odyssey.shade.rise",
+        "sink": "odyssey.shade.sink",
+        "voice": "odyssey.shade.voice"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          },
-          {
-            "rise": "q.property('studio:anim') == 'rise'"
-          },
-          {
-            "sink": "q.property('studio:anim') == 'sink'"
-          },
-          {
-            "grab": "q.property('studio:anim') == 'grab'"
-          }
+          "moves"
         ]
       },
       "spawn_egg": {

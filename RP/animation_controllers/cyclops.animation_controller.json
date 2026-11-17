@@ -1,0 +1,299 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.cyclops.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle",
+            {
+              "walk": "q.modified_move_speed > 0.02 && q.property('studio:state') != 'asleep'"
+            },
+            {
+              "wade": "q.is_in_water"
+            },
+            {
+              "asleep": "q.property('studio:state') == 'asleep'"
+            },
+            {
+              "blind_search": "q.property('studio:blind') && q.property('studio:state') != 'asleep'"
+            }
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            }
+          ]
+        },
+        "devour": {
+          "animations": [
+            "devour"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "kick": {
+          "animations": [
+            "kick"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "stomp": {
+          "animations": [
+            "stomp"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "throw": {
+          "animations": [
+            "throw"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "cry": {
+          "animations": [
+            "cry"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "tend": {
+          "animations": [
+            "tend"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "wake": "q.property('studio:anim') == 'wake'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "wake": {
+          "animations": [
+            "wake"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "kick": "q.property('studio:anim') == 'kick'"
+            },
+            {
+              "stomp": "q.property('studio:anim') == 'stomp'"
+            },
+            {
+              "throw": "q.property('studio:anim') == 'throw'"
+            },
+            {
+              "cry": "q.property('studio:anim') == 'cry'"
+            },
+            {
+              "tend": "q.property('studio:anim') == 'tend'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.cyclops.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*49) >= 0"
+            },
+            {
+              "b": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*49) < 0"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*49) < 0"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*49) >= 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

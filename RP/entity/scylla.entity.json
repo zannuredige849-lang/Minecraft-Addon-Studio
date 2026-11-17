@@ -17,14 +17,23 @@
       ],
       "animations": {
         "idle": "animation.scylla.idle",
-        "snatch": "animation.scylla.snatch"
+        "lunge": "animation.scylla.lunge",
+        "snatch": "animation.scylla.snatch",
+        "devour": "animation.scylla.devour",
+        "rend": "animation.scylla.rend",
+        "recoil": "animation.scylla.recoil",
+        "moves": "controller.animation.scylla.moves"
+      },
+      "sound_effects": {
+        "bite": "odyssey.scylla.bite",
+        "chew": "odyssey.scylla.chew",
+        "hiss": "odyssey.scylla.hiss",
+        "rend": "odyssey.scylla.rend",
+        "roar": "odyssey.scylla.roar"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "snatch": "q.property('studio:anim') == 'snatch'"
-          }
+          "moves"
         ],
         "scale": "3.0"
       },

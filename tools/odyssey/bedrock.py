@@ -1,4 +1,5 @@
 """Behaviour-pack and resource-pack JSON for every entity, item, recipe, spawn rule and sound."""
+from .moves import enum_values
 
 BOOL = {"type": "bool", "default": False, "client_sync": True}
 NO_FALL = {"cause": "fall", "deals_damage": False}
@@ -70,7 +71,7 @@ def interact(event, text, cooldown=1.0, extra_filters=None):
 
 # ================================================================== entities
 def bp_cyclops():
-    c = base(["cyclops", "giant", "monster"], 2.6, 10.6, 600, 9)
+    c = base(["cyclops", "giant", "monster"], 2.6, 10.6, 600, 8)      # the model is 11 blocks tall
     c.update({
         "minecraft:movement": {"value": 0.26}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
         "minecraft:navigation.generic": {"is_amphibious": True, "can_path_over_water": False, "can_swim": False,
@@ -79,7 +80,7 @@ def bp_cyclops():
         "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True},
         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
         "minecraft:knockback_resistance": {"value": 1.0},
-        "minecraft:attack": {"damage": 16},
+        "minecraft:attack": {"damage": 3},                  # his real attacks are the script's moves (devour, kick, stomp...)
         "minecraft:damage_sensor": {"triggers": [NO_FALL, {"cause": "drowning", "deals_damage": False}]},
         "minecraft:follow_range": {"value": 48, "max": 64},
         "minecraft:persistent": {},
@@ -108,7 +109,7 @@ def bp_cyclops():
                            "add": {"component_groups": ["studio:awake_ai", "studio:blind_hunting"]}},
     }
     props = {"studio:state": enum_prop(["awake", "asleep"]), "studio:blind": BOOL,
-             "studio:anim": enum_prop(["none", "grab", "throw", "cry"])}
+             "studio:anim": enum_prop(enum_values("cyclops"))}
     return entity("studio:cyclops", props, c, groups, events)
 
 
@@ -124,21 +125,17 @@ def bp_laestrygonian():
         # armour 'of a level of sophistication Odysseus has never seen': blades barely bite, an arrow still kills
         "minecraft:damage_sensor": {"triggers": [NO_FALL, {"cause": "entity_attack", "deals_damage": True, "damage_multiplier": 0.5}]},
         "minecraft:follow_range": {"value": 40, "max": 48},
-        "minecraft:attack": {"damage": 14},
+        "minecraft:attack": {"damage": 3},                  # the weapon moves are the script's (slash, impale, crush, cleave)
     })
     calm = ai_wander(6, 7)
     calm["minecraft:behavior.hurt_by_target"] = {"priority": 1, "alert_same_type": True}
     calm["minecraft:behavior.melee_attack"] = {"priority": 3, "speed_multiplier": 1.15, "track_target": True}
     groups = {"studio:calm": calm,
               "studio:alarmed": {"minecraft:behavior.nearest_attackable_target": target(2, 40, ("player", "villager"), must_see=False)}}
-    for i, (w, dmg) in enumerate(WEAPONS):
-        groups[f"studio:w_{w}"] = {"minecraft:attack": {"damage": dmg}}
-    rnd = []
-    for i, ((w, _), weight) in enumerate(zip(WEAPONS, (4, 3, 3, 1))):
-        rnd.append({"weight": weight, "set_property": {"studio:weapon": i}, "add": {"component_groups": [f"studio:w_{w}"]}})
+    rnd = [{"weight": weight, "set_property": {"studio:weapon": i}} for i, weight in enumerate((4, 3, 3, 1))]
     events = {"minecraft:entity_spawned": {"sequence": [{"add": {"component_groups": ["studio:calm"]}}, {"randomize": rnd}]},
               "studio:alarm": {"add": {"component_groups": ["studio:alarmed"]}}}
-    props = {"studio:weapon": int_prop(0, 3), "studio:anim": enum_prop(["none", "swing", "smash"])}
+    props = {"studio:weapon": int_prop(0, 3), "studio:anim": enum_prop(enum_values("laestrygonian"))}
     return entity("studio:laestrygonian", props, c, groups, events)
 
 
@@ -151,7 +148,7 @@ def bp_child():
         {"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 24, "walk_speed_multiplier": 1.4,
          "sprint_speed_multiplier": 1.6}]}}}
     events = {"studio:flee": {"add": {"component_groups": ["studio:fleeing"]}}}
-    return entity("studio:laestrygonian_child", {"studio:anim": enum_prop(["none", "laugh", "scream"])}, c, groups, events)
+    return entity("studio:laestrygonian_child", {"studio:anim": enum_prop(enum_values("laestrygonian_child"))}, c, groups, events)
 
 
 def bp_circe():
@@ -167,7 +164,7 @@ def bp_circe():
     events = {"studio:offer_stew": {"set_property": {"studio:anim": "none"}},
               "studio:counsel": {"set_property": {"studio:anim": "none"}},
               "studio:yield": {"set_property": {"studio:yielded": True, "studio:anim": "none"}}}
-    return entity("studio:circe", {"studio:anim": enum_prop(["none", "mold"]), "studio:yielded": BOOL}, c, None, events)
+    return entity("studio:circe", {"studio:anim": enum_prop(enum_values("circe")), "studio:yielded": BOOL}, c, None, events)
 
 
 def bp_sister():
@@ -177,8 +174,8 @@ def bp_sister():
               "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
               "minecraft:interact": {"interactions": [interact("studio:seized", "action.interact.studio.seize", 2)]}})
     groups = {"studio:seized": {"minecraft:persistent": {}}}
-    return entity("studio:circe_sister", None, c, groups, {"studio:seized": {"add": {"component_groups": ["studio:seized"]}}},
-                  spawnable=False)
+    return entity("studio:circe_sister", {"studio:anim": enum_prop(enum_values("circe_sister"))}, c, groups,
+                  {"studio:seized": {"add": {"component_groups": ["studio:seized"]}}}, spawnable=False)
 
 
 def bp_siren():
@@ -187,14 +184,14 @@ def bp_siren():
     c.update(static())
     c.update({"minecraft:damage_sensor": INVULNERABLE,
               "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True}})
-    return entity("studio:siren", None, c)
+    return entity("studio:siren", {"studio:anim": enum_prop(enum_values("siren"))}, c)
 
 
 def bp_scylla():
     c = base(["scylla", "monster"], 5.0, 8.0, 1000, 8)
     c.update(static(npc_look=False))
     c.update({"minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {}})
-    return entity("studio:scylla", {"studio:anim": enum_prop(["none", "snatch"])}, c)
+    return entity("studio:scylla", {"studio:anim": enum_prop(enum_values("scylla"))}, c)
 
 
 def bp_charybdis():
@@ -206,7 +203,7 @@ def bp_charybdis():
          "minecraft:knockback_resistance": {"value": 1.0},
          "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
          "minecraft:ambient_sound_interval": {"value": 3, "range": 2, "event_name": "ambient"}}
-    return entity("studio:charybdis", None, c)
+    return entity("studio:charybdis", {"studio:anim": enum_prop(enum_values("charybdis"))}, c)
 
 
 def bp_shade():
@@ -229,7 +226,7 @@ def bp_shade():
                                   "add": {"component_groups": ["studio:speaker"]}},
               "studio:rise": {"add": {"component_groups": ["studio:rising"]}},
               "studio:risen": {"remove": {"component_groups": ["studio:rising"]}}}
-    props = {"studio:variant": int_prop(0, 2), "studio:anim": enum_prop(["none", "rise", "sink", "grab"])}
+    props = {"studio:variant": int_prop(0, 2), "studio:anim": enum_prop(enum_values("shade"))}
     return entity("studio:shade", props, c, groups, events)
 
 
@@ -237,7 +234,7 @@ def bp_tiresias():
     c = base(["tiresias", "shade"], 0.6, 1.9, 100, 999)
     c.update(static())
     c.update({"minecraft:damage_sensor": INVULNERABLE})
-    return entity("studio:tiresias", {"studio:anim": enum_prop(["none", "rise", "sink", "speak"])}, c)
+    return entity("studio:tiresias", {"studio:anim": enum_prop(enum_values("tiresias"))}, c)
 
 
 def bp_cattle():
@@ -247,7 +244,7 @@ def bp_cattle():
               "minecraft:behavior.float": {"priority": 0},
               "minecraft:behavior.panic": {"priority": 1, "speed_multiplier": 1.4}})
     c.update(ai_wander(6, 7, 0.8))
-    return entity("studio:sun_cattle", None, c)
+    return entity("studio:sun_cattle", {"studio:anim": enum_prop(enum_values("sun_cattle"))}, c)
 
 
 def bp_calypso():
@@ -255,9 +252,15 @@ def bp_calypso():
     c.update(walker(0.18))
     c.update(ai_wander(6, 5, 0.5))
     c.update({"minecraft:persistent": {}, "minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True},
-              "minecraft:interact": {"interactions": [interact("studio:offer_lotus", "action.interact.studio.lotus", 5)]}})
+              "minecraft:interact": {"interactions": [
+                  interact("studio:offer_lotus", "action.interact.studio.lotus", 5,
+                           [{"test": "is_sneaking", "subject": "other", "value": False}]),
+                  interact("studio:embrace", "action.interact.studio.embrace", 5,
+                           [{"test": "is_sneaking", "subject": "other", "value": True}])]}})
     groups = {"studio:visited": {"minecraft:persistent": {}}}
-    return entity("studio:calypso", None, c, groups, {"studio:offer_lotus": {"add": {"component_groups": ["studio:visited"]}}})
+    return entity("studio:calypso", {"studio:anim": enum_prop(enum_values("calypso"))}, c, groups,
+                  {"studio:offer_lotus": {"add": {"component_groups": ["studio:visited"]}},
+                   "studio:embrace": {"add": {"component_groups": ["studio:visited"]}}})
 
 
 def bp_athena():
@@ -267,8 +270,9 @@ def bp_athena():
     c.update({"minecraft:persistent": {}, "minecraft:damage_sensor": INVULNERABLE,
               "minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True},
               "minecraft:interact": {"interactions": [interact("studio:bless", "action.interact.studio.athena", 5)]}})
-    return entity("studio:athena", {"studio:anim": enum_prop(["none", "bless"])}, c, None,
-                  {"studio:bless": {"set_property": {"studio:anim": "bless"}}})
+    return entity("studio:athena", {"studio:anim": enum_prop(enum_values("athena"))}, c,
+                  {"studio:blessed": {"minecraft:persistent": {}}},
+                  {"studio:bless": {"add": {"component_groups": ["studio:blessed"]}}})
 
 
 def bp_horse():
@@ -283,7 +287,7 @@ def bp_horse():
          "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
          "minecraft:rideable": {"seat_count": 6, "family_types": ["player"], "interact_text": "action.interact.studio.hide",
                                 "pull_in_entities": False, "seats": seats}}
-    return entity("studio:trojan_horse", None, c)
+    return entity("studio:trojan_horse", {"studio:anim": enum_prop(enum_values("trojan_horse"))}, c)
 
 
 def bp_boulder():
@@ -320,12 +324,21 @@ RENDER_CONTROLLERS = {"format_version": "1.10.0", "render_controllers": {
 }}
 
 
-def client_entity(name, textures, rc, anim_names, animate, egg=None, material="entity_alphatest", scale=None):
+def client_entity(name, textures, rc, anim_names, animate, egg=None, material="entity_alphatest", scale=None,
+                  controllers=(), sound_shorts=()):
+    """Client entity. Controllers (moves, steps) are registered next to the animations and drive `scripts.animate`;
+    every sound cue the animations use is mapped from its short name to the sound id odyssey.<entity>.<short>."""
+    anims = {k: f"animation.{name}.{k}" for k in anim_names}
+    for c in controllers:
+        anims[c] = f"controller.animation.{name}.{c}"
     desc = {"identifier": f"studio:{name}", "materials": {"default": material}, "textures": textures,
-            "geometry": {"default": f"geometry.{name}"}, "render_controllers": [rc],
-            "animations": {k: f"animation.{name}.{k}" for k in anim_names}}
+            "geometry": {"default": f"geometry.{name}"}, "render_controllers": [rc], "animations": anims}
+    if sound_shorts:
+        desc["sound_effects"] = {sh: f"odyssey.{name}.{sh}" for sh in sorted(sound_shorts)}
     scripts = {}
-    if animate:
+    if controllers:
+        scripts["animate"] = list(controllers)
+    elif animate:
         scripts["animate"] = animate
     if scale:
         scripts["scale"] = str(scale)
@@ -336,21 +349,28 @@ def client_entity(name, textures, rc, anim_names, animate, egg=None, material="e
     return {"format_version": "1.10.0", "minecraft:client_entity": {"description": desc}}
 
 
-SOUNDS = {"entity_sounds": {"entities": {
-    "studio:cyclops": {"volume": 1.6, "pitch": [0.35, 0.45], "events": {
-        "ambient": "mob.ravager.ambient", "hurt": "mob.ravager.hurt", "death": "mob.ravager.death", "step": "mob.ravager.step"}},
-    "studio:laestrygonian": {"volume": 1.0, "pitch": [0.55, 0.65], "events": {
-        "hurt": "mob.irongolem.hit", "death": "mob.irongolem.death", "step": "mob.irongolem.walk"}},
-    "studio:laestrygonian_child": {"volume": 1.0, "pitch": [1.1, 1.3], "events": {"hurt": "mob.villager.hurt"}},
-    "studio:circe": {"volume": 1.0, "pitch": [0.85, 0.95], "events": {"hurt": "mob.witch.hurt", "death": "mob.witch.death"}},
-    "studio:circe_sister": {"volume": 0.8, "pitch": [0.8, 0.9], "events": {"ambient": "mob.parrot.idle"}},
-    "studio:scylla": {"volume": 1.4, "pitch": [0.35, 0.45], "events": {"ambient": "mob.hoglin.ambient"}},
-    "studio:charybdis": {"volume": 0.9, "pitch": [0.5, 0.7], "events": {"ambient": "bubble.downinside"}},
-    "studio:shade": {"volume": 1.0, "pitch": [0.55, 0.7], "events": {
-        "ambient": "mob.zombie.say", "hurt": "mob.zombie.hurt", "death": "mob.zombie.death"}},
-    "studio:sun_cattle": {"volume": 1.0, "pitch": [0.75, 0.85], "events": {
-        "ambient": "mob.cow.say", "hurt": "mob.cow.hurt", "death": "mob.cow.hurt", "step": "mob.cow.step"}},
-}}}
+# Sounds the engine plays by itself: ambient, hurt and death. Everything else is a cue inside an animation (footsteps,
+# every move) or a script sound. Each value is the short name of odyssey.<entity>.<short>, or a vanilla sound id.
+SOUND_EVENTS = {
+    "cyclops": {"ambient": "breath", "hurt": "hurt", "death": "death"},
+    "laestrygonian": {"ambient": "breath", "hurt": "hurt", "death": "death"},
+    "circe_sister": {"ambient": "chirp"},
+    "shade": {"ambient": "moan", "hurt": "hurt", "death": "death"},
+}
+VANILLA_SOUND_EVENTS = {
+    "laestrygonian_child": {"hurt": "mob.villager.hurt"},
+    "circe": {"hurt": "mob.witch.hurt", "death": "mob.witch.death"},
+    "sun_cattle": {"hurt": "mob.cow.hurt", "death": "mob.cow.hurt"},
+}
+
+
+def entity_sounds():
+    ents = {}
+    for name, events in SOUND_EVENTS.items():
+        ents[f"studio:{name}"] = {"events": {ev: f"odyssey.{name}.{sh}" for ev, sh in events.items()}}
+    for name, events in VANILLA_SOUND_EVENTS.items():
+        ents[f"studio:{name}"] = {"events": dict(events)}
+    return {"entity_sounds": {"entities": ents}}
 
 
 # ================================================================== items
@@ -409,35 +429,6 @@ SPAWN_RULES = {
     # the sun god's herd grazing on Thrinacia
     "sun_cattle": spawn_rule("studio:sun_cattle", {"test": "has_biome_tag", "value": "plains"}, 2, (3, 4), 4, "animal"),
 }
-
-LANG = [
-    ("entity.studio:cyclops.name", "Polyphemus"), ("entity.studio:laestrygonian.name", "Laestrygonian"),
-    ("entity.studio:laestrygonian_child.name", "Laestrygonian Child"), ("entity.studio:circe.name", "Circe"),
-    ("entity.studio:circe_sister.name", "Circe's Sister"), ("entity.studio:siren.name", "Siren"),
-    ("entity.studio:scylla.name", "Scylla"), ("entity.studio:charybdis.name", "Charybdis"),
-    ("entity.studio:shade.name", "Shade"), ("entity.studio:tiresias.name", "Tiresias"),
-    ("entity.studio:sun_cattle.name", "Cattle of Apollo"), ("entity.studio:calypso.name", "Calypso"),
-    ("entity.studio:athena.name", "Athena"), ("entity.studio:trojan_horse.name", "Trojan Horse"),
-    ("entity.studio:boulder.name", "Boulder"),
-    ("item.spawn_egg.entity.studio:cyclops.name", "Spawn Polyphemus"),
-    ("item.spawn_egg.entity.studio:laestrygonian.name", "Spawn Laestrygonian"),
-    ("item.spawn_egg.entity.studio:laestrygonian_child.name", "Spawn Laestrygonian Child"),
-    ("item.spawn_egg.entity.studio:circe.name", "Spawn Circe"),
-    ("item.spawn_egg.entity.studio:siren.name", "Spawn Siren"),
-    ("item.spawn_egg.entity.studio:scylla.name", "Spawn Scylla"),
-    ("item.spawn_egg.entity.studio:charybdis.name", "Spawn Charybdis"),
-    ("item.spawn_egg.entity.studio:shade.name", "Spawn Shade"),
-    ("item.spawn_egg.entity.studio:tiresias.name", "Spawn Tiresias"),
-    ("item.spawn_egg.entity.studio:sun_cattle.name", "Spawn Cattle of Apollo"),
-    ("item.spawn_egg.entity.studio:calypso.name", "Spawn Calypso"),
-    ("item.spawn_egg.entity.studio:athena.name", "Spawn Athena"),
-    ("item.spawn_egg.entity.studio:trojan_horse.name", "Spawn Trojan Horse"),
-    ("item.studio:beeswax.name", "Wax"), ("item.studio:burning_stake.name", "Burning Stake"),
-    ("item.studio:circe_stew.name", "Circe's Stew"), ("item.studio:lotus_flower.name", "Lotus Flower"),
-    ("action.interact.studio.stew", "Beg for Food"), ("action.interact.studio.counsel", "Ask the Way Home"),
-    ("action.interact.studio.seize", "Seize Her Sister"), ("action.interact.studio.lotus", "Accept a Lotus"),
-    ("action.interact.studio.athena", "Speak with Athena"), ("action.interact.studio.hide", "Hide Inside"),
-]
 
 ITEM_ART = {
     "beeswax": ({"o": (120, 80, 20), "Y": (240, 190, 60), "y": (215, 160, 40), "H": (252, 222, 124)}, [

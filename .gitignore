@@ -159,3 +159,4 @@ vite.config.ts.timestamp-*
 # Python bytecode (tools/odyssey generator)
 __pycache__/
 *.pyc
+RP/sounds/odyssey/.stamp

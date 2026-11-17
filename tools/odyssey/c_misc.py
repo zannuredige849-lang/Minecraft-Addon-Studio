@@ -30,7 +30,9 @@ def build_horse():
     m.bone("body", "root", (0, 17, 9), (-34, 0, 0))
     m.cbox("body", (0, 20, -2), (12, 12, 26), P)
     m.cbox("body", (0, 21, 10), (11, 11, 4), PD)
-    m.cbox("body", (0, 14.2, -2), (8, 0.5, 14), BEAM)                  # the belly hatch
+    m.bone("hatch", "body", (0, 14.2, 5))                              # the belly hatch, hinged at its rear edge
+    m.cbox("hatch", (0, 14.2, -2), (8, 0.5, 14), BEAM)
+    m.cbox("hatch", (0, 13.7, -8.5), (2, 0.5, 1.5), IRON)               # its handle
     for zz in (-10, -2, 6):
         m.cbox("body", (0, 20, zz), (12.5, 12.5, 1.0), BEAM)
     m.mcbox("body", (-4.5, 17.5, 9.5), (4, 9, 7), P)                   # haunches

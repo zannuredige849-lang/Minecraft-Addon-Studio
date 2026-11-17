@@ -5,7 +5,19 @@
       "identifier": "studio:sun_cattle",
       "is_spawnable": true,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "graze",
+            "low"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {

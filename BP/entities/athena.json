@@ -11,7 +11,9 @@
           "type": "enum",
           "values": [
             "none",
-            "bless"
+            "bless",
+            "appear",
+            "vanish"
           ],
           "default": "none",
           "client_sync": true
@@ -100,10 +102,17 @@
         ]
       }
     },
+    "component_groups": {
+      "studio:blessed": {
+        "minecraft:persistent": {}
+      }
+    },
     "events": {
       "studio:bless": {
-        "set_property": {
-          "studio:anim": "bless"
+        "add": {
+          "component_groups": [
+            "studio:blessed"
+          ]
         }
       }
     }

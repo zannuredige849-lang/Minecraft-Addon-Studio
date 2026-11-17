@@ -16,11 +16,19 @@
         "controller.render.default"
       ],
       "animations": {
-        "swirl": "animation.charybdis.swirl"
+        "swirl": "animation.charybdis.swirl",
+        "surge": "animation.charybdis.surge",
+        "gulp": "animation.charybdis.gulp",
+        "moves": "controller.animation.charybdis.moves"
+      },
+      "sound_effects": {
+        "gulp": "odyssey.charybdis.gulp",
+        "roar": "odyssey.charybdis.roar",
+        "surge": "odyssey.charybdis.surge"
       },
       "scripts": {
         "animate": [
-          "swirl"
+          "moves"
         ],
         "scale": "3.0"
       },

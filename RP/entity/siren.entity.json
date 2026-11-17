@@ -16,11 +16,20 @@
         "controller.render.default"
       ],
       "animations": {
-        "idle": "animation.siren.idle"
+        "idle": "animation.siren.idle",
+        "sing": "animation.siren.sing",
+        "beckon": "animation.siren.beckon",
+        "drag": "animation.siren.drag",
+        "moves": "controller.animation.siren.moves"
+      },
+      "sound_effects": {
+        "beckon_breath": "odyssey.siren.beckon_breath",
+        "drag_hiss": "odyssey.siren.drag_hiss",
+        "splash": "odyssey.siren.splash"
       },
       "scripts": {
         "animate": [
-          "idle"
+          "moves"
         ]
       },
       "spawn_egg": {

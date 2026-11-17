@@ -19,33 +19,41 @@
       "animations": {
         "idle": "animation.cyclops.idle",
         "walk": "animation.cyclops.walk",
-        "grab": "animation.cyclops.grab",
+        "asleep": "animation.cyclops.asleep",
+        "blind_search": "animation.cyclops.blind_search",
+        "wade": "animation.cyclops.wade",
+        "devour": "animation.cyclops.devour",
+        "kick": "animation.cyclops.kick",
+        "stomp": "animation.cyclops.stomp",
         "throw": "animation.cyclops.throw",
         "cry": "animation.cyclops.cry",
-        "asleep": "animation.cyclops.asleep",
-        "blind_search": "animation.cyclops.blind_search"
+        "tend": "animation.cyclops.tend",
+        "wake": "animation.cyclops.wake",
+        "moves": "controller.animation.cyclops.moves",
+        "steps": "controller.animation.cyclops.steps"
+      },
+      "sound_effects": {
+        "bite": "odyssey.cyclops.bite",
+        "cry_voice": "odyssey.cyclops.cry_voice",
+        "debris": "odyssey.cyclops.debris",
+        "devour_grab": "odyssey.cyclops.devour_grab",
+        "gulp": "odyssey.cyclops.gulp",
+        "hum": "odyssey.cyclops.hum",
+        "kick_hit": "odyssey.cyclops.kick_hit",
+        "kick_whoosh": "odyssey.cyclops.kick_whoosh",
+        "rock_lift": "odyssey.cyclops.rock_lift",
+        "sniff": "odyssey.cyclops.sniff",
+        "snore": "odyssey.cyclops.snore",
+        "sob": "odyssey.cyclops.sob",
+        "step": "odyssey.cyclops.step",
+        "stomp_boom": "odyssey.cyclops.stomp_boom",
+        "throw_grunt": "odyssey.cyclops.throw_grunt",
+        "wake_groan": "odyssey.cyclops.wake_groan"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02 && q.property('studio:state') != 'asleep'"
-          },
-          {
-            "grab": "q.property('studio:anim') == 'grab'"
-          },
-          {
-            "throw": "q.property('studio:anim') == 'throw'"
-          },
-          {
-            "cry": "q.property('studio:anim') == 'cry'"
-          },
-          {
-            "asleep": "q.property('studio:state') == 'asleep'"
-          },
-          {
-            "blind_search": "q.property('studio:blind') && q.property('studio:state') != 'asleep'"
-          }
+          "moves",
+          "steps"
         ],
         "scale": "3.8837"
       },

@@ -15,8 +15,21 @@
       "render_controllers": [
         "controller.render.default"
       ],
-      "animations": {},
+      "animations": {
+        "rear": "animation.trojan_horse.rear",
+        "hatch": "animation.trojan_horse.hatch",
+        "sally": "animation.trojan_horse.sally",
+        "moves": "controller.animation.trojan_horse.moves"
+      },
+      "sound_effects": {
+        "creak": "odyssey.trojan_horse.creak",
+        "hatch_open": "odyssey.trojan_horse.hatch_open",
+        "shudder": "odyssey.trojan_horse.shudder"
+      },
       "scripts": {
+        "animate": [
+          "moves"
+        ],
         "scale": "3.609"
       },
       "spawn_egg": {

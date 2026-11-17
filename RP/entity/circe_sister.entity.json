@@ -16,11 +16,16 @@
         "controller.render.default"
       ],
       "animations": {
-        "idle": "animation.circe_sister.idle"
+        "idle": "animation.circe_sister.idle",
+        "flap": "animation.circe_sister.flap",
+        "moves": "controller.animation.circe_sister.moves"
+      },
+      "sound_effects": {
+        "screech": "odyssey.circe_sister.screech"
       },
       "scripts": {
         "animate": [
-          "idle"
+          "moves"
         ]
       }
     }

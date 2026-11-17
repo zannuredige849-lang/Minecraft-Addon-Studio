@@ -18,17 +18,21 @@
       "animations": {
         "idle": "animation.athena.idle",
         "walk": "animation.athena.walk",
-        "bless": "animation.athena.bless"
+        "bless": "animation.athena.bless",
+        "appear": "animation.athena.appear",
+        "vanish": "animation.athena.vanish",
+        "moves": "controller.animation.athena.moves",
+        "steps": "controller.animation.athena.steps"
+      },
+      "sound_effects": {
+        "chime": "odyssey.athena.chime",
+        "shimmer": "odyssey.athena.shimmer",
+        "step": "odyssey.athena.step"
       },
       "scripts": {
         "animate": [
-          "idle",
-          {
-            "walk": "q.modified_move_speed > 0.02"
-          },
-          {
-            "bless": "q.property('studio:anim') == 'bless'"
-          }
+          "moves",
+          "steps"
         ]
       },
       "spawn_egg": {
