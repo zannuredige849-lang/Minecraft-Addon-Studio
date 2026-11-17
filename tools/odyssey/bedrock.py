@@ -70,7 +70,7 @@ def interact(event, text, cooldown=1.0, extra_filters=None):
 
 # ================================================================== entities
 def bp_cyclops():
-    c = base(["cyclops", "giant", "monster"], 1.8, 6.4, 600, 9)
+    c = base(["cyclops", "giant", "monster"], 2.6, 10.6, 600, 9)
     c.update({
         "minecraft:movement": {"value": 0.26}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
         "minecraft:navigation.generic": {"is_amphibious": True, "can_path_over_water": False, "can_swim": False,

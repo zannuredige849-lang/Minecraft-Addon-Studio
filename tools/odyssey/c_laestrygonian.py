@@ -21,21 +21,21 @@ from .materials import metal, mail, leather, quilted, human_face, skin, blade, h
 from .parts import digit, chain_y
 
 GROUND_IGNORE = ("sword", "glaive", "mace", "scimitar")
-SILVER = (178, 182, 190)
-SILVER_EDGE = (238, 240, 244)
+SILVER = (112, 118, 128)
+SILVER_EDGE = (206, 212, 222)
 
 
 def build():
     m = Model("laestrygonian", 89, D=2)
     PL = metal(SILVER, edge=SILVER_EDGE, rivets=False, polish=0.3, scratches=False, brushed=False)    # smooth plate
     PLB = metal(SILVER, edge=SILVER_EDGE, bands=3, polish=0.2, brushed=False)
-    PLD = metal((140, 144, 152), edge=(214, 216, 222), rivets=False, polish=0.2, brushed=False)
-    BAND = metal((116, 120, 128), edge=(196, 200, 206), rivets=False, polish=0.1, brushed=False)
+    PLD = metal((88, 93, 103), edge=(170, 176, 188), rivets=False, polish=0.2, brushed=False)
+    BAND = metal((70, 74, 82), edge=(150, 156, 166), rivets=False, polish=0.1, brushed=False)
     MAIL = mail((82, 84, 90))
     STRAP = leather((62, 50, 40))
     HAND = skin((178, 140, 118), mottle=0.8)                                # the hands are bare
-    IRON = metal((150, 152, 158), edge=(226, 228, 232), rivets=False, polish=0.5)
-    BLADE = blade((156, 158, 164))
+    IRON = metal((112, 114, 120), edge=(196, 200, 206), rivets=False, polish=0.5)
+    BLADE = blade((128, 132, 140))
     GRIP = leather((70, 50, 34))
 
     m.bone("root", None, (0, 0, 0))
@@ -137,8 +137,8 @@ def build():
     m.scbox("shin", (-7.5, 11.5, -4.3), (1.5, 15, 1), PLD)
     m.side("foot", "shin", (-7.5, 3.5, 0))
     m.scbox("foot", (-7.5, 2, -2.5), (8.5, 4, 13), PLB)
-    for k in range(3):
-        m.scbox("foot", (-7.5, 1.5 - k * 0.25, -10.5 - k * 2.2), (7.5 - k * 1.5, 3 - k * 0.5, 2.5), PL if k % 2 else PLD)
+    m.scbox("foot", (-7.5, 1.5, -10.5), (7.5, 3, 4), PLD)                      # one solid, tapering toe cap
+    m.scbox("foot", (-7.5, 1.1, -13.5), (6, 2.2, 2.5), PLD)
     m.scbox("foot", (-7.5, 2, 4.6), (5, 3, 2), PLD)
     return m
 

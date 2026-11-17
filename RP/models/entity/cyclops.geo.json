@@ -6,11 +6,11 @@
         "identifier": "geometry.cyclops",
         "texture_width": 128,
         "texture_height": 64,
-        "visible_bounds_width": 3.59,
-        "visible_bounds_height": 7.5,
+        "visible_bounds_width": 5.39,
+        "visible_bounds_height": 12.0,
         "visible_bounds_offset": [
           0,
-          3.25,
+          5.5,
           0
         ]
       },

@@ -7,19 +7,19 @@ set askew across his face. He is not the muscular brute of popular imagination b
 creature" (MPA review); design after Goya's 'Saturn Devouring His Son'; bald. Film stills show a gaunt, wrinkled,
 old-looking body (not a skeleton) and one wide-open round eye with an amber iris, set off to one side of the face.
 
-The model is built at base size and scaled up on the client; in game he stands 6.5 blocks tall.
+The model is built at base size and scaled up on the client; in game he stands 11 blocks tall.
 """
 from .core import Model
 from .materials import elephant, nails, teeth, cavity, round_eye, blood_below, socket_shade, edge_shade, tint
 from .parts import digit, forward_digit
 
-TARGET_HEIGHT_BLOCKS = 6.5
+TARGET_HEIGHT_BLOCKS = 11.0
 
 
 def build():
     m = Model("cyclops", 11, D=4)
-    SK = elephant((176, 172, 164), crease=(92, 88, 84))
-    SKD = elephant((152, 147, 139), crease=(80, 76, 72))
+    SK = elephant((164, 156, 144), crease=(86, 80, 72))
+    SKD = elephant((142, 135, 124), crease=(76, 70, 64))
     NAIL = nails((160, 150, 118), (64, 54, 44), broken=True)
     TOOTH = teeth((190, 172, 128), "down", gap=0.5)
     LTOOTH = teeth((180, 162, 120), "up", gap=0.5)

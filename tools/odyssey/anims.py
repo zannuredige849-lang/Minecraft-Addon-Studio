@@ -55,7 +55,7 @@ def anims_cyclops():
                    "jaw": rot("math.max(0, math.sin(q.life_time*45))*6"),
                    "arm_r": rot("math.sin(q.life_time*40)*2"), "arm_l": rot("-math.sin(q.life_time*40)*2"),
                    "hand_r": rot("math.sin(q.life_time*90)*3"), "hand_l": rot("-math.sin(q.life_time*90)*3")}),
-        "walk": walk(83, leg=20, knee=25, arm=12, bob=0.6, roll=3),        # 6.5 blocks: ~4.3-block stride
+        "walk": walk(49, leg=20, knee=25, arm=12, bob=0.6, roll=3),        # 11 blocks: ~7.3-block stride
         # solved so the wrist sits ~7 units in front of the mouth, where the script holds the victim
         "grab": A({"arm_r": rot(-32, -10, 12), "forearm_r": rot(-110), "hand_r": rot(45),
                    "jaw": rot("20+math.sin(q.anim_time*720)*12"), "head": rot(-15)}),

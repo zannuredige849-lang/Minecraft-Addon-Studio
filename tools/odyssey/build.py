@@ -206,9 +206,8 @@ def build_all(preview_dir=None, only=None):
         write_json(f"BP/spawn_rules/{name}.json", data)
     for pack in ("BP", "RP"):
         path = os.path.join(ROOT, pack, "texts", "en_US.lang")
-        keep = [l for l in open(path).read().splitlines() if "pixel_slime" in l]
         with open(path, "w") as f:
-            f.write("\n".join(keep + [f"{k}={v}" for k, v in BR.LANG]) + "\n")
+            f.write("\n".join(f"{k}={v}" for k, v in BR.LANG) + "\n")
     for rel in OBSOLETE:
         p = os.path.join(ROOT, rel)
         if os.path.exists(p):

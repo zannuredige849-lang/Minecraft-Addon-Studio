@@ -60,28 +60,28 @@
       "bones": {
         "thigh_r": {
           "rotation": [
-            "math.cos(q.modified_distance_moved*83)*20",
+            "math.cos(q.modified_distance_moved*49)*20",
             0,
             0
           ]
         },
         "thigh_l": {
           "rotation": [
-            "-math.cos(q.modified_distance_moved*83)*20",
+            "-math.cos(q.modified_distance_moved*49)*20",
             0,
             0
           ]
         },
         "shin_r": {
           "rotation": [
-            "math.max(0, math.sin(q.modified_distance_moved*83))*25",
+            "math.max(0, math.sin(q.modified_distance_moved*49))*25",
             0,
             0
           ]
         },
         "shin_l": {
           "rotation": [
-            "math.max(0, -math.sin(q.modified_distance_moved*83))*25",
+            "math.max(0, -math.sin(q.modified_distance_moved*49))*25",
             0,
             0
           ]
@@ -89,20 +89,20 @@
         "hips": {
           "position": [
             0,
-            "-math.abs(math.sin(q.modified_distance_moved*83))*0.6",
+            "-math.abs(math.sin(q.modified_distance_moved*49))*0.6",
             0
           ]
         },
         "arm_r": {
           "rotation": [
-            "-math.cos(q.modified_distance_moved*83)*12",
+            "-math.cos(q.modified_distance_moved*49)*12",
             0,
             0
           ]
         },
         "arm_l": {
           "rotation": [
-            "math.cos(q.modified_distance_moved*83)*12",
+            "math.cos(q.modified_distance_moved*49)*12",
             0,
             0
           ]
@@ -110,7 +110,7 @@
         "chest": {
           "rotation": [
             0,
-            "math.cos(q.modified_distance_moved*83)*3",
+            "math.cos(q.modified_distance_moved*49)*3",
             0
           ]
         }
