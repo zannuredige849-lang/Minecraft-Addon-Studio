@@ -374,6 +374,17 @@ reset();
   runTicks(60);
   ok(!all().some((e) => e.typeId === "studio:tiresias"), "Tiresias sinks back into the sand");
 }
+reset();
+{
+  const P = player(40, 40, "Old");
+  setBlock(40, 63, 40, "minecraft:concrete_powder", { color: "black" });
+  fire("entityDie", { deadEntity: spawn("minecraft:sheep", { x: 41, y: 64, z: 41 }), damageSource: { damagingEntity: P } });
+  ok(said(P, "odyssey.hades.rise"), "black concrete powder under its old block name is black sand too");
+  const Q = player(80, 80, "White");
+  setBlock(80, 63, 80, "minecraft:concrete_powder", { color: "white" });
+  fire("entityDie", { deadEntity: spawn("minecraft:sheep", { x: 81, y: 64, z: 81 }), damageSource: { damagingEntity: Q } });
+  ok(!said(Q, "odyssey.hades.rise"), "white concrete powder is not");
+}
 
 // ================================================================ the gods and the rest
 reset();

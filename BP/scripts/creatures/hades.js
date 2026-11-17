@@ -12,6 +12,12 @@ import { creatures } from "../lib/registry.js";
 
 export const SHADE = "studio:shade", TIRESIAS = "studio:tiresias";
 export const SACRIFICE_BLOCKS = new Set(["minecraft:soul_sand", "minecraft:soul_soil", "minecraft:black_concrete_powder"]);
+/** Black sand: soul sand, soul soil or black concrete powder (older game versions name it concrete_powder + a colour). */
+export function isBlackSand(b) {
+  if (!b) return false;
+  if (SACRIFICE_BLOCKS.has(b.typeId)) return true;
+  try { return b.typeId === "minecraft:concrete_powder" && b.permutation?.getState?.("color") === "black"; } catch { return false; }
+}
 export const SACRIFICE_VICTIMS = new Set(["minecraft:sheep"]);            // the film: "they sacrifice some sheep"
 
 const rise = (e) => perform(e, "rise", { start: () => trigger(e, "studio:rise"), done: () => trigger(e, "studio:risen") }, { still: false, force: true });

@@ -81,7 +81,7 @@ you alone.
 | **Ogygia** | Calypso's island: a stone shrine with the lodestone that marks the map, a lotus pool, her house | Calypso |
 | **Troy** | A beach with the walls and towers of Troy and the platform of the horse | the 11-block Trojan Horse |
 | **The Cyclops** | Hills with a 46-block cave and the stone that closes it, a sheepfold | Polyphemus and his flock |
-| **Telepylus** | A harbour under cliffs, a quay, houses built for giants, a spruce forest, thick fog | the Laestrygonian child, then the giants |
+| **Telepylus** | A harbour under cliffs, a quay, houses built for giants, a spruce forest, thick fog | three giants on the flat ground by the houses and the armoured child among them |
 | **Aeaea** | A meadow with Circe's cottage and the pigs' pen | Circe, her sister, three pigs |
 | **Hades** | A plain of black sand, the altar for the blood, the river Oceanus running in from the sea, dark fog | three sheep to sacrifice |
 | **The Sirens** | Sea stacks in the mist, three rocks to lie on | three Sirens |

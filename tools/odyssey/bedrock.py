@@ -74,8 +74,8 @@ def bp_cyclops():
     c = base(["cyclops", "giant", "monster"], 2.6, 10.6, 600, 8)      # the model is 11 blocks tall
     c.update({
         "minecraft:movement": {"value": 0.26}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
-        "minecraft:navigation.generic": {"is_amphibious": True, "can_path_over_water": False, "can_swim": False,
-                                         "can_walk": True, "can_sink": True, "avoid_water": False,
+        "minecraft:navigation.generic": {"is_amphibious": False, "can_path_over_water": False, "can_swim": False,
+                                         "can_walk": True, "can_sink": True, "avoid_water": True,
                                          "avoid_damage_blocks": True, "can_breach": False},
         "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True},
         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
@@ -118,7 +118,7 @@ WEAPONS = (("sword", 14), ("glaive", 12), ("mace", 18), ("scimitar", 20))
 
 def bp_laestrygonian():
     c = base(["laestrygonian", "giant", "monster"], 1.8, 4.0, 140, 14)
-    c.update(walker(0.27, water_ok=True))
+    c.update(walker(0.27))                                # keeps to the land: it never wanders off into the sea
     c.update({
         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
         "minecraft:knockback_resistance": {"value": 0.9},

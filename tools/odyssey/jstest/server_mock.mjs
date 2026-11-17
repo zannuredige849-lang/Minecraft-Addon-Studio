@@ -154,7 +154,8 @@ class Entity {
 
 // ------------------------------------------------------------------ dimensions and the world
 const blocks = new Map();
-export const setBlock = (x, y, z, typeId) => blocks.set(`${x},${y},${z}`, typeId);
+const states = new Map();
+export const setBlock = (x, y, z, typeId, st = {}) => { blocks.set(`${x},${y},${z}`, typeId); states.set(`${x},${y},${z}`, st); };
 class Dimension {
   constructor(id) { this.id = id; }
   getEntities(o = {}) {
@@ -177,7 +178,7 @@ class Dimension {
   runCommandAsync(c) { log.push(`cmd ${c}`); return Promise.resolve(); }
   getBlock(l) {
     const k = `${Math.floor(l.x)},${Math.floor(l.y)},${Math.floor(l.z)}`;
-    if (blocks.has(k)) return { typeId: blocks.get(k) };
+    if (blocks.has(k)) { const st = states.get(k) ?? {}; return { typeId: blocks.get(k), permutation: { getState: (n) => st[n] } }; }
     return { typeId: l.y < 62 ? "minecraft:water" : "minecraft:air" };
   }
 }

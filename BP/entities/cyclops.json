@@ -69,12 +69,12 @@
       "minecraft:movement.basic": {},
       "minecraft:jump.static": {},
       "minecraft:navigation.generic": {
-        "is_amphibious": true,
+        "is_amphibious": false,
         "can_path_over_water": false,
         "can_swim": false,
         "can_walk": true,
         "can_sink": true,
-        "avoid_water": false,
+        "avoid_water": true,
         "avoid_damage_blocks": true,
         "can_breach": false
       },

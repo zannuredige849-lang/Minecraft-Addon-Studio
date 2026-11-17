@@ -57,7 +57,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity: e, damageSource }) => safe(
   if (type === gods.CATTLE) { gods.godsStorm(killer); return; }
   if (hades.SACRIFICE_VICTIMS.has(type)) {
     const under = block(killer.dimension, add(killer.location, { x: 0, y: -0.5, z: 0 }));
-    if (under && hades.SACRIFICE_BLOCKS.has(under.typeId)) hades.summonDead(killer);
+    if (hades.isBlackSand(under)) hades.summonDead(killer);
   }
 }));
 
