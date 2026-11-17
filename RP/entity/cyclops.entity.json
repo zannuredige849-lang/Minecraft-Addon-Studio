@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:cyclops",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/cyclops"
+      },
+      "geometry": {
+        "default": "geometry.cyclops"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "walk": "animation.cyclops.walk",
+        "idle": "animation.cyclops.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.modified_distance_moved > 0.01"
+          },
+          "idle"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#B0805C",
+        "overlay_color": "#3A281C"
+      }
+    }
+  }
+}

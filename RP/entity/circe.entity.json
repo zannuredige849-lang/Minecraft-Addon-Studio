@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:circe",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/circe"
+      },
+      "geometry": {
+        "default": "geometry.circe"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "walk": "animation.circe.walk",
+        "idle": "animation.circe.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.modified_distance_moved > 0.01"
+          },
+          "idle"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#2C2256",
+        "overlay_color": "#D6AA3C"
+      }
+    }
+  }
+}

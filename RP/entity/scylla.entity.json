@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:scylla",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/scylla"
+      },
+      "geometry": {
+        "default": "geometry.scylla"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "walk": "animation.scylla.walk",
+        "idle": "animation.scylla.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.modified_distance_moved > 0.01"
+          },
+          "idle"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#3A5248",
+        "overlay_color": "#C0B090"
+      }
+    }
+  }
+}

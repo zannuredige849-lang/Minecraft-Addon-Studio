@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:siren",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/siren"
+      },
+      "geometry": {
+        "default": "geometry.siren"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "walk": "animation.siren.walk",
+        "idle": "animation.siren.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.modified_distance_moved > 0.01"
+          },
+          "idle"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#30969A",
+        "overlay_color": "#D2AA5A"
+      }
+    }
+  }
+}
