@@ -1,0 +1,54 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Odyssey Creatures BP",
+    "description": "Creatures of The Odyssey (2026): Polyphemus, the Laestrygonians, Circe, the Sirens, Scylla, Charybdis, Tiresias and the shades, the cattle of Apollo, Calypso, Athena and the Trojan Horse",
+    "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a01",
+    "version": [
+      1,
+      2,
+      3
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a02",
+      "version": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fbedd6c4-155f-4727-a2af-6c3f98fe6a0d",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a03",
+      "version": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.11.0"
+    }
+  ]
+}

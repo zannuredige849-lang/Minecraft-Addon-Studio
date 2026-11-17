@@ -1,0 +1,100 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.sun_cattle.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle",
+            {
+              "walk": "q.modified_move_speed > 0.02"
+            }
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            }
+          ]
+        },
+        "graze": {
+          "animations": [
+            "graze"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "low": {
+          "animations": [
+            "low"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.sun_cattle.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*240) >= 0"
+            },
+            {
+              "b": "q.modified_move_speed > 0.02 && math.sin(q.modified_distance_moved*240) < 0"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*240) < 0"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "!(q.modified_move_speed > 0.02)"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*240) >= 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

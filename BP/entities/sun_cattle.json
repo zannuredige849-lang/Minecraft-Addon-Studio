@@ -1,0 +1,83 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:sun_cattle",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "graze",
+            "low"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "sun_cattle",
+          "cattle",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 1.2,
+        "height": 1.7
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 14,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:movement": {
+        "value": 0.2
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "can_pass_doors": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.panic": {
+        "priority": 1,
+        "speed_multiplier": 1.4
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 14,
+        "probability": 0.5
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      }
+    }
+  }
+}

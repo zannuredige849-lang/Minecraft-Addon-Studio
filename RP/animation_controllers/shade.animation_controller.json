@@ -1,0 +1,151 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.shade.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle",
+            {
+              "walk": "q.modified_move_speed > 0.02"
+            }
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            }
+          ]
+        },
+        "rise": {
+          "animations": [
+            "rise"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "sink": {
+          "animations": [
+            "sink"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak_sinon": {
+          "animations": [
+            "speak_sinon"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak_agamemnon": {
+          "animations": [
+            "speak_agamemnon"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "grasp": {
+          "animations": [
+            "grasp"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

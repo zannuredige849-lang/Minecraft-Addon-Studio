@@ -1,0 +1,18 @@
+{
+  "resource_pack_name": "odyssey",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "studio_beeswax": {
+      "textures": "textures/items/beeswax"
+    },
+    "studio_burning_stake": {
+      "textures": "textures/items/burning_stake"
+    },
+    "studio_circe_stew": {
+      "textures": "textures/items/circe_stew"
+    },
+    "studio_lotus_flower": {
+      "textures": "textures/items/lotus_flower"
+    }
+  }
+}

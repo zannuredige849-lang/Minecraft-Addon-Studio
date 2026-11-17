@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:charybdis",
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/charybdis"
+      },
+      "geometry": {
+        "default": "geometry.charybdis"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "swirl": "animation.charybdis.swirl",
+        "surge": "animation.charybdis.surge",
+        "gulp": "animation.charybdis.gulp",
+        "moves": "controller.animation.charybdis.moves"
+      },
+      "sound_effects": {
+        "gulp": "odyssey.charybdis.gulp",
+        "roar": "odyssey.charybdis.roar",
+        "surge": "odyssey.charybdis.surge"
+      },
+      "scripts": {
+        "animate": [
+          "moves"
+        ],
+        "scale": "3.0"
+      },
+      "spawn_egg": {
+        "base_color": "#1C4858",
+        "overlay_color": "#E2EEEE"
+      }
+    }
+  }
+}

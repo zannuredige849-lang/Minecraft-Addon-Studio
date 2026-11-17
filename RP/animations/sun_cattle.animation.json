@@ -1,0 +1,223 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.sun_cattle.idle": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            "math.max(0, math.sin(q.life_time*12))*30",
+            "math.sin(q.life_time*9)*10",
+            0
+          ]
+        },
+        "tail": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(q.life_time*140)*14"
+          ]
+        }
+      }
+    },
+    "animation.sun_cattle.walk": {
+      "loop": true,
+      "bones": {
+        "leg_fl": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_hr": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_fr": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_hl": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.sun_cattle.graze": {
+      "loop": false,
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.70": [
+              44,
+              0,
+              0
+            ],
+            "2.60": [
+              "44+math.sin(q.anim_time*420)*5",
+              0,
+              0
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leg_fl": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.70": [
+              -8,
+              0,
+              0
+            ],
+            "2.60": [
+              -8,
+              0,
+              0
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leg_fr": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.70": [
+              -8,
+              0,
+              0
+            ],
+            "2.60": [
+              -8,
+              0,
+              0
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "tail": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.70": [
+              0,
+              0,
+              8
+            ],
+            "2.60": [
+              0,
+              0,
+              -8
+            ],
+            "3.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "animation_length": 3.4,
+      "sound_effects": {
+        "0.80": {
+          "effect": "chew"
+        }
+      }
+    },
+    "animation.sun_cattle.low": {
+      "loop": false,
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.50": [
+              -42,
+              0,
+              0
+            ],
+            "1.20": [
+              -42,
+              0,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "tail": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.50": [
+              0,
+              0,
+              12
+            ],
+            "1.20": [
+              0,
+              0,
+              -12
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "animation_length": 1.8,
+      "sound_effects": {
+        "0.30": {
+          "effect": "low"
+        }
+      }
+    }
+  }
+}

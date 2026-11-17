@@ -1,0 +1,458 @@
+"""Behaviour-pack and resource-pack JSON for every entity, item, recipe, spawn rule and sound."""
+from .moves import enum_values
+
+BOOL = {"type": "bool", "default": False, "client_sync": True}
+NO_FALL = {"cause": "fall", "deals_damage": False}
+INVULNERABLE = {"triggers": [{"cause": "all", "deals_damage": False}]}
+
+
+def enum_prop(values):
+    return {"type": "enum", "values": values, "default": values[0], "client_sync": True}
+
+
+def int_prop(lo, hi):
+    return {"type": "int", "range": [lo, hi], "default": lo, "client_sync": True}
+
+
+def entity(identifier, props, comps, groups=None, events=None, spawnable=True):
+    desc = {"identifier": identifier, "is_spawnable": spawnable, "is_summonable": True, "is_experimental": False}
+    if props:
+        desc["properties"] = props
+    body = {"description": desc, "components": comps}
+    if groups:
+        body["component_groups"] = groups
+    if events:
+        body["events"] = events
+    return {"format_version": "1.21.0", "minecraft:entity": body}
+
+
+def target(prio, max_dist, families=("player",), must_see=True, extra=None):
+    flt = {"any_of": [{"test": "is_family", "subject": "other", "value": f} for f in families]}
+    if extra:
+        flt = {"all_of": [flt] + extra}
+    return {"priority": prio, "must_see": must_see, "reselect_targets": True, "scan_interval": 5,
+            "entity_types": [{"filters": flt, "max_dist": max_dist}]}
+
+
+def ai_wander(stroll=6, look=7, speed=0.9):
+    return {"minecraft:behavior.random_stroll": {"priority": stroll, "speed_multiplier": speed},
+            "minecraft:behavior.look_at_player": {"priority": look, "look_distance": 14, "probability": 0.5},
+            "minecraft:behavior.random_look_around": {"priority": look + 1}}
+
+
+def base(families, w, h, hp, sound_every=12):
+    return {"minecraft:type_family": {"family": families + ["studio_odyssey", "mob"]},
+            "minecraft:collision_box": {"width": w, "height": h},
+            "minecraft:health": {"value": hp, "max": hp},
+            "minecraft:physics": {},
+            "minecraft:nameable": {},
+            "minecraft:ambient_sound_interval": {"value": sound_every, "range": 10, "event_name": "ambient"}}
+
+
+def walker(speed, water_ok=False):
+    return {"minecraft:movement": {"value": speed}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
+            "minecraft:navigation.walk": {"can_path_over_water": False, "avoid_water": not water_ok,
+                                          "avoid_damage_blocks": True, "can_pass_doors": True}}
+
+
+def static(npc_look=True):
+    c = {"minecraft:movement": {"value": 0.0}, "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+         "minecraft:knockback_resistance": {"value": 1.0}}
+    if npc_look:
+        c["minecraft:behavior.look_at_player"] = {"priority": 7, "look_distance": 16, "probability": 0.8}
+    return c
+
+
+def interact(event, text, cooldown=1.0, extra_filters=None):
+    flt = [{"test": "is_family", "subject": "other", "value": "player"}] + (extra_filters or [])
+    return {"on_interact": {"filters": {"all_of": flt}, "event": event, "target": "self"},
+            "cooldown": cooldown, "interact_text": text}
+
+
+# ================================================================== entities
+def bp_cyclops():
+    c = base(["cyclops", "giant", "monster"], 2.6, 10.6, 600, 8)      # the model is 11 blocks tall
+    c.update({
+        "minecraft:movement": {"value": 0.26}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
+        "minecraft:navigation.generic": {"is_amphibious": False, "can_path_over_water": False, "can_swim": False,
+                                         "can_walk": True, "can_sink": True, "avoid_water": True,
+                                         "avoid_damage_blocks": True, "can_breach": False},
+        "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True},
+        "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+        "minecraft:knockback_resistance": {"value": 1.0},
+        "minecraft:attack": {"damage": 3},                  # his real attacks are the script's moves (devour, kick, stomp...)
+        "minecraft:damage_sensor": {"triggers": [NO_FALL, {"cause": "drowning", "deals_damage": False}]},
+        "minecraft:follow_range": {"value": 48, "max": 64},
+        "minecraft:persistent": {},
+    })
+    awake = ai_wander(6, 7)
+    awake["minecraft:behavior.hurt_by_target"] = {"priority": 1}
+    awake["minecraft:behavior.melee_attack"] = {"priority": 3, "speed_multiplier": 1.1, "track_target": True}
+    groups = {
+        "studio:awake_ai": awake,
+        "studio:hunting": {"minecraft:behavior.nearest_attackable_target": target(2, 40)},
+        # Blind: he hunts by touch and hearing; men hidden in his flock (tagged by the script) are passed over
+        "studio:blind_hunting": {"minecraft:behavior.nearest_attackable_target": target(
+            2, 24, must_see=False, extra=[{"test": "has_tag", "subject": "other", "operator": "!=", "value": "studio:in_flock"}])},
+        "studio:asleep": {"minecraft:movement": {"value": 0.0}},
+    }
+    events = {
+        "minecraft:entity_spawned": {"add": {"component_groups": ["studio:awake_ai", "studio:hunting"]}},
+        "studio:hunt": {"add": {"component_groups": ["studio:hunting"]}},
+        "studio:fall_asleep": {"set_property": {"studio:state": "asleep"},
+                               "remove": {"component_groups": ["studio:awake_ai", "studio:hunting", "studio:blind_hunting"]},
+                               "add": {"component_groups": ["studio:asleep"]}},
+        "studio:wake": {"set_property": {"studio:state": "awake"}, "remove": {"component_groups": ["studio:asleep"]},
+                        "add": {"component_groups": ["studio:awake_ai"]}},
+        "studio:blinded": {"set_property": {"studio:blind": True, "studio:state": "awake"},
+                           "remove": {"component_groups": ["studio:asleep", "studio:hunting"]},
+                           "add": {"component_groups": ["studio:awake_ai", "studio:blind_hunting"]}},
+    }
+    props = {"studio:state": enum_prop(["awake", "asleep"]), "studio:blind": BOOL,
+             "studio:anim": enum_prop(enum_values("cyclops"))}
+    return entity("studio:cyclops", props, c, groups, events)
+
+
+WEAPONS = (("sword", 14), ("glaive", 12), ("mace", 18), ("scimitar", 20))
+
+
+def bp_laestrygonian():
+    c = base(["laestrygonian", "giant", "monster"], 1.8, 4.0, 140, 14)
+    c.update(walker(0.27))                                # keeps to the land: it never wanders off into the sea
+    c.update({
+        "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+        "minecraft:knockback_resistance": {"value": 0.9},
+        # armour 'of a level of sophistication Odysseus has never seen': blades barely bite, an arrow still kills
+        "minecraft:damage_sensor": {"triggers": [NO_FALL, {"cause": "entity_attack", "deals_damage": True, "damage_multiplier": 0.5}]},
+        "minecraft:follow_range": {"value": 40, "max": 48},
+        "minecraft:attack": {"damage": 3},                  # the weapon moves are the script's (slash, impale, crush, cleave)
+        "minecraft:persistent": {},
+    })
+    calm = ai_wander(6, 7)
+    calm["minecraft:behavior.hurt_by_target"] = {"priority": 1, "alert_same_type": True}
+    calm["minecraft:behavior.melee_attack"] = {"priority": 3, "speed_multiplier": 1.15, "track_target": True}
+    groups = {"studio:calm": calm,
+              "studio:alarmed": {"minecraft:behavior.nearest_attackable_target": target(2, 40, ("player", "villager"), must_see=False)}}
+    rnd = [{"weight": weight, "set_property": {"studio:weapon": i}} for i, weight in enumerate((4, 3, 3, 1))]
+    events = {"minecraft:entity_spawned": {"sequence": [{"add": {"component_groups": ["studio:calm"]}}, {"randomize": rnd}]},
+              "studio:alarm": {"add": {"component_groups": ["studio:alarmed"]}}}
+    props = {"studio:weapon": int_prop(0, 3), "studio:anim": enum_prop(enum_values("laestrygonian"))}
+    return entity("studio:laestrygonian", props, c, groups, events)
+
+
+def bp_child():
+    c = base(["laestrygonian_child", "laestrygonian"], 0.6, 1.9, 30, 20)
+    c.update(walker(0.3))
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:persistent": {}})
+    c.update(ai_wander(6, 5))
+    groups = {"studio:fleeing": {"minecraft:behavior.avoid_mob_type": {"priority": 1, "entity_types": [
+        {"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 24, "walk_speed_multiplier": 1.4,
+         "sprint_speed_multiplier": 1.6}]}}}
+    events = {"studio:flee": {"add": {"component_groups": ["studio:fleeing"]}}}
+    return entity("studio:laestrygonian_child", {"studio:anim": enum_prop(enum_values("laestrygonian_child"))}, c, groups, events)
+
+
+def bp_circe():
+    c = base(["circe", "witch_goddess"], 0.6, 1.75, 40, 30)
+    c.update(walker(0.2))
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:persistent": {}})
+    c.update(ai_wander(6, 5, 0.6))
+    c["minecraft:interact"] = {"interactions": [
+        interact("studio:offer_stew", "action.interact.studio.stew", 5,
+                 [{"test": "bool_property", "subject": "self", "domain": "studio:yielded", "value": False}]),
+        interact("studio:counsel", "action.interact.studio.counsel", 5,
+                 [{"test": "bool_property", "subject": "self", "domain": "studio:yielded", "value": True}])]}
+    events = {"studio:offer_stew": {"set_property": {"studio:anim": "none"}},
+              "studio:counsel": {"set_property": {"studio:anim": "none"}},
+              "studio:yield": {"set_property": {"studio:yielded": True, "studio:anim": "none"}}}
+    return entity("studio:circe", {"studio:anim": enum_prop(enum_values("circe")), "studio:yielded": BOOL}, c, None, events)
+
+
+def bp_sister():
+    c = base(["circe_sister", "bird"], 0.4, 0.5, 6, 18)
+    c.update({"minecraft:physics": {"has_gravity": False, "has_collision": False},
+              "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+              "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
+              "minecraft:interact": {"interactions": [interact("studio:seized", "action.interact.studio.seize", 2)]}})
+    groups = {"studio:seized": {"minecraft:persistent": {}}}
+    return entity("studio:circe_sister", {"studio:anim": enum_prop(enum_values("circe_sister"))}, c, groups,
+                  {"studio:seized": {"add": {"component_groups": ["studio:seized"]}}}, spawnable=False)
+
+
+def bp_siren():
+    # a mermaid lying on the sea rocks: she does not move from them, breathes in water and air, cannot be harmed
+    c = base(["siren", "mermaid"], 1.0, 1.2, 100, 999)
+    c.update(static())
+    c.update({"minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
+              "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True}})
+    return entity("studio:siren", {"studio:anim": enum_prop(enum_values("siren"))}, c)
+
+
+def bp_scylla():
+    c = base(["scylla", "monster"], 5.0, 8.0, 1000, 8)
+    c.update(static(npc_look=False))
+    c.update({"minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {}})
+    return entity("studio:scylla", {"studio:anim": enum_prop(enum_values("scylla"))}, c)
+
+
+def bp_charybdis():
+    c = {"minecraft:type_family": {"family": ["charybdis", "studio_odyssey", "inanimate"]},
+         "minecraft:collision_box": {"width": 1.0, "height": 0.5},
+         "minecraft:health": {"value": 1000, "max": 1000},
+         "minecraft:physics": {"has_gravity": False, "has_collision": False},
+         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+         "minecraft:knockback_resistance": {"value": 1.0},
+         "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
+         "minecraft:ambient_sound_interval": {"value": 3, "range": 2, "event_name": "ambient"}}
+    return entity("studio:charybdis", {"studio:anim": enum_prop(enum_values("charybdis"))}, c)
+
+
+def bp_shade():
+    c = base(["shade", "undead", "monster"], 0.6, 1.9, 24, 8)
+    c.update(walker(0.27))
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:attack": {"damage": 4},
+              "minecraft:damage_sensor": {"triggers": [NO_FALL]}})
+    hostile = ai_wander(6, 7)
+    hostile["minecraft:behavior.nearest_attackable_target"] = target(2, 32, must_see=False)
+    hostile["minecraft:behavior.melee_attack"] = {"priority": 3, "speed_multiplier": 1.2, "track_target": True}
+    groups = {"studio:hostile": hostile,
+              "studio:speaker": {"minecraft:behavior.look_at_player": {"priority": 2, "look_distance": 24, "probability": 1.0},
+                                 "minecraft:movement": {"value": 0.0}},
+              "studio:rising": {"minecraft:movement": {"value": 0.0}}}
+    events = {"minecraft:entity_spawned": {"add": {"component_groups": ["studio:hostile"]}},
+              "studio:as_crew": {"set_property": {"studio:variant": 0}},
+              "studio:as_agamemnon": {"set_property": {"studio:variant": 1}, "remove": {"component_groups": ["studio:hostile"]},
+                                      "add": {"component_groups": ["studio:speaker"]}},
+              "studio:as_sinon": {"set_property": {"studio:variant": 2}, "remove": {"component_groups": ["studio:hostile"]},
+                                  "add": {"component_groups": ["studio:speaker"]}},
+              "studio:rise": {"add": {"component_groups": ["studio:rising"]}},
+              "studio:risen": {"remove": {"component_groups": ["studio:rising"]}}}
+    props = {"studio:variant": int_prop(0, 2), "studio:anim": enum_prop(enum_values("shade"))}
+    return entity("studio:shade", props, c, groups, events)
+
+
+def bp_tiresias():
+    c = base(["tiresias", "shade"], 0.6, 1.9, 100, 999)
+    c.update(static())
+    c.update({"minecraft:damage_sensor": INVULNERABLE})
+    return entity("studio:tiresias", {"studio:anim": enum_prop(enum_values("tiresias"))}, c)
+
+
+def bp_cattle():
+    c = base(["sun_cattle", "cattle"], 1.2, 1.7, 20, 14)
+    c.update(walker(0.2))
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:persistent": {},
+              "minecraft:behavior.float": {"priority": 0},
+              "minecraft:behavior.panic": {"priority": 1, "speed_multiplier": 1.4}})
+    c.update(ai_wander(6, 7, 0.8))
+    return entity("studio:sun_cattle", {"studio:anim": enum_prop(enum_values("sun_cattle"))}, c)
+
+
+def bp_calypso():
+    c = base(["calypso", "nymph"], 0.6, 1.85, 40, 999)
+    c.update(walker(0.18))
+    c.update(ai_wander(6, 5, 0.5))
+    c.update({"minecraft:persistent": {}, "minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True},
+              "minecraft:interact": {"interactions": [
+                  interact("studio:offer_lotus", "action.interact.studio.lotus", 5,
+                           [{"test": "is_sneaking", "subject": "other", "value": False}]),
+                  interact("studio:embrace", "action.interact.studio.embrace", 5,
+                           [{"test": "is_sneaking", "subject": "other", "value": True}])]}})
+    groups = {"studio:visited": {"minecraft:persistent": {}}}
+    return entity("studio:calypso", {"studio:anim": enum_prop(enum_values("calypso"))}, c, groups,
+                  {"studio:offer_lotus": {"add": {"component_groups": ["studio:visited"]}},
+                   "studio:embrace": {"add": {"component_groups": ["studio:visited"]}}})
+
+
+def bp_athena():
+    c = base(["athena", "goddess"], 0.6, 1.85, 100, 999)
+    c.update(walker(0.18))
+    c.update(ai_wander(6, 5, 0.5))
+    c.update({"minecraft:persistent": {}, "minecraft:damage_sensor": INVULNERABLE,
+              "minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True},
+              "minecraft:interact": {"interactions": [interact("studio:bless", "action.interact.studio.athena", 5)]}})
+    return entity("studio:athena", {"studio:anim": enum_prop(enum_values("athena"))}, c,
+                  {"studio:blessed": {"minecraft:persistent": {}}},
+                  {"studio:bless": {"add": {"component_groups": ["studio:blessed"]}}})
+
+
+def bp_horse():
+    seats = [{"position": [x, y, z]} for (x, y, z) in
+             ((-0.5, 4.4, -0.6), (0.5, 4.4, -0.6), (-0.5, 4.9, 0.5), (0.5, 4.9, 0.5), (-0.5, 5.4, 1.5), (0.5, 5.4, 1.5))]
+    c = {"minecraft:type_family": {"family": ["trojan_horse", "studio_odyssey", "inanimate"]},
+         "minecraft:collision_box": {"width": 3.0, "height": 4.0},
+         "minecraft:health": {"value": 1000, "max": 1000},
+         "minecraft:physics": {},
+         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+         "minecraft:knockback_resistance": {"value": 1.0},
+         "minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
+         "minecraft:rideable": {"seat_count": 6, "family_types": ["player"], "interact_text": "action.interact.studio.hide",
+                                "pull_in_entities": False, "seats": seats}}
+    return entity("studio:trojan_horse", {"studio:anim": enum_prop(enum_values("trojan_horse"))}, c)
+
+
+def bp_boulder():
+    c = {"minecraft:type_family": {"family": ["studio_boulder", "inanimate"]},
+         "minecraft:collision_box": {"width": 0.8, "height": 0.8},
+         "minecraft:health": {"value": 1, "max": 1},
+         "minecraft:physics": {"has_gravity": False, "has_collision": False},
+         "minecraft:pushable": {"is_pushable": False, "is_pushable_by_piston": False},
+         "minecraft:damage_sensor": INVULNERABLE}
+    return entity("studio:boulder", None, c, spawnable=False)
+
+
+# ================================================================== client side
+RENDER_CONTROLLERS = {"format_version": "1.10.0", "render_controllers": {
+    "controller.render.studio_cyclops": {
+        "arrays": {"textures": {"Array.skins": ["Texture.default", "Texture.blinded"]}},
+        "geometry": "Geometry.default", "materials": [{"*": "Material.default"}],
+        "textures": ["Array.skins[query.property('studio:blind')]"]},
+    "controller.render.studio_laestrygonian": {
+        "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"],
+        "part_visibility": [{"*": True},
+                            {"sword": "query.property('studio:weapon') == 0"},
+                            {"glaive": "query.property('studio:weapon') == 1"},
+                            {"mace": "query.property('studio:weapon') == 2"},
+                            {"scimitar": "query.property('studio:weapon') == 3"}]},
+    "controller.render.studio_shade": {
+        "arrays": {"textures": {"Array.skins": ["Texture.default", "Texture.agamemnon", "Texture.sinon"]}},
+        "geometry": "Geometry.default", "materials": [{"*": "Material.default"}],
+        "textures": ["Array.skins[query.property('studio:variant')]"],
+        "part_visibility": [{"*": True},
+                            {"helmet": "query.property('studio:variant') != 2"},
+                            {"crest": "query.property('studio:variant') == 0"},
+                            {"plume": "query.property('studio:variant') == 1"}]},
+}}
+
+
+def client_entity(name, textures, rc, anim_names, animate, egg=None, material="entity_alphatest", scale=None,
+                  controllers=(), sound_shorts=()):
+    """Client entity. Controllers (moves, steps) are registered next to the animations and drive `scripts.animate`;
+    every sound cue the animations use is mapped from its short name to the sound id odyssey.<entity>.<short>."""
+    anims = {k: f"animation.{name}.{k}" for k in anim_names}
+    for c in controllers:
+        anims[c] = f"controller.animation.{name}.{c}"
+    desc = {"identifier": f"studio:{name}", "materials": {"default": material}, "textures": textures,
+            "geometry": {"default": f"geometry.{name}"}, "render_controllers": [rc], "animations": anims}
+    if sound_shorts:
+        desc["sound_effects"] = {sh: f"odyssey.{name}.{sh}" for sh in sorted(sound_shorts)}
+    scripts = {}
+    if controllers:
+        scripts["animate"] = list(controllers)
+    elif animate:
+        scripts["animate"] = animate
+    if scale:
+        scripts["scale"] = str(scale)
+    if scripts:
+        desc["scripts"] = scripts
+    if egg:
+        desc["spawn_egg"] = {"base_color": egg[0], "overlay_color": egg[1]}
+    return {"format_version": "1.10.0", "minecraft:client_entity": {"description": desc}}
+
+
+# Sounds the engine plays by itself: ambient, hurt and death. Everything else is a cue inside an animation (footsteps,
+# every move) or a script sound. Each value is the short name of odyssey.<entity>.<short>, or a vanilla sound id.
+SOUND_EVENTS = {
+    "cyclops": {"ambient": "breath", "hurt": "hurt", "death": "death"},
+    "laestrygonian": {"ambient": "breath", "hurt": "hurt", "death": "death"},
+    "circe_sister": {"ambient": "chirp"},
+    "shade": {"ambient": "moan", "hurt": "hurt", "death": "death"},
+}
+VANILLA_SOUND_EVENTS = {
+    "laestrygonian_child": {"hurt": "mob.villager.hurt"},
+    "circe": {"hurt": "mob.witch.hurt", "death": "mob.witch.death"},
+    "sun_cattle": {"hurt": "mob.cow.hurt", "death": "mob.cow.hurt"},
+}
+
+
+def entity_sounds():
+    ents = {}
+    for name, events in SOUND_EVENTS.items():
+        ents[f"studio:{name}"] = {"events": {ev: f"odyssey.{name}.{sh}" for ev, sh in events.items()}}
+    for name, events in VANILLA_SOUND_EVENTS.items():
+        ents[f"studio:{name}"] = {"events": dict(events)}
+    return {"entity_sounds": {"entities": ents}}
+
+
+# ================================================================== items
+ITEMS = {
+    "beeswax": dict(cat="items", stack=16, food=(0, 0.0), anim="eat", dur=1.0),
+    "burning_stake": dict(cat="equipment", stack=1, weapon=6),
+    "circe_stew": dict(cat="items", stack=1, food=(8, 0.9), anim="eat", dur=1.6),
+    "lotus_flower": dict(cat="nature", stack=8, food=(1, 0.2), anim="eat", dur=1.2),
+}
+
+
+def item_json(name, spec):
+    comps = {"minecraft:icon": {"textures": {"default": f"studio_{name}"}},
+             "minecraft:display_name": {"value": f"item.studio:{name}.name"},
+             "minecraft:max_stack_size": spec["stack"]}
+    if "food" in spec:
+        comps["minecraft:food"] = {"nutrition": spec["food"][0], "saturation_modifier": spec["food"][1], "can_always_eat": True}
+        comps["minecraft:use_animation"] = spec["anim"]
+        comps["minecraft:use_modifiers"] = {"use_duration": spec["dur"], "movement_modifier": 0.35}
+    if "weapon" in spec:
+        comps["minecraft:hand_equipped"] = True
+        comps["minecraft:damage"] = {"value": spec["weapon"]}
+    return {"format_version": "1.21.0", "minecraft:item": {
+        "description": {"identifier": f"studio:{name}", "menu_category": {"category": spec["cat"]}}, "components": comps}}
+
+
+RECIPES = {
+    "beeswax": {"format_version": "1.20.10", "minecraft:recipe_shapeless": {
+        "description": {"identifier": "studio:beeswax"}, "tags": ["crafting_table"],
+        "ingredients": [{"item": "minecraft:honeycomb"}], "result": {"item": "studio:beeswax", "count": 2}}},
+    "burning_stake": {"format_version": "1.20.10", "minecraft:recipe_shaped": {
+        "description": {"identifier": "studio:burning_stake"}, "tags": ["crafting_table"],
+        "pattern": ["F", "L", "C"], "key": {"F": {"item": "minecraft:flint"}, "L": {"item": "minecraft:oak_log"},
+                                           "C": {"item": "minecraft:coal"}},
+        "result": {"item": "studio:burning_stake"}}},
+}
+
+
+def spawn_rule(identifier, tag_filter, weight, herd, density=2, control="monster"):
+    cond = {"minecraft:spawns_on_surface": {}, "minecraft:weight": {"default": weight},
+            "minecraft:herd": {"min_size": herd[0], "max_size": herd[1]},
+            "minecraft:density_limit": {"surface": density}, "minecraft:biome_filter": tag_filter}
+    if control == "monster":
+        cond["minecraft:difficulty_filter"] = {"min": "easy", "max": "hard"}
+    return {"format_version": "1.8.0", "minecraft:spawn_rules": {
+        "description": {"identifier": identifier, "population_control": control}, "conditions": [cond]}}
+
+
+SPAWN_RULES = {
+    # Telepylus was filmed in Scotland's Culbin pine forest: giants in coniferous forest, with their child
+    "laestrygonian": spawn_rule("studio:laestrygonian", {"test": "has_biome_tag", "value": "taiga"}, 2, (2, 3)),
+    "laestrygonian_child": spawn_rule("studio:laestrygonian_child", {"test": "has_biome_tag", "value": "taiga"}, 1, (1, 1), 1),
+    # the Sirens on their rocks by the sea
+    "siren": spawn_rule("studio:siren", {"all_of": [{"test": "has_biome_tag", "value": "beach"},
+                                                     {"test": "has_biome_tag", "value": "stone"}]}, 4, (2, 3), 3),
+    # the sun god's herd grazing on Thrinacia
+    "sun_cattle": spawn_rule("studio:sun_cattle", {"test": "has_biome_tag", "value": "plains"}, 2, (3, 4), 4, "animal"),
+}
+
+ITEM_ART = {
+    "beeswax": ({"o": (120, 80, 20), "Y": (240, 190, 60), "y": (215, 160, 40), "H": (252, 222, 124)}, [
+        "................", "................", "................", ".....oooooo.....", "....oYYYYYYo....",
+        "...oYyHyYyHyo...", "...oyHyYyHyYo...", "..oYyYHyYHyYyo..", "..oyHyYyHyYyHo..", "..oYyHyYyHyYyo..",
+        "...oyYyHyYyHo...", "...ooyYyYyYoo...", ".....oooooo.....", "................", "................",
+        "................"]),
+    "burning_stake": ({"E": (255, 150, 40), "e": (255, 220, 120), "c": (40, 30, 25), "w": (122, 92, 56),
+                       "W": (164, 128, 82)}, [
+        "............eEe.", "...........EEEe.", "..........cEEE..", ".........cccE...", "........wccc....",
+        ".......wWwc.....", "......wWww......", ".....wWww.......", "....wWww........", "...wWww.........",
+        "..wWww..........", ".wWww...........", ".www............", "ww..............", "................",
+        "................"]),
+    "circe_stew": ({"s": (96, 70, 44), "S": (128, 96, 58), "g": (88, 104, 50), "t": (108, 76, 46), "T": (150, 108, 64),
+                    "m": (150, 90, 70)}, [
+        "................", "................", "................", "................", ".....m...g......",
+        "....sssssssss...", "...sSsmSsSgsSs..", "..tsSSssSSsSSst.", "..tTTTTTTTTTTTt.", "..ttTtTTtTTtTt..",
+        "...tTTTTTTTTTt..", "....tTTTTTTTt...", ".....ttttttt....", "................", "................",
+        "................"]),
+    "lotus_flower": ({"w": (246, 236, 236), "p": (232, 170, 190), "P": (212, 130, 160), "y": (238, 206, 90),
+                      "g": (78, 120, 64), "G": (110, 150, 80)}, [
+        "................", "......w..w......", ".....wpwwpw.....", "....wpPwwPpw....", "...wpPpyyPpPw...",
+        "....wPpyypPw....", ".....wppppw.....", ".......gg.......", "......Gg........", ".......g........",
+        ".......g..GG....", "....GGGgGGG.....", "...GGG.g........", ".......g........", "................",
+        "................"]),
+}

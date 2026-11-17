@@ -1,0 +1,78 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.siren.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "sing": "q.property('studio:anim') == 'sing'"
+            },
+            {
+              "beckon": "q.property('studio:anim') == 'beckon'"
+            },
+            {
+              "drag": "q.property('studio:anim') == 'drag'"
+            }
+          ]
+        },
+        "sing": {
+          "animations": [
+            "sing"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "beckon": "q.property('studio:anim') == 'beckon'"
+            },
+            {
+              "drag": "q.property('studio:anim') == 'drag'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "beckon": {
+          "animations": [
+            "beckon"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "sing": "q.property('studio:anim') == 'sing'"
+            },
+            {
+              "drag": "q.property('studio:anim') == 'drag'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "drag": {
+          "animations": [
+            "drag"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "sing": "q.property('studio:anim') == 'sing'"
+            },
+            {
+              "beckon": "q.property('studio:anim') == 'beckon'"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

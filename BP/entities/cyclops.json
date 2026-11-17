@@ -1,0 +1,266 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:cyclops",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:state": {
+          "type": "enum",
+          "values": [
+            "awake",
+            "asleep"
+          ],
+          "default": "awake",
+          "client_sync": true
+        },
+        "studio:blind": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        },
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "devour",
+            "kick",
+            "stomp",
+            "throw",
+            "cry",
+            "tend",
+            "wake"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "cyclops",
+          "giant",
+          "monster",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 2.6,
+        "height": 10.6
+      },
+      "minecraft:health": {
+        "value": 600,
+        "max": 600
+      },
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 8,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:movement": {
+        "value": 0.26
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.generic": {
+        "is_amphibious": false,
+        "can_path_over_water": false,
+        "can_swim": false,
+        "can_walk": true,
+        "can_sink": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "can_breach": false
+      },
+      "minecraft:breathable": {
+        "total_supply": 300,
+        "suffocate_time": 0,
+        "breathes_water": true,
+        "breathes_air": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:attack": {
+        "damage": 3
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "fall",
+            "deals_damage": false
+          },
+          {
+            "cause": "drowning",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:follow_range": {
+        "value": 48,
+        "max": 64
+      },
+      "minecraft:persistent": {}
+    },
+    "component_groups": {
+      "studio:awake_ai": {
+        "minecraft:behavior.random_stroll": {
+          "priority": 6,
+          "speed_multiplier": 0.9
+        },
+        "minecraft:behavior.look_at_player": {
+          "priority": 7,
+          "look_distance": 14,
+          "probability": 0.5
+        },
+        "minecraft:behavior.random_look_around": {
+          "priority": 8
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 1
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 3,
+          "speed_multiplier": 1.1,
+          "track_target": true
+        }
+      },
+      "studio:hunting": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "must_see": true,
+          "reselect_targets": true,
+          "scan_interval": 5,
+          "entity_types": [
+            {
+              "filters": {
+                "any_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  }
+                ]
+              },
+              "max_dist": 40
+            }
+          ]
+        }
+      },
+      "studio:blind_hunting": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "must_see": false,
+          "reselect_targets": true,
+          "scan_interval": 5,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "studio:in_flock"
+                  }
+                ]
+              },
+              "max_dist": 24
+            }
+          ]
+        }
+      },
+      "studio:asleep": {
+        "minecraft:movement": {
+          "value": 0.0
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "studio:awake_ai",
+            "studio:hunting"
+          ]
+        }
+      },
+      "studio:hunt": {
+        "add": {
+          "component_groups": [
+            "studio:hunting"
+          ]
+        }
+      },
+      "studio:fall_asleep": {
+        "set_property": {
+          "studio:state": "asleep"
+        },
+        "remove": {
+          "component_groups": [
+            "studio:awake_ai",
+            "studio:hunting",
+            "studio:blind_hunting"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "studio:asleep"
+          ]
+        }
+      },
+      "studio:wake": {
+        "set_property": {
+          "studio:state": "awake"
+        },
+        "remove": {
+          "component_groups": [
+            "studio:asleep"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "studio:awake_ai"
+          ]
+        }
+      },
+      "studio:blinded": {
+        "set_property": {
+          "studio:blind": true,
+          "studio:state": "awake"
+        },
+        "remove": {
+          "component_groups": [
+            "studio:asleep",
+            "studio:hunting"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "studio:awake_ai",
+            "studio:blind_hunting"
+          ]
+        }
+      }
+    }
+  }
+}

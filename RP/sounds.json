@@ -1,0 +1,49 @@
+{
+  "entity_sounds": {
+    "entities": {
+      "studio:cyclops": {
+        "events": {
+          "ambient": "odyssey.cyclops.breath",
+          "hurt": "odyssey.cyclops.hurt",
+          "death": "odyssey.cyclops.death"
+        }
+      },
+      "studio:laestrygonian": {
+        "events": {
+          "ambient": "odyssey.laestrygonian.breath",
+          "hurt": "odyssey.laestrygonian.hurt",
+          "death": "odyssey.laestrygonian.death"
+        }
+      },
+      "studio:circe_sister": {
+        "events": {
+          "ambient": "odyssey.circe_sister.chirp"
+        }
+      },
+      "studio:shade": {
+        "events": {
+          "ambient": "odyssey.shade.moan",
+          "hurt": "odyssey.shade.hurt",
+          "death": "odyssey.shade.death"
+        }
+      },
+      "studio:laestrygonian_child": {
+        "events": {
+          "hurt": "mob.villager.hurt"
+        }
+      },
+      "studio:circe": {
+        "events": {
+          "hurt": "mob.witch.hurt",
+          "death": "mob.witch.death"
+        }
+      },
+      "studio:sun_cattle": {
+        "events": {
+          "hurt": "mob.cow.hurt",
+          "death": "mob.cow.hurt"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:athena",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "bless",
+            "appear",
+            "vanish"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "athena",
+          "goddess",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.85
+      },
+      "minecraft:health": {
+        "value": 100,
+        "max": 100
+      },
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 999,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:movement": {
+        "value": 0.18
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "can_pass_doors": true
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.5
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 5,
+        "look_distance": 14,
+        "probability": 0.5
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 6
+      },
+      "minecraft:persistent": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  }
+                ]
+              },
+              "event": "studio:bless",
+              "target": "self"
+            },
+            "cooldown": 5,
+            "interact_text": "action.interact.studio.athena"
+          }
+        ]
+      }
+    },
+    "component_groups": {
+      "studio:blessed": {
+        "minecraft:persistent": {}
+      }
+    },
+    "events": {
+      "studio:bless": {
+        "add": {
+          "component_groups": [
+            "studio:blessed"
+          ]
+        }
+      }
+    }
+  }
+}
