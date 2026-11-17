@@ -1,0 +1,50 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:shade",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/shade",
+        "agamemnon": "textures/entity/shade_agamemnon",
+        "sinon": "textures/entity/shade_sinon"
+      },
+      "geometry": {
+        "default": "geometry.shade"
+      },
+      "render_controllers": [
+        "controller.render.studio_shade"
+      ],
+      "animations": {
+        "idle": "animation.shade.idle",
+        "walk": "animation.shade.walk",
+        "rise": "animation.shade.rise",
+        "sink": "animation.shade.sink",
+        "grab": "animation.shade.grab"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.02"
+          },
+          {
+            "rise": "q.property('studio:anim') == 'rise'"
+          },
+          {
+            "sink": "q.property('studio:anim') == 'sink'"
+          },
+          {
+            "grab": "q.property('studio:anim') == 'grab'"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#3A3634",
+        "overlay_color": "#8A6A44"
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.sun_cattle.idle": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            "math.max(0, math.sin(q.life_time*12))*30",
+            "math.sin(q.life_time*9)*10",
+            0
+          ]
+        },
+        "tail": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(q.life_time*140)*14"
+          ]
+        }
+      }
+    },
+    "animation.sun_cattle.walk": {
+      "loop": true,
+      "bones": {
+        "leg_fl": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_hr": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_fr": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        },
+        "leg_hl": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*240)*25",
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

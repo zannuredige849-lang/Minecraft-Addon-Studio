@@ -8,7 +8,7 @@
       },
       "textures": {
         "default": "textures/entity/cyclops",
-        "blinded": "textures/entity/cyclops_blind"
+        "blinded": "textures/entity/cyclops_blinded"
       },
       "geometry": {
         "default": "geometry.cyclops"
@@ -22,7 +22,6 @@
         "grab": "animation.cyclops.grab",
         "throw": "animation.cyclops.throw",
         "cry": "animation.cyclops.cry",
-        "drunk": "animation.cyclops.drunk",
         "asleep": "animation.cyclops.asleep",
         "blind_search": "animation.cyclops.blind_search"
       },
@@ -30,7 +29,7 @@
         "animate": [
           "idle",
           {
-            "walk": "q.modified_move_speed > 0.05 && q.property('studio:state') != 'asleep'"
+            "walk": "q.modified_move_speed > 0.02 && q.property('studio:state') != 'asleep'"
           },
           {
             "grab": "q.property('studio:anim') == 'grab'"
@@ -42,19 +41,17 @@
             "cry": "q.property('studio:anim') == 'cry'"
           },
           {
-            "drunk": "q.property('studio:state') == 'drunk'"
-          },
-          {
             "asleep": "q.property('studio:state') == 'asleep'"
           },
           {
-            "blind_search": "q.property('studio:blind')"
+            "blind_search": "q.property('studio:blind') && q.property('studio:state') != 'asleep'"
           }
-        ]
+        ],
+        "scale": "6.3552"
       },
       "spawn_egg": {
-        "base_color": "#8C7A5E",
-        "overlay_color": "#3B2A22"
+        "base_color": "#B0ACA4",
+        "overlay_color": "#5C5650"
       }
     }
   }

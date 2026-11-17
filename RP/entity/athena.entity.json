@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:athena",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/athena"
+      },
+      "geometry": {
+        "default": "geometry.athena"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.athena.idle",
+        "walk": "animation.athena.walk",
+        "bless": "animation.athena.bless"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.02"
+          },
+          {
+            "bless": "q.property('studio:anim') == 'bless'"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#EEECE6",
+        "overlay_color": "#96684E"
+      }
+    }
+  }
+}

@@ -2,10 +2,10 @@
   "entity_sounds": {
     "entities": {
       "studio:cyclops": {
-        "volume": 1.0,
+        "volume": 1.6,
         "pitch": [
-          0.5,
-          0.65
+          0.35,
+          0.45
         ],
         "events": {
           "ambient": "mob.ravager.ambient",
@@ -14,44 +14,61 @@
           "step": "mob.ravager.step"
         }
       },
-      "studio:siren": {
+      "studio:laestrygonian": {
         "volume": 1.0,
         "pitch": [
           0.55,
-          0.75
+          0.65
         ],
         "events": {
-          "ambient": "mob.allay.idle",
-          "hurt": "mob.phantom.hurt",
-          "death": "mob.phantom.death"
+          "hurt": "mob.irongolem.hit",
+          "death": "mob.irongolem.death",
+          "step": "mob.irongolem.walk"
+        }
+      },
+      "studio:laestrygonian_child": {
+        "volume": 1.0,
+        "pitch": [
+          1.1,
+          1.3
+        ],
+        "events": {
+          "hurt": "mob.villager.hurt"
         }
       },
       "studio:circe": {
         "volume": 1.0,
         "pitch": [
-          0.8,
+          0.85,
           0.95
         ],
         "events": {
-          "ambient": "mob.witch.ambient",
           "hurt": "mob.witch.hurt",
           "death": "mob.witch.death"
         }
       },
-      "studio:scylla": {
-        "volume": 1.2,
+      "studio:circe_sister": {
+        "volume": 0.8,
         "pitch": [
-          0.45,
-          0.6
+          0.8,
+          0.9
         ],
         "events": {
-          "ambient": "mob.hoglin.ambient",
-          "hurt": "mob.hoglin.hurt",
-          "death": "mob.ravager.death"
+          "ambient": "mob.parrot.idle"
+        }
+      },
+      "studio:scylla": {
+        "volume": 1.4,
+        "pitch": [
+          0.35,
+          0.45
+        ],
+        "events": {
+          "ambient": "mob.hoglin.ambient"
         }
       },
       "studio:charybdis": {
-        "volume": 0.8,
+        "volume": 0.9,
         "pitch": [
           0.5,
           0.7
@@ -60,17 +77,29 @@
           "ambient": "bubble.downinside"
         }
       },
-      "studio:laestrygonian": {
+      "studio:shade": {
         "volume": 1.0,
         "pitch": [
-          0.5,
-          0.6
+          0.55,
+          0.7
         ],
         "events": {
-          "ambient": "mob.vindicator.idle",
-          "hurt": "mob.irongolem.hit",
-          "death": "mob.irongolem.death",
-          "step": "mob.irongolem.walk"
+          "ambient": "mob.zombie.say",
+          "hurt": "mob.zombie.hurt",
+          "death": "mob.zombie.death"
+        }
+      },
+      "studio:sun_cattle": {
+        "volume": 1.0,
+        "pitch": [
+          0.75,
+          0.85
+        ],
+        "events": {
+          "ambient": "mob.cow.say",
+          "hurt": "mob.cow.hurt",
+          "death": "mob.cow.hurt",
+          "step": "mob.cow.step"
         }
       }
     }

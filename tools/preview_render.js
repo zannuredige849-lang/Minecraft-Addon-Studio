@@ -1,5 +1,7 @@
 // Renders Bedrock geometry + texture with three.js (Blockbench conventions) to PNG previews.
 // usage (needs: npm i three playwright): node tools/preview_render.js <name> <geo.json> <texture.png> <out.png> [views] [pose.json]
+// views: front, back, side, three, top. pose.json (all optional): {"<bone>": {"rotation": [x,y,z], "position": [x,y,z]},
+//   "__hide": ["bone", ...], "__scale": 0.9, "__clean": true (no grid or player box), "__focus": [x, y, z, half_height]}
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -30,7 +32,7 @@ const html = `<!doctype html><html><body style="margin:0;background:#1d1f24">
       const texture = new T.Texture(img);
       texture.magFilter = T.NearestFilter; texture.minFilter = T.NearestFilter;
       texture.colorSpace = T.SRGBColorSpace; texture.needsUpdate = true;
-      const blend = name === 'charybdis';
+      const blend = name === 'charybdis' || name === 'siren';
       const mat = new T.MeshLambertMaterial({ map: texture, alphaTest: blend ? 0.02 : 0.5, transparent: blend, side: T.DoubleSide });
       const rad = d => d * Math.PI / 180;
       const scene = new T.Scene();
@@ -41,14 +43,22 @@ const html = `<!doctype html><html><body style="margin:0;background:#1d1f24">
       for (const b of g.bones) {
         const grp = new T.Group(); groups[b.name] = grp; pivots[b.name] = bbp(b.pivot);
         const r = (b.rotation || [0, 0, 0]).slice();
-        const pr = pose[b.name]; if (pr) { r[0] += pr[0]; r[1] += pr[1]; r[2] += pr[2]; }
+        let pr = pose[b.name];
+        if (Array.isArray(pr)) pr = { rotation: pr };
+        if (pr && pr.rotation) { r[0] += pr.rotation[0]; r[1] += pr.rotation[1]; r[2] += pr.rotation[2]; }
         grp.rotation.set(rad(-r[0]), rad(-r[1]), rad(r[2]), 'ZYX');
+        grp.userData.pose = pr || {};
+        if ((pose.__hide || []).includes(b.name)) grp.visible = false;
       }
       const root = new T.Group(); scene.add(root);
+      if (pose.__scale) root.scale.setScalar(pose.__scale);
       for (const b of g.bones) {
         const grp = groups[b.name], pv = pivots[b.name];
         if (b.parent && groups[b.parent]) { grp.position.copy(pv).sub(pivots[b.parent]); groups[b.parent].add(grp); }
         else { grp.position.copy(pv); root.add(grp); }
+        const pp = grp.userData.pose;
+        if (pp.position) grp.position.add(new T.Vector3(-pp.position[0], pp.position[1], pp.position[2]));
+        if (pp.scale !== undefined) grp.scale.setScalar(Array.isArray(pp.scale) ? pp.scale[0] : pp.scale);
         for (const c of (b.cubes || [])) {
           const [w, h, d] = c.size; const [u, v] = c.uv;
           const geom = new T.BoxGeometry(w, h, d);
@@ -81,10 +91,13 @@ const html = `<!doctype html><html><body style="margin:0;background:#1d1f24">
       const grid = new T.GridHelper(160, 10, 0x555a66, 0x353943); scene.add(grid);
       const steve = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(9.6, 28.8, 4.8)),
         new T.LineBasicMaterial({ color: 0x5fb3ff }));
+      root.updateMatrixWorld(true);
       const box = new T.Box3().setFromObject(root);
       steve.position.set(box.max.x + 10, 14.4, 0); scene.add(steve);
-      const size = box.getSize(new T.Vector3()); const ctr = box.getCenter(new T.Vector3());
-      const span = Math.max(size.x + 24, size.y, size.z) * 0.62;
+      const size = box.getSize(new T.Vector3()); let ctr = box.getCenter(new T.Vector3());
+      let span = Math.max(size.x + 24, size.y, size.z) * 0.62;
+      if (pose.__clean) { grid.visible = false; steve.visible = false; span = Math.max(size.x, size.y, size.z) * 0.58; }
+      if (pose.__focus) { const f = pose.__focus, k = pose.__scale || 1; ctr = new T.Vector3(-f[0] * k, f[1] * k, f[2] * k); span = f[3] * k; }
       const dirs = { front: [0, 0, -1], back: [0, 0, 1], side: [-1, 0, 0], three: [-0.75, 0.25, -1], top: [0, 1, -0.3] };
       const W = 360, H = 420;
       views.forEach((vname, i) => {

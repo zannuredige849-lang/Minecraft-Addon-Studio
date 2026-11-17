@@ -1,0 +1,125 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.athena.idle": {
+      "loop": true,
+      "bones": {
+        "chest": {
+          "rotation": [
+            "math.sin(q.life_time*60)*1.2",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(q.life_time*28)*3",
+            "math.sin(q.life_time*17)*10",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "math.sin(q.life_time*40)*2",
+            0,
+            "math.sin(q.life_time*23)*1.5"
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-math.sin(q.life_time*40)*2",
+            0,
+            "-math.sin(q.life_time*23)*1.5"
+          ]
+        }
+      }
+    },
+    "animation.athena.walk": {
+      "loop": true,
+      "bones": {
+        "thigh_r": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*200)*9",
+            0,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*200)*9",
+            0,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            "math.max(0, math.sin(q.modified_distance_moved*200))*10",
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            "math.max(0, -math.sin(q.modified_distance_moved*200))*10",
+            0,
+            0
+          ]
+        },
+        "hips": {
+          "position": [
+            0,
+            "-math.abs(math.sin(q.modified_distance_moved*200))*0.3",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*200)*14",
+            0,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*200)*14",
+            0,
+            0
+          ]
+        },
+        "chest": {
+          "rotation": [
+            0,
+            "math.cos(q.modified_distance_moved*200)*3",
+            0
+          ]
+        }
+      }
+    },
+    "animation.athena.bless": {
+      "loop": true,
+      "bones": {
+        "arm_r": {
+          "rotation": [
+            -110,
+            0,
+            10
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            -20,
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            8,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

@@ -21,11 +21,12 @@
       "scripts": {
         "animate": [
           "swirl"
-        ]
+        ],
+        "scale": "3.0"
       },
       "spawn_egg": {
-        "base_color": "#1E4A5C",
-        "overlay_color": "#E1EEEE"
+        "base_color": "#1C4858",
+        "overlay_color": "#E2EEEE"
       }
     }
   }

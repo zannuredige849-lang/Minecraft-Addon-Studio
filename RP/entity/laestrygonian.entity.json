@@ -13,31 +13,32 @@
         "default": "geometry.laestrygonian"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.studio_laestrygonian"
       ],
       "animations": {
         "idle": "animation.laestrygonian.idle",
         "walk": "animation.laestrygonian.walk",
-        "charge": "animation.laestrygonian.charge",
-        "throw": "animation.laestrygonian.throw"
+        "swing": "animation.laestrygonian.swing",
+        "smash": "animation.laestrygonian.smash"
       },
       "scripts": {
         "animate": [
           "idle",
           {
-            "walk": "q.modified_move_speed > 0.05"
+            "walk": "q.modified_move_speed > 0.02"
           },
           {
-            "charge": "q.property('studio:anim') == 'charge'"
+            "swing": "q.property('studio:anim') == 'swing'"
           },
           {
-            "throw": "q.property('studio:anim') == 'throw'"
+            "smash": "q.property('studio:anim') == 'smash'"
           }
-        ]
+        ],
+        "scale": "0.9109"
       },
       "spawn_egg": {
-        "base_color": "#36383E",
-        "overlay_color": "#966834"
+        "base_color": "#B2B6BE",
+        "overlay_color": "#4A4E58"
       }
     }
   }

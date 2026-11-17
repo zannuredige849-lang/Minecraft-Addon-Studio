@@ -1,0 +1,97 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:trojan_horse",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "trojan_horse",
+          "studio_odyssey",
+          "inanimate"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 3.0,
+        "height": 4.0
+      },
+      "minecraft:health": {
+        "value": 1000,
+        "max": 1000
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:persistent": {},
+      "minecraft:rideable": {
+        "seat_count": 6,
+        "family_types": [
+          "player"
+        ],
+        "interact_text": "action.interact.studio.hide",
+        "pull_in_entities": false,
+        "seats": [
+          {
+            "position": [
+              -0.5,
+              4.4,
+              -0.6
+            ]
+          },
+          {
+            "position": [
+              0.5,
+              4.4,
+              -0.6
+            ]
+          },
+          {
+            "position": [
+              -0.5,
+              4.9,
+              0.5
+            ]
+          },
+          {
+            "position": [
+              0.5,
+              4.9,
+              0.5
+            ]
+          },
+          {
+            "position": [
+              -0.5,
+              5.4,
+              1.5
+            ]
+          },
+          {
+            "position": [
+              0.5,
+              5.4,
+              1.5
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

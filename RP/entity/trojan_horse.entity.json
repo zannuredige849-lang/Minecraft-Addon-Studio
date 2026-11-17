@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:trojan_horse",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/trojan_horse"
+      },
+      "geometry": {
+        "default": "geometry.trojan_horse"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {},
+      "scripts": {
+        "scale": "3.609"
+      },
+      "spawn_egg": {
+        "base_color": "#96704A",
+        "overlay_color": "#5A4028"
+      }
+    }
+  }
+}

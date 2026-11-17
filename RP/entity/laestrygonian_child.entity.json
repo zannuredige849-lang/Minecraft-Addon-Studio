@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:laestrygonian_child",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/laestrygonian_child"
+      },
+      "geometry": {
+        "default": "geometry.laestrygonian_child"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.laestrygonian_child.idle",
+        "walk": "animation.laestrygonian_child.walk",
+        "laugh": "animation.laestrygonian_child.laugh",
+        "scream": "animation.laestrygonian_child.scream"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.02"
+          },
+          {
+            "laugh": "q.property('studio:anim') == 'laugh'"
+          },
+          {
+            "scream": "q.property('studio:anim') == 'scream'"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#60483A",
+        "overlay_color": "#B2B6BE"
+      }
+    }
+  }
+}

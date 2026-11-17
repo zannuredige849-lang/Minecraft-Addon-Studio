@@ -7,105 +7,112 @@
         "core": {
           "rotation": [
             0,
-            "q.life_time*360",
+            "q.life_time*240",
+            0
+          ]
+        },
+        "spiral": {
+          "rotation": [
+            0,
+            "q.life_time*90",
             0
           ]
         },
         "ringa_0": {
           "rotation": [
             0,
-            "q.life_time*90",
+            "q.life_time*60",
             0
           ]
         },
         "ringb_0": {
           "rotation": [
             0,
-            "q.life_time*90",
+            "q.life_time*60",
             0
           ]
         },
         "ringa_1": {
           "rotation": [
             0,
-            "q.life_time*135",
+            "q.life_time*90",
             0
           ]
         },
         "ringb_1": {
           "rotation": [
             0,
-            "q.life_time*135",
+            "q.life_time*90",
             0
           ]
         },
         "ringa_2": {
           "rotation": [
             0,
-            "q.life_time*180",
+            "q.life_time*120",
             0
           ]
         },
         "ringb_2": {
           "rotation": [
             0,
-            "q.life_time*180",
+            "q.life_time*120",
             0
           ]
         },
         "ringa_3": {
           "rotation": [
             0,
-            "q.life_time*225",
+            "q.life_time*150",
             0
           ]
         },
         "ringb_3": {
           "rotation": [
             0,
-            "q.life_time*225",
+            "q.life_time*150",
             0
           ]
         },
         "ringa_4": {
           "rotation": [
             0,
-            "q.life_time*270",
+            "q.life_time*180",
             0
           ]
         },
         "ringb_4": {
           "rotation": [
             0,
-            "q.life_time*270",
+            "q.life_time*180",
             0
           ]
         },
         "ringa_5": {
           "rotation": [
             0,
-            "q.life_time*315",
+            "q.life_time*210",
             0
           ]
         },
         "ringb_5": {
           "rotation": [
             0,
-            "q.life_time*315",
+            "q.life_time*210",
             0
           ]
         },
         "ringa_6": {
           "rotation": [
             0,
-            "q.life_time*360",
+            "q.life_time*240",
             0
           ]
         },
         "ringb_6": {
           "rotation": [
             0,
-            "q.life_time*360",
+            "q.life_time*240",
             0
           ]
         }

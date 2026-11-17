@@ -5,12 +5,12 @@
       "description": {
         "identifier": "geometry.boulder",
         "texture_width": 64,
-        "texture_height": 32,
-        "visible_bounds_width": 1.5,
-        "visible_bounds_height": 1.5,
+        "texture_height": 64,
+        "visible_bounds_width": 1.8,
+        "visible_bounds_height": 1.75,
         "visible_bounds_offset": [
           0,
-          0.5,
+          0.25,
           0
         ]
       },
@@ -18,9 +18,9 @@
         {
           "name": "rock",
           "pivot": [
-            0,
-            4,
-            0
+            0.0,
+            4.0,
+            0.0
           ],
           "cubes": [
             {
@@ -30,9 +30,9 @@
                 -4
               ],
               "size": [
-                8,
-                8,
-                8
+                8.0,
+                8.0,
+                8.0
               ],
               "pivot": [
                 0,
@@ -45,8 +45,8 @@
                 5
               ],
               "uv": [
-                0,
-                0
+                0.0,
+                0.0
               ]
             },
             {
@@ -56,9 +56,9 @@
                 -5
               ],
               "size": [
-                6,
-                6,
-                10
+                6.0,
+                6.0,
+                10.0
               ],
               "pivot": [
                 0,
@@ -71,8 +71,8 @@
                 20
               ],
               "uv": [
-                32,
-                0
+                0.0,
+                16.5
               ]
             },
             {
@@ -82,9 +82,9 @@
                 -3
               ],
               "size": [
-                10,
-                5,
-                6
+                10.0,
+                5.0,
+                6.0
               ],
               "pivot": [
                 0,
@@ -97,8 +97,8 @@
                 -10
               ],
               "uv": [
-                0,
-                16
+                0.0,
+                33.0
               ]
             }
           ]

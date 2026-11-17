@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:tiresias",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/tiresias"
+      },
+      "geometry": {
+        "default": "geometry.tiresias"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.tiresias.idle",
+        "rise": "animation.tiresias.rise",
+        "sink": "animation.tiresias.sink",
+        "speak": "animation.tiresias.speak"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "rise": "q.property('studio:anim') == 'rise'"
+          },
+          {
+            "sink": "q.property('studio:anim') == 'sink'"
+          },
+          {
+            "speak": "q.property('studio:anim') == 'speak'"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#3C3832",
+        "overlay_color": "#A8A49C"
+      }
+    }
+  }
+}

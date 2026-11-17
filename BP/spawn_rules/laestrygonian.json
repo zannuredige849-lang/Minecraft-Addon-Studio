@@ -7,8 +7,9 @@
     },
     "conditions": [
       {
+        "minecraft:spawns_on_surface": {},
         "minecraft:weight": {
-          "default": 3
+          "default": 2
         },
         "minecraft:herd": {
           "min_size": 2,
@@ -17,23 +18,14 @@
         "minecraft:density_limit": {
           "surface": 2
         },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "value": "taiga"
+        },
         "minecraft:difficulty_filter": {
           "min": "easy",
           "max": "hard"
-        },
-        "minecraft:biome_filter": {
-          "all_of": [
-            {
-              "test": "has_biome_tag",
-              "value": "beach"
-            },
-            {
-              "test": "has_biome_tag",
-              "value": "cold"
-            }
-          ]
-        },
-        "minecraft:spawns_on_surface": {}
+        }
       }
     ]
   }

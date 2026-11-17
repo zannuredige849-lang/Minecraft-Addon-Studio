@@ -17,23 +17,20 @@
       ],
       "animations": {
         "idle": "animation.scylla.idle",
-        "walk": "animation.scylla.walk",
         "snatch": "animation.scylla.snatch"
       },
       "scripts": {
         "animate": [
           "idle",
           {
-            "walk": "q.modified_move_speed > 0.05"
-          },
-          {
             "snatch": "q.property('studio:anim') == 'snatch'"
           }
-        ]
+        ],
+        "scale": "3.0"
       },
       "spawn_egg": {
-        "base_color": "#686860",
-        "overlay_color": "#962F3A"
+        "base_color": "#70604E",
+        "overlay_color": "#8A5446"
       }
     }
   }

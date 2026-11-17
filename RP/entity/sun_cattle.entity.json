@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:sun_cattle",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sun_cattle"
+      },
+      "geometry": {
+        "default": "geometry.sun_cattle"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.sun_cattle.idle",
+        "walk": "animation.sun_cattle.walk"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.02"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#D6BA8E",
+        "overlay_color": "#F0E6CC"
+      }
+    }
+  }
+}

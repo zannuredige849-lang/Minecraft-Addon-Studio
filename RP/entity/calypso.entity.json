@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:calypso",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/calypso"
+      },
+      "geometry": {
+        "default": "geometry.calypso"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.calypso.idle",
+        "walk": "animation.calypso.walk"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "q.modified_move_speed > 0.02"
+          }
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#E8E2D2",
+        "overlay_color": "#E0CC9E"
+      }
+    }
+  }
+}

@@ -27,58 +27,53 @@
       "minecraft:type_family": {
         "family": [
           "circe",
-          "goddess",
+          "witch_goddess",
           "studio_odyssey",
           "mob"
         ]
       },
       "minecraft:collision_box": {
-        "width": 0.7,
-        "height": 2.3
+        "width": 0.6,
+        "height": 1.75
       },
       "minecraft:health": {
-        "value": 80,
-        "max": 80
-      },
-      "minecraft:movement": {
-        "value": 0.24
+        "value": 40,
+        "max": 40
       },
       "minecraft:physics": {},
       "minecraft:nameable": {},
-      "minecraft:follow_range": {
-        "value": 32,
-        "max": 48
-      },
       "minecraft:ambient_sound_interval": {
-        "value": 14,
+        "value": 30,
         "range": 10,
         "event_name": "ambient"
       },
-      "minecraft:loot": {
-        "table": "loot_tables/entities/circe.json"
+      "minecraft:movement": {
+        "value": 0.2
       },
       "minecraft:movement.basic": {},
       "minecraft:jump.static": {},
       "minecraft:navigation.walk": {
         "can_path_over_water": false,
         "avoid_water": true,
-        "can_pass_doors": true,
-        "can_open_doors": true
+        "avoid_damage_blocks": true,
+        "can_pass_doors": true
       },
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
       },
-      "minecraft:attack": {
-        "damage": 4
+      "minecraft:persistent": {},
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.6
       },
-      "minecraft:damage_sensor": {
-        "triggers": [
-          {
-            "cause": "fall",
-            "deals_damage": false
-          }
-        ]
+      "minecraft:behavior.look_at_player": {
+        "priority": 5,
+        "look_distance": 14,
+        "probability": 0.5
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 6
       },
       "minecraft:interact": {
         "interactions": [
@@ -99,11 +94,11 @@
                   }
                 ]
               },
-              "event": "studio:offer_feast",
+              "event": "studio:offer_stew",
               "target": "self"
             },
-            "cooldown": 30,
-            "interact_text": "action.interact.studio.feast"
+            "cooldown": 5,
+            "interact_text": "action.interact.studio.stew"
           },
           {
             "on_interact": {
@@ -125,73 +120,14 @@
               "event": "studio:counsel",
               "target": "self"
             },
-            "cooldown": 10,
+            "cooldown": 5,
             "interact_text": "action.interact.studio.counsel"
           }
         ]
       }
     },
-    "component_groups": {
-      "studio:witch_ai": {
-        "minecraft:behavior.float": {
-          "priority": 0
-        },
-        "minecraft:behavior.random_stroll": {
-          "priority": 6,
-          "speed_multiplier": 0.9
-        },
-        "minecraft:behavior.look_at_player": {
-          "priority": 7,
-          "look_distance": 14,
-          "probability": 0.5
-        },
-        "minecraft:behavior.random_look_around": {
-          "priority": 8
-        },
-        "minecraft:behavior.hurt_by_target": {
-          "priority": 1
-        },
-        "minecraft:behavior.melee_attack": {
-          "priority": 2,
-          "speed_multiplier": 1.0,
-          "track_target": true
-        }
-      },
-      "studio:yielded": {
-        "minecraft:behavior.float": {
-          "priority": 0
-        },
-        "minecraft:behavior.random_stroll": {
-          "priority": 6,
-          "speed_multiplier": 0.9
-        },
-        "minecraft:behavior.look_at_player": {
-          "priority": 7,
-          "look_distance": 14,
-          "probability": 0.5
-        },
-        "minecraft:behavior.random_look_around": {
-          "priority": 8
-        },
-        "minecraft:damage_sensor": {
-          "triggers": [
-            {
-              "cause": "all",
-              "deals_damage": false
-            }
-          ]
-        }
-      }
-    },
     "events": {
-      "minecraft:entity_spawned": {
-        "add": {
-          "component_groups": [
-            "studio:witch_ai"
-          ]
-        }
-      },
-      "studio:offer_feast": {
+      "studio:offer_stew": {
         "set_property": {
           "studio:anim": "none"
         }
@@ -203,17 +139,8 @@
       },
       "studio:yield": {
         "set_property": {
-          "studio:yielded": true
-        },
-        "remove": {
-          "component_groups": [
-            "studio:witch_ai"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "studio:yielded"
-          ]
+          "studio:yielded": true,
+          "studio:anim": "none"
         }
       }
     }

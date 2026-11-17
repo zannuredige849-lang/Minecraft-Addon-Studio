@@ -4,34 +4,28 @@
     "description": {
       "identifier": "studio:siren",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_alphablend"
       },
       "textures": {
-        "dusk": "textures/entity/siren_dusk",
-        "ash": "textures/entity/siren_ash",
-        "sea": "textures/entity/siren_sea"
+        "default": "textures/entity/siren"
       },
       "geometry": {
         "default": "geometry.siren"
       },
       "render_controllers": [
-        "controller.render.studio_siren"
+        "controller.render.default"
       ],
       "animations": {
-        "fly": "animation.siren.fly",
-        "sing": "animation.siren.sing"
+        "idle": "animation.siren.idle"
       },
       "scripts": {
         "animate": [
-          "fly",
-          {
-            "sing": "q.property('studio:anim') == 'sing'"
-          }
+          "idle"
         ]
       },
       "spawn_egg": {
-        "base_color": "#5C4636",
-        "overlay_color": "#C4B296"
+        "base_color": "#C8C8C6",
+        "overlay_color": "#24222A"
       }
     }
   }

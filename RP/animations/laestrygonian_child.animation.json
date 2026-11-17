@@ -1,0 +1,144 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.laestrygonian_child.idle": {
+      "loop": true,
+      "bones": {
+        "chest": {
+          "rotation": [
+            "math.sin(q.life_time*60)*1.2",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(q.life_time*28)*3",
+            "math.sin(q.life_time*17)*14",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "math.sin(q.life_time*40)*2",
+            0,
+            "math.sin(q.life_time*23)*1.5"
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-math.sin(q.life_time*40)*2",
+            0,
+            "-math.sin(q.life_time*23)*1.5"
+          ]
+        }
+      }
+    },
+    "animation.laestrygonian_child.walk": {
+      "loop": true,
+      "bones": {
+        "thigh_r": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*220)*34",
+            0,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*220)*34",
+            0,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            "math.max(0, math.sin(q.modified_distance_moved*220))*40",
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            "math.max(0, -math.sin(q.modified_distance_moved*220))*40",
+            0,
+            0
+          ]
+        },
+        "hips": {
+          "position": [
+            0,
+            "-math.abs(math.sin(q.modified_distance_moved*220))*0.5",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*220)*26",
+            0,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*220)*26",
+            0,
+            0
+          ]
+        },
+        "chest": {
+          "rotation": [
+            0,
+            "math.cos(q.modified_distance_moved*220)*3",
+            0
+          ]
+        }
+      }
+    },
+    "animation.laestrygonian_child.laugh": {
+      "loop": true,
+      "bones": {
+        "chest": {
+          "rotation": [
+            "math.sin(q.life_time*900)*3",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "-10+math.sin(q.life_time*900)*4",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.laestrygonian_child.scream": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            -28,
+            0,
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            -30,
+            0,
+            35
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            -30,
+            0,
+            -35
+          ]
+        }
+      }
+    }
+  }
+}

@@ -4,17 +4,17 @@
     "animation.circe.idle": {
       "loop": true,
       "bones": {
-        "hair": {
+        "chest": {
           "rotation": [
-            "math.sin(q.life_time*50)*3",
+            "math.sin(q.life_time*60)*1.2",
             0,
-            "math.sin(q.life_time*37)*2"
+            0
           ]
         },
         "head": {
           "rotation": [
-            "math.sin(q.life_time*30)*3",
-            "math.sin(q.life_time*18)*10",
+            "math.sin(q.life_time*28)*3",
+            "math.sin(q.life_time*17)*8",
             0
           ]
         },
@@ -22,21 +22,14 @@
           "rotation": [
             "math.sin(q.life_time*40)*2",
             0,
-            0
+            "math.sin(q.life_time*23)*1.5"
           ]
         },
         "arm_l": {
           "rotation": [
             "-math.sin(q.life_time*40)*2",
             0,
-            0
-          ]
-        },
-        "skirt": {
-          "rotation": [
-            0,
-            0,
-            "math.sin(q.life_time*45)*1"
+            "-math.sin(q.life_time*23)*1.5"
           ]
         }
       }
@@ -44,31 +37,59 @@
     "animation.circe.walk": {
       "loop": true,
       "bones": {
+        "thigh_r": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved*200)*9",
+            0,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            "-math.cos(q.modified_distance_moved*200)*9",
+            0,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            "math.max(0, math.sin(q.modified_distance_moved*200))*10",
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            "math.max(0, -math.sin(q.modified_distance_moved*200))*10",
+            0,
+            0
+          ]
+        },
+        "hips": {
+          "position": [
+            0,
+            "-math.abs(math.sin(q.modified_distance_moved*200))*0.3",
+            0
+          ]
+        },
         "arm_r": {
           "rotation": [
-            "math.cos(q.modified_distance_moved*30)*18",
+            "-math.cos(q.modified_distance_moved*200)*12",
             0,
             0
           ]
         },
         "arm_l": {
           "rotation": [
-            "-math.cos(q.modified_distance_moved*30)*18",
+            "math.cos(q.modified_distance_moved*200)*12",
             0,
             0
           ]
         },
-        "skirt": {
+        "chest": {
           "rotation": [
             0,
-            0,
-            "math.cos(q.modified_distance_moved*30)*3"
-          ]
-        },
-        "body": {
-          "position": [
-            0,
-            "math.abs(math.sin(q.modified_distance_moved*30))*0.4",
+            "math.cos(q.modified_distance_moved*200)*3",
             0
           ]
         }
@@ -121,14 +142,7 @@
         },
         "head": {
           "rotation": [
-            15,
-            0,
-            0
-          ]
-        },
-        "hair": {
-          "rotation": [
-            -8,
+            18,
             0,
             0
           ]
@@ -140,21 +154,21 @@
       "bones": {
         "head": {
           "rotation": [
-            8,
+            10,
             0,
             0
           ]
         },
         "arm_r": {
           "rotation": [
-            -12,
+            -10,
             0,
             6
           ]
         },
         "arm_l": {
           "rotation": [
-            -12,
+            -10,
             0,
             -6
           ]
