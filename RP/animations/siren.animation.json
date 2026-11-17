@@ -13,23 +13,58 @@
         },
         "head": {
           "rotation": [
-            "-8+math.sin(q.life_time*20)*4",
+            "math.sin(q.life_time*20)*4",
             "math.sin(q.life_time*14)*12",
             0
           ]
         },
         "arm_r": {
           "rotation": [
-            "-20+math.sin(q.life_time*40)*6",
+            "math.sin(q.life_time*40)*10",
             0,
-            18
+            0
           ]
         },
-        "arm_l": {
+        "forearm_r": {
           "rotation": [
-            "-20+math.sin(q.life_time*40+60)*6",
+            "math.sin(q.life_time*40+50)*14",
             0,
-            -18
+            0
+          ]
+        },
+        "tail_0": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*45-0)*3",
+            0
+          ]
+        },
+        "tail_1": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*45-35)*5",
+            0
+          ]
+        },
+        "tail_2": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*45-70)*7",
+            0
+          ]
+        },
+        "tail_3": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*45-105)*9",
+            0
+          ]
+        },
+        "tail_4": {
+          "rotation": [
+            "math.sin(q.life_time*60)*12",
+            "math.sin(q.life_time*45-140)*11",
+            0
           ]
         }
       }

@@ -4,7 +4,7 @@
     "description": {
       "identifier": "studio:siren",
       "materials": {
-        "default": "entity_alphablend"
+        "default": "entity_alphatest"
       },
       "textures": {
         "default": "textures/entity/siren"
@@ -24,8 +24,8 @@
         ]
       },
       "spawn_egg": {
-        "base_color": "#C8C8C6",
-        "overlay_color": "#24222A"
+        "base_color": "#C8CCD0",
+        "overlay_color": "#3E5254"
       }
     }
   }

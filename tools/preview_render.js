@@ -32,7 +32,7 @@ const html = `<!doctype html><html><body style="margin:0;background:#1d1f24">
       const texture = new T.Texture(img);
       texture.magFilter = T.NearestFilter; texture.minFilter = T.NearestFilter;
       texture.colorSpace = T.SRGBColorSpace; texture.needsUpdate = true;
-      const blend = name === 'charybdis' || name === 'siren';
+      const blend = name === 'charybdis';
       const mat = new T.MeshLambertMaterial({ map: texture, alphaTest: blend ? 0.02 : 0.5, transparent: blend, side: T.DoubleSide });
       const rad = d => d * Math.PI / 180;
       const scene = new T.Scene();

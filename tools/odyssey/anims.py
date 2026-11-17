@@ -55,7 +55,7 @@ def anims_cyclops():
                    "jaw": rot("math.max(0, math.sin(q.life_time*45))*6"),
                    "arm_r": rot("math.sin(q.life_time*40)*2"), "arm_l": rot("-math.sin(q.life_time*40)*2"),
                    "hand_r": rot("math.sin(q.life_time*90)*3"), "hand_l": rot("-math.sin(q.life_time*90)*3")}),
-        "walk": walk(30, leg=20, knee=25, arm=12, bob=0.6, roll=3),
+        "walk": walk(83, leg=20, knee=25, arm=12, bob=0.6, roll=3),        # 6.5 blocks: ~4.3-block stride
         # solved so the wrist sits ~7 units in front of the mouth, where the script holds the victim
         "grab": A({"arm_r": rot(-32, -10, 12), "forearm_r": rot(-110), "hand_r": rot(45),
                    "jaw": rot("20+math.sin(q.anim_time*720)*12"), "head": rot(-15)}),
@@ -128,9 +128,14 @@ ANIMATE_CIRCE = ["idle", {"walk": "q.modified_move_speed > 0.02"},
 
 
 def anims_siren():
-    return {"idle": A({"chest": rot("math.sin(q.life_time*30)*2", 0, "math.sin(q.life_time*24)*3"),
-                       "head": rot("-8+math.sin(q.life_time*20)*4", "math.sin(q.life_time*14)*12"),
-                       "arm_r": rot("-20+math.sin(q.life_time*40)*6", 0, 18), "arm_l": rot("-20+math.sin(q.life_time*40+60)*6", 0, -18)})}
+    """A mermaid reclining on the rocks: she sways as she sings, beckons with one hand, and her tail swishes."""
+    b = {"chest": rot("math.sin(q.life_time*30)*2", 0, "math.sin(q.life_time*24)*3"),
+         "head": rot("math.sin(q.life_time*20)*4", "math.sin(q.life_time*14)*12"),
+         "arm_r": rot("math.sin(q.life_time*40)*10"), "forearm_r": rot("math.sin(q.life_time*40+50)*14")}
+    for i in range(5):
+        b[f"tail_{i}"] = rot(0, f"math.sin(q.life_time*45-{i * 35})*{3 + i * 2}", 0)
+    b["tail_4"] = rot("math.sin(q.life_time*60)*12", "math.sin(q.life_time*45-140)*11", 0)
+    return {"idle": A(b)}
 
 
 def anims_simple_npc():

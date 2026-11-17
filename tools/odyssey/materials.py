@@ -250,11 +250,15 @@ def leather(base):
 
 
 # ================================================================== metal and stone
-def metal(base, edge=None, rivets=True, bands=0, patina=None, scratches=True, polish=0.0, engrave=False):
+def metal(base, edge=None, rivets=True, bands=0, patina=None, scratches=True, polish=0.0, engrave=False, brushed=True):
+    """brushed=False gives smooth, softly mottled plate instead of horizontal brushing streaks."""
     eg = edge or mix(base, (255, 255, 255), 0.5)
 
     def f(c):
-        col = mul(base, 0.86 + 0.28 * _n(c, 0.2, 4.0, 12, 2))
+        if brushed:
+            col = mul(base, 0.86 + 0.28 * _n(c, 0.2, 4.0, 12, 2))
+        else:
+            col = mul(base, 0.9 + 0.16 * _n(c, 0.45, 0.45, 12, 2))
         if c.face in SIDES:
             t = _vert(c)
             col = mul(col, 1.12 - 0.3 * t)
@@ -303,6 +307,41 @@ def blade(base, edge=(236, 238, 242), fuller=True):
         if hash2(c.x * 3 + c.y, c.y // 3, c.seed + 71) < 0.01:
             col = mix(col, edge, 0.4)
         return col + (255,)
+    return f
+
+
+def scales(base=(64, 82, 84), edge=(30, 40, 44), belly=(168, 176, 170), sheen=(124, 156, 154)):
+    """Fish scales: offset rows of rounded scales with dark rims and a wet sheen, paler on the belly (down face)."""
+    def f(c):
+        if c.face == "down":
+            col = mul(belly, 0.86 + 0.24 * _n(c, 0.6, 0.6, 140, 2))
+            return col + (255,)
+        sw = max(3, int(0.75 * c.D))
+        row = c.y // sw
+        lx = (c.x + (sw // 2 if row % 2 else 0)) % sw
+        ly = c.y % sw
+        u, v = (lx + 0.5) / sw - 0.5, (ly + 0.5) / sw
+        col = mul(base, 0.82 + 0.3 * _n(c, 0.35, 0.35, 141, 3))
+        if v > 0.55 + 0.45 * (1 - (2 * u) ** 2) ** 0.5 - 0.35 or abs(u) > 0.44:
+            col = mix(col, edge, 0.6)                                           # scale rim
+        elif v < 0.4 and abs(u) < 0.25:
+            col = mix(col, sheen, 0.35)                                         # wet highlight on each scale
+        if c.face in SIDES:
+            col = mix(col, belly, max(0.0, _vert(c) - 0.72) * 1.4)              # pale toward the underside
+        return col + (255,)
+    return f
+
+
+def fin(base=(86, 104, 104), rib=(44, 56, 58), alpha=220):
+    """Thin fin membrane with dark radiating rays and a ragged, half-transparent edge."""
+    def f(c):
+        col = mul(base, 0.85 + 0.3 * _n(c, 0.5, 0.5, 150, 2))
+        if c.x % max(2, c.D) == 0:
+            col = mix(col, rib, 0.6)
+        a = alpha
+        if (c.y == c.h - 1 or c.x == c.w - 1) and hash2(c.x, c.y, c.seed + 151) < 0.5:
+            a = 0
+        return col + (a,)
     return f
 
 
@@ -466,7 +505,7 @@ def translucent(inner, alpha=190):
 # ================================================================== decals
 def human_face(iris=(92, 74, 56), brow=(60, 48, 40), lips=(150, 84, 80), kohl=None, eye_y=0.5, eye_sep=0.21,
                mouth_y=0.8, mouth_open=0.0, blind=False, dead=False, age=0.0, beard=None, beard_from=0.62,
-               lashes=None, cheek=None, sand=None):
+               lashes=None, cheek=None, sand=None, sclera=(224, 218, 204)):
     """Painted face for the north face of a head cube (the sculpted cubes add the relief)."""
     def d(c, col):
         if c.face != "north":
@@ -488,7 +527,7 @@ def human_face(iris=(92, 74, 56), brow=(60, 48, 40), lips=(150, 84, 80), kohl=No
                 ir = math.hypot((tx - ex) / 0.06, (ty - eye_y) / 0.07)
                 if ir < 1.0:
                     return (iris if ir > 0.48 else (14, 10, 10)) + (255,)
-                return (224, 218, 204, 255)
+                return tuple(sclera) + (255,)
             if kohl is not None and 1.0 <= r < 1.45 and dy < 0.2:
                 return mix(out, kohl, 0.6) + (255,)
             if lashes is not None and 1.0 <= r < 1.25 and dy < -0.3:
@@ -519,33 +558,32 @@ def human_face(iris=(92, 74, 56), brow=(60, 48, 40), lips=(150, 84, 80), kohl=No
     return d
 
 
-def slit_eye(iris=(122, 96, 58), sclera=(206, 196, 160), blind_key="blind"):
-    """One eye seen through a tall, narrow slit of lids: a pointed almond of bloodshot white around a round dark
-    iris. Charred and bloody once blinded."""
+def round_eye(iris=(200, 124, 50), sclera=(226, 216, 190), blind_key="blind"):
+    """One large, wide-open round eye: bloodshot white, amber iris, black pupil and a wet highlight.
+    Charred and bloody once blinded."""
     def d(c, col):
         if c.face != "north":
             return col
         cx, cy = (c.w - 1) / 2, (c.h - 1) / 2
         nx, ny = (c.x - cx) / (c.w / 2), (c.y - cy) / (c.h / 2)
-        if abs(nx) > (1 - min(1.0, abs(ny)) ** 2) ** 0.6 or abs(ny) > 0.96:
-            return mul(col[:3], 0.42) + (255,)                                  # the slit's shadowed rim
+        r = math.hypot(nx, ny * 1.08)
+        if r > 1.0:
+            return mul(col[:3], 0.45) + (255,)                                  # shadowed rim of the socket
         if c.variant.get(blind_key):
             n = fbm(c.x * 0.4, c.y * 0.4, c.seed + 90, 2)
-            out = mix((22, 6, 6), (104, 16, 12), n) if abs(ny) < 0.6 else mix((84, 30, 24), (140, 54, 38), n)
+            out = mix((22, 6, 6), (104, 16, 12), n) if r < 0.65 else mix((84, 30, 24), (140, 54, 38), n)
             return out + (255,)
-        ux, uy = (c.x - cx) / c.D, (c.y - cy) / c.D                           # model units from the centre
-        rr = math.hypot(ux, uy * 1.05)
-        out = mul(sclera, 1 - 0.3 * min(1.0, abs(ny)) ** 2)
-        if abs(fbm(c.x * 0.6, c.y * 0.6, c.seed + 92, 2) - 0.5) < 0.045:
-            out = mix(out, (160, 44, 38), 0.7)                                  # veins
-        if rr < 0.6:
-            out = mul(iris, 0.75 + 0.35 * hash2(c.x, c.y, c.seed + 93))
-            if rr > 0.47:
-                out = mul(out, 0.62)
-            if rr < 0.27:
-                out = (12, 9, 9)
-        if -0.36 < ny < -0.18 and -0.45 < nx < -0.05:
-            out = mix(out, (250, 246, 236), 0.8)                                # wet highlight
+        out = mul(sclera, 1 - 0.28 * r * r)
+        if r > 0.5 and abs(fbm(c.x * 0.6, c.y * 0.6, c.seed + 92, 2) - 0.5) < 0.05:
+            out = mix(out, (166, 46, 40), 0.7)                                  # veins
+        if r < 0.52:
+            out = mul(iris, 0.72 + 0.4 * hash2(c.x, c.y, c.seed + 93))
+            if r > 0.42:
+                out = mul(out, 0.6)                                             # dark limbal ring
+            if r < 0.21:
+                out = (10, 8, 8)
+        if -0.52 < ny < -0.24 and -0.48 < nx < -0.14:
+            out = mix(out, (252, 248, 240), 0.85)                               # wet highlight
         return out + (255,)
     return d
 
@@ -614,6 +652,33 @@ def blood_below(blind_key="blind", x0=0.35, x1=0.65, top=0.15):
         tx, ty = (c.x + 0.5) / c.w, (c.y + 0.5) / c.h
         if x0 < tx < x1 and ty > top and hash2(c.x, 3, c.seed + 5) < 0.45 - (ty - top) * 0.3:
             return mix(col[:3], (110, 8, 8), 0.8) + (255,)
+        return col
+    return d
+
+
+def helm_opening(dark=(9, 9, 11), rim=(236, 238, 242)):
+    """The Laestrygonian helmet's face opening: two eye slots sweeping up and out on either side of a beak-like
+    nasal, narrowing into one slot down to the chin, outlined by a thin bright rim."""
+    def inside(tx, ty):
+        if ty > 0.97:
+            return False
+        off = abs(tx - 0.5)
+        if ty < 0.44 - 0.16 * min(1.0, off / 0.42):
+            return False
+        half = 0.42 if ty < 0.56 else 0.42 - (ty - 0.56) / 0.41 * 0.34
+        if off > half:
+            return False
+        return not (off < 0.07 and ty < 0.6)
+
+    def d(c, col):
+        if c.face != "north":
+            return col
+        tx, ty = (c.x + 0.5) / c.w, (c.y + 0.5) / c.h
+        if inside(tx, ty):
+            return dark + (255,)
+        dx, dy = 1.0 / c.w, 1.0 / c.h
+        if any(inside(tx + a * dx, ty + b * dy) for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+            return mix(col[:3], rim, 0.7) + tuple(col[3:])
         return col
     return d
 

@@ -1,5 +1,9 @@
 """Laestrygonians as in Nolan's The Odyssey (2026).
 
+Film still: smooth, rounded, polished silver plate; a domed helmet with a beak-like ridge down the face and a dark
+Y-shaped face opening with a bright rim; one great dome pauldron per shoulder; a corpulent muscle cuirass with a
+band across the belly; big flared forearm guards; bare hands; a skirt of large hanging plates.
+
 Film references: giants about four metres high, "massive corpulence, broad and slightly arched shoulders";
 "heavy flat armor with silver or iron elements, constituting helmets, breastplates, and articulated limb
 protections" covering them head-to-toe, almost medieval in look; "clad in silver armor ... conceived as though
@@ -13,7 +17,7 @@ import math
 
 from .core import Model
 from .human import build_human, hood
-from .materials import metal, mail, cloth, leather, quilted, slits, human_face, skin, blade
+from .materials import metal, mail, leather, quilted, human_face, skin, blade, helm_opening
 from .parts import digit, chain_y
 
 GROUND_IGNORE = ("sword", "glaive", "mace", "scimitar")
@@ -23,74 +27,71 @@ SILVER_EDGE = (238, 240, 244)
 
 def build():
     m = Model("laestrygonian", 89, D=2)
-    PL = metal(SILVER, edge=SILVER_EDGE, polish=0.35, engrave=True)
-    PLB = metal(SILVER, edge=SILVER_EDGE, bands=3, polish=0.25)
-    PLD = metal((140, 144, 152), edge=(214, 216, 222), polish=0.2)
+    PL = metal(SILVER, edge=SILVER_EDGE, rivets=False, polish=0.3, scratches=False, brushed=False)    # smooth plate
+    PLB = metal(SILVER, edge=SILVER_EDGE, bands=3, polish=0.2, brushed=False)
+    PLD = metal((140, 144, 152), edge=(214, 216, 222), rivets=False, polish=0.2, brushed=False)
+    BAND = metal((116, 120, 128), edge=(196, 200, 206), rivets=False, polish=0.1, brushed=False)
     MAIL = mail((82, 84, 90))
-    PAD = cloth((58, 50, 44), weave=False, grime=0.25, folds=0.06)
+    STRAP = leather((62, 50, 40))
+    HAND = skin((178, 140, 118), mottle=0.8)                                # the hands are bare
     IRON = metal((150, 152, 158), edge=(226, 228, 232), rivets=False, polish=0.5)
     BLADE = blade((156, 158, 164))
     GRIP = leather((70, 50, 34))
-    VISOR = slits((8, 8, 10), rows=((0.3, 0.4),), x0=0.1, x1=0.9)
 
     m.bone("root", None, (0, 0, 0))
-    # ------------------------------------------------------------ hips: fauld lames over mail
+    # ------------------------------------------------------------ hips: belt and a skirt of great hanging plates
     m.bone("hips", "root", (0, 34, 0))
-    m.cbox("hips", (0, 33, 0), (24, 6, 18), MAIL)
-    for k in range(4):
-        m.cbox("hips", (0, 35.5 - k * 2.2, -0.5), (26 + k * 1.0, 2.5, 19 + k * 1.0), PLB if k % 2 else PL)
-    # ------------------------------------------------------------ torso: corpulent breastplate, arched shoulders
+    m.cbox("hips", (0, 33.5, 0), (24, 5, 18), MAIL)
+    m.cbox("hips", (0, 36.2, -0.5), (27, 2.5, 20.5), STRAP)
+    m.cbox("hips", (0, 29.5, -10.6), (8, 11, 1.5), PL)                                   # front plate
+    m.mcbox("hips", (-8.7, 30.0, -10.0), (8, 10, 1.5), PL, rot=(0, 8, 4))                # front tassets, flaring
+    m.mcbox("hips", (-13.7, 30.0, -1.0), (1.5, 10, 10), PLD, rot=(0, 0, 6))              # side tassets
+    m.cbox("hips", (0, 30.0, 10.4), (22, 10, 1.5), PLD)                                  # back plates
+    # ------------------------------------------------------------ torso: a rounded, corpulent muscle cuirass
     m.bone("torso", "hips", (0, 36, 0), (8, 0, 0))
-    m.cbox("torso", (0, 45, -0.5), (28, 18, 20), PL)
-    m.cbox("torso", (0, 41, -11), (24, 10, 3), PL)
-    for k in range(3):
-        m.cbox("torso", (0, 37.5 + k * 2.8, -12.4), (20 - k * 2, 2.5, 1.5), PLB)
-    m.cbox("torso", (0, 46, -11), (1.5, 16, 1.5), PLD)
-    m.cbox("torso", (0, 51.5, -10), (24, 5, 2), PL)
-    m.cbox("torso", (0, 46, 10), (24, 14, 1.5), PL)
-    m.cbox("torso", (0, 46, 11), (1.5, 14, 1), PLD)
-    m.cbox("torso", (0, 55, 1), (24, 4, 16), PLD)
-    m.cbox("torso", (0, 57.2, -1), (14, 3, 14), PLB)
-    m.cbox("torso", (0, 59.4, -1.5), (12, 2, 12), PL)
-    # ------------------------------------------------------------ head: shell helm with segmented carapace
+    TC = (0, 46, -0.5)
+    m.cbox("torso", TC, (28, 14, 16), PL)
+    m.cbox("torso", TC, (24, 19, 16), PL)
+    m.cbox("torso", TC, (24, 14, 20), PL)
+    m.mcbox("torso", (-5.75, 49.5, -10.9), (11, 6.5, 1.5), PL, rot=(0, 8, 0))            # pectoral plates
+    m.cbox("torso", (0, 41.5, -11.0), (20, 8, 2), PL)                                    # round belly
+    m.cbox("torso", (0, 45.6, -11.7), (22, 1.5, 1), BAND)                                # band across the belly
+    m.cbox("torso", (0, 37.9, -11.4), (16, 1.5, 1), BAND)
+    m.cbox("torso", (0, 53.6, -9.9), (14, 3, 1.5), PLD)                                  # collar edge
+    m.cbox("torso", (0, 46, 10.6), (22, 15, 1.5), PL)                                    # back plate
+    m.cbox("torso", (0, 56.0, 0), (20, 3, 14), PLD)
+    m.cbox("torso", (0, 58.2, -1.5), (13, 2.5, 12), PL)                                  # gorget
+    # ------------------------------------------------------------ head: smooth domed helm, beak ridge, Y opening
     m.bone("head", "torso", (0, 59, -2), (-8, 0, 0))
-    m.cbox("head", (0, 64, -3.5), (11, 10, 12), PL)
-    # a carapace of overlapping segments, wider than the skull, like a woodlouse or crab shell enlarged
-    for k in range(5):
-        w = 14.5 - abs(k - 2) * 1.0
-        m.cbox("head", (0, 69.4 - abs(k - 2) * 0.6, -8 + k * 2.6), (w, 2.5, 3.5), PLB if k % 2 else PL,
-               rot=(-24 + k * 12, 0, 0), pivot=(0, 64.5, -8 + k * 2.6))
-    m.cbox("head", (0, 68.1, -10.4), (12.5, 1.5, 2.0), PL, rot=(18, 0, 0))                    # front lip
-    m.mcbox("head", (-6.6, 65.8, -3.6), (1.0, 4.0, 10.5), PLD, rot=(0, 0, -12))                # flared rim
-    for k in range(4):
-        m.mcbox("head", (-7.0, 67.6 - k * 0.4, -7 + k * 3), (1.5, 1.5, 2), PLD, rot=(0, 0, -20))
-    m.cbox("head", (0, 63, -9.9), (10, 8, 1.5), PL, decal={"north": VISOR})
-    m.mcbox("head", (-5.4, 60.5, -7.5), (1.5, 6, 6), PLD, rot=(0, 14, 0))
-    m.mcbox("head", (-4.4, 58.6, -9.2), (2.5, 2, 2.5), PLD, rot=(0, 0, -18))
-    m.cbox("head", (0, 58.5, -8.8), (7, 2, 3.5), PL)
+    HC = (0, 65, -3.0)
+    m.cbox("head", HC, (12, 9, 10), PL)
+    m.cbox("head", HC, (10, 12, 10), PL)
+    m.cbox("head", (0, 64.5, -3.0), (10, 9, 13), PL, decal={"north": helm_opening()})
+    m.cbox("head", (0, 71.3, -3.0), (1.5, 1.5, 11), PLD)                                 # ridge over the dome
+    m.cbox("head", (0, 66.6, -10.0), (2.0, 4.5, 1.0), PL, rot=(-8, 0, 0))                # beak-like nasal
+    m.cbox("head", (0, 58.6, -2.5), (13, 2, 12), PLD)                                    # rim on the gorget
 
-    # ------------------------------------------------------------ arms
+    # ------------------------------------------------------------ arms: domed pauldrons, flared vambraces, bare hands
     m.side("arm", "torso", (-14, 53, 0), (-6, 0, 8))
-    for k in range(4):
-        m.scbox("arm", (-15.5 - k * 0.6, 57.5 - k * 2.3, 0), (12 - k * 0.5, 2.5, 15.5 - k * 0.5), PLB if k % 2 else PL,
-                rot=(0, 0, 26 - k * 7), pivot=(-14, 55, 0))
-    m.scbox("arm", (-15.5, 46, 0), (7, 10, 7.5), PL)
+    for size in ((11, 8, 12), (9, 10, 10), (9, 8, 14)):                                  # one great dome a shoulder
+        m.scbox("arm", (-16.5, 55.0, 0), size, PL, rot=(0, 0, 16), pivot=(-14, 55, 0))
+    m.scbox("arm", (-18.0, 49.8, 0), (9, 3, 12), PLD, rot=(0, 0, 22), pivot=(-14, 55, 0))
+    m.scbox("arm", (-15.5, 45.5, 0), (7, 10, 7.5), PL)
     m.scbox("arm", (-13.5, 50, 0), (4, 4, 6), MAIL)
     m.side("forearm", "arm", (-15.5, 40.5, 0), (-14, 0, 0))
-    m.scbox("forearm", (-15.5, 40.5, 1.5), (7.5, 4, 6.5), PLD)
-    m.scbox("forearm", (-19.4, 40.5, 2.5), (1, 5, 5), PL)
-    m.scbox("forearm", (-15.5, 34, 0), (6.5, 10, 6.5), PL)
+    m.scbox("forearm", (-15.5, 40.5, 1.0), (7.5, 4, 7), PLD)
+    m.scbox("forearm", (-15.5, 34.5, 0), (7.5, 9, 7.5), PL)
+    m.scbox("forearm", (-15.5, 29.8, 0), (9, 3, 9), PL)                                  # flared cuff
     m.side("hand", "forearm", (-15.5, 28.5, 0), (6, 0, 0))
     for side, s in (("r", 1), ("l", -1)):
         bone = f"hand_{side}"
         X = -15.5 * s
-        m.cbox(bone, (X, 28, 0), (7.5, 3, 7.5), PLB)
-        m.cbox(bone, (X, 24.5, 0), (4, 5, 6), PL)
+        m.cbox(bone, (X, 27.8, 0), (4, 2.5, 5), HAND)
+        m.cbox(bone, (X, 24.5, 0), (4, 5, 6), HAND)
         for i in range(4):
             z = -2.2 + i * 1.45
-            digit(m, bone, (X + 0.3 * s, 22.2, z), (1.75, 1.5, 1.25), (2.5, 1.25), (20, 30, 30), (PLD, PL, PLD),
-                  plane="x", s=s)
-        digit(m, bone, (X + 1.6 * s, 25.5, -3.2), (2.0, 1.5), (1.5, 1.5), (40, 30), (PL, PLD), plane="z", s=1)
+            digit(m, bone, (X + 0.3 * s, 22.2, z), (1.75, 1.5, 1.25), (2.0, 1.25), (20, 30, 30), (HAND,), plane="x", s=s)
+        digit(m, bone, (X + 1.6 * s, 25.5, -3.2), (2.0, 1.5), (1.5, 1.5), (40, 30), (HAND,), plane="z", s=1)
 
     # ------------------------------------------------------------ weapons (right hand, shown per variant)
     grip = (-15.5, 23.0, 0.0)

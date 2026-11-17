@@ -4,7 +4,7 @@ import { world, system, ItemStack } from "@minecraft/server";
 
 const DIMENSIONS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
 const SACRIFICE_BLOCKS = new Set(["minecraft:soul_sand", "minecraft:soul_soil", "minecraft:black_concrete_powder"]);
-const SACRIFICE_VICTIMS = new Set(["minecraft:sheep", "minecraft:cow", "minecraft:pig"]);
+const SACRIFICE_VICTIMS = new Set(["minecraft:sheep"]);           // the film: "they sacrifice some sheep"
 const NOT_PREY = new Set(["studio:scylla", "studio:charybdis", "studio:boulder", "studio:cyclops", "studio:circe_sister",
   "studio:trojan_horse", "studio:siren", "studio:tiresias", "studio:athena", "minecraft:item", "minecraft:xp_orb",
   "minecraft:arrow", "minecraft:armor_stand", "minecraft:painting", "minecraft:boat", "minecraft:chest_boat"]);
@@ -119,7 +119,7 @@ const isHeld = (e) => holds.has(e.id);
 const boulders = new Map();
 const GRAVITY = 0.045;
 function hurlBoulder(thrower, targetLoc, damage, height) {
-  const start = add(thrower.location, add(scale(forward(thrower), 2.5), { x: 0, y: height, z: 0 }));
+  const start = add(thrower.location, add(scale(forward(thrower), 1.2), { x: 0, y: height, z: 0 }));
   const d = sub(targetLoc, start);
   const T = Math.max(14, Math.min(48, Math.hypot(d.x, d.z)));
   const vel = { x: d.x / T, y: (d.y + 0.5 * GRAVITY * T * T) / T, z: d.z / T };
@@ -159,10 +159,10 @@ function tickBoulders() {
 }
 
 // ================================================================== Polyphemus
-// 60 ft tall (18 blocks). A shepherd with a flock; he traps and devours men, kicks and tramples them, and falls asleep;
+// The film's 60 ft puppet, 6.5 blocks tall here. A shepherd with a flock; he traps and devours men, kicks and tramples them, and falls asleep;
 // he is blinded in his sleep with a sharp fiery log and cries out to Poseidon. Blind, he feels his sheep's wool as they
 // leave and the men slip out camouflaged in the flock. He plunges into the sea and throws a rock at the ship - and misses.
-const CY_MOUTH_UP = 15.5, CY_MOUTH_FWD = 2.8, CY_REACH = 8;
+const CY_MOUTH_UP = 4.7, CY_MOUTH_FWD = 1.3, CY_REACH = 3.5, CY_STEP = 1.7;   // blocks, for a 6.5-block giant
 const flockOf = (cy) => near(cy.dimension, cy.location, 48, "minecraft:sheep").filter((s) => dp(s, "studio:shepherd", "") === cy.id);
 function initCyclops(cy) {
   if (dp(cy, "studio:init", false)) return;
@@ -200,7 +200,7 @@ function cyclopsGrab(cy, victim) {
   startHold(victim, cy, 56, (h) => add(scale(forward(h), CY_MOUTH_FWD), { x: 0, y: CY_MOUTH_UP, z: 0 }), {
     onRelease: (v, h) => {
       sound(v.dimension, "mob.ravager.bite", v.location, 0.5, 3);
-      if (h) { try { v.teleport(add(h.location, scale(forward(h), 3.5)), { keepVelocity: false }); } catch { } }
+      if (h) { try { v.teleport(add(h.location, scale(forward(h), 1.6)), { keepVelocity: false }); } catch { } }
       hurt(v, 14, h);
     },
   });
@@ -228,9 +228,9 @@ function tickCyclops() {
     let moving = false;
     try { const v = cy.getVelocity(); moving = Math.hypot(v.x, v.z) > 0.02; } catch { }
     if (moving) {
-      for (const t of near(dim, cy.location, 3.4)) {
+      for (const t of near(dim, cy.location, CY_STEP)) {
         if (t.id === cy.id || NOT_PREY.has(t.typeId) || !isLiving(t) || isHeld(t) || (isPlayer(t) && isCreative(t))) continue;
-        if (t.typeId === "minecraft:sheep" || Math.abs(t.location.y - cy.location.y) > 2.5 || !ready(t, "studio:trampled")) continue;
+        if (t.typeId === "minecraft:sheep" || Math.abs(t.location.y - cy.location.y) > 1.5 || !ready(t, "studio:trampled")) continue;
         wait(t, "studio:trampled", 30);
         hurt(t, 8, cy);
       }
@@ -256,7 +256,7 @@ function tickCyclops() {
         animate(cy, "throw", 18);
         const a = Math.random() * Math.PI * 2, miss = 5 + Math.random() * 4;     // beyond the 4-block blast
         const aim = add(boat.location, { x: Math.cos(a) * miss, y: 0, z: Math.sin(a) * miss });
-        later(10, () => { if (valid(cy)) hurlBoulder(cy, aim, 16, 14); });
+        later(10, () => { if (valid(cy)) hurlBoulder(cy, aim, 16, 5.5); });
       }
     }
   }

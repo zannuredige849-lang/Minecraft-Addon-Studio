@@ -34,7 +34,7 @@
             "smash": "q.property('studio:anim') == 'smash'"
           }
         ],
-        "scale": "0.9109"
+        "scale": "0.8931"
       },
       "spawn_egg": {
         "base_color": "#B2B6BE",

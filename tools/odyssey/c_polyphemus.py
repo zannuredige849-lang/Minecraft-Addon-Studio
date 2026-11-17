@@ -4,15 +4,16 @@ Film references: a 60 ft (18 m) practical puppet; "slim and horrific monster wit
 elephantine skin and massive hands with broken nails. His face has an asymmetrical nose and his eye is in
 a vertical slit" (Villains Wiki); "His single eye hangs crooked above a horribly twisted nose and mouth, both
 set askew across his face. He is not the muscular brute of popular imagination but a misshapen, gangly
-creature" (MPA review); design after Goya's 'Saturn Devouring His Son'; bald.
+creature" (MPA review); design after Goya's 'Saturn Devouring His Son'; bald. Film stills show a gaunt, wrinkled,
+old-looking body (not a skeleton) and one wide-open round eye with an amber iris, set off to one side of the face.
 
-The model is built at base size and scaled up on the client so he stands 18 blocks tall.
+The model is built at base size and scaled up on the client; in game he stands 6.5 blocks tall.
 """
 from .core import Model
-from .materials import elephant, nails, teeth, cavity, slit_eye, blood_below, socket_shade, edge_shade, tint
+from .materials import elephant, nails, teeth, cavity, round_eye, blood_below, socket_shade, edge_shade, tint
 from .parts import digit, forward_digit
 
-TARGET_HEIGHT_BLOCKS = 18.0
+TARGET_HEIGHT_BLOCKS = 6.5
 
 
 def build():
@@ -38,10 +39,9 @@ def build():
         m.cbox("belly", (0, 24.6 + k * 1.4, 2.15), (1, 0.75, 0.75), SKD)
     m.bone("chest", "belly", (0, 28, 0), (14, 0, 0))
     m.cbox("chest", (0, 31.6, 0.2), (7, 7.5, 4.5), SK)
-    for k in range(6):
-        y = 29.0 + k * 1.15
-        m.mcbox("chest", (-1.9, y, -2.2), (2.75, 0.5, 0.75), SK, rot=(0, 0, -14 + k * 2))
-        m.mcbox("chest", (-3.6, y + 0.3, -0.2), (0.75, 0.5, 3.75), SK)
+    for k in range(3):                                                     # faint ribs under slack old skin
+        y = 29.2 + k * 1.3
+        m.mcbox("chest", (-2.0, y, -2.1), (2.5, 0.5, 0.5), SK, rot=(0, 0, -12 + k * 3))
     m.cbox("chest", (0, 31.2, -2.45), (0.75, 5, 0.5), SKD)
     for k in range(5):
         m.cbox("chest", (0, 28.6 + k * 1.5, 2.6), (1, 0.75, 0.75), SKD)
@@ -58,27 +58,27 @@ def build():
     # The cranium is three crossed boxes, so every edge is chamfered and the silhouette reads round, not cubic.
     m.bone("head", "neck", (0, 39.6, -0.6), (-14, 0, 0))
     HC = (0, 43.6, -0.2)
-    eye_c = (0.45, 43.0, -3.75)
+    eye_c = (0.65, 43.3, -3.75)
     m.cbox("head", HC, (6.5, 5.0, 5.0), SK, decal={"north": tint(0.8)})                          # x-extended: hollow cheeks
     m.cbox("head", (0, 43.6, -0.2), (4.5, 7.0, 5.0), SK)                                         # y-extended
     m.cbox("head", HC, (4.5, 5.0, 7.0), SK, decal={"north": socket_shade(eye_c, HC, (4.5, 5.0), 14,
-                                                                        blood_below("blind", 0.5, 0.72, 0.84),
-                                                                        radii=(1.5, 2.3), depth=0.42)})
+                                                                        blood_below("blind", 0.55, 0.75, 0.78),
+                                                                        radii=(1.7, 1.8), depth=0.38)})
     m.cbox("head", (0.3, 47.35, 0.1), (3.5, 0.5, 4.0), SK)                                       # crown
     m.cbox("head", (-2.55, 45.4, 1.1), (2.0, 2.25, 3.0), SK)                                     # lumpy skull
     m.cbox("head", (0.4, 44.7, 3.55), (3.5, 3.5, 0.75), SK)                                      # occiput
     m.cbox("head", (0.2, 40.2, -3.2), (4.5, 1.75, 1.0), SK,                                      # upper jaw
-           decal={"north": blood_below("blind", 0.47, 0.68, 0.0)})
-    # one crooked eye in a vertical slit of heavy lids, under an overhanging brow
-    m.cbox("head", eye_c, (1.25, 2.75, 0.25), SK, rot=(0, 0, 14), pivot=eye_c, decal={"north": slit_eye()})
-    m.cbox("head", (0.45, 44.6, -3.95), (1.75, 0.75, 0.5), SK, rot=(0, 0, 14), pivot=eye_c,     # heavy upper lid
-           decal={"north": edge_shade("bottom", 0.5, 0.8)})
-    m.cbox("head", (0.45, 41.45, -3.9), (1.5, 0.5, 0.4), SK, rot=(0, 0, 14), pivot=eye_c,       # lower lid
+           decal={"north": blood_below("blind", 0.5, 0.7, 0.0)})
+    # one wide-open round eye, amber iris, set crooked to one side under a wrinkled brow
+    m.cbox("head", eye_c, (2.0, 2.0, 0.25), SK, rot=(0, 0, 8), pivot=eye_c, decal={"north": round_eye()})
+    m.cbox("head", (0.65, 44.5, -3.95), (2.5, 0.5, 0.5), SK, rot=(0, 0, 8), pivot=eye_c,        # upper lid
+           decal={"north": edge_shade("bottom", 0.5, 0.9)})
+    m.cbox("head", (0.65, 42.1, -3.9), (2.25, 0.5, 0.4), SK, rot=(0, 0, 8), pivot=eye_c,        # lower lid
            decal={"north": edge_shade("top", 0.45, 0.9)})
-    for lx, edge in ((-0.3, "right"), (1.2, "left")):                                            # side lids
-        m.cbox("head", (lx, 43.0, -3.85), (0.25, 2.75, 0.25), SK, rot=(0, 0, 14), pivot=eye_c,
+    for lx, edge in ((-0.5, "right"), (1.8, "left")):                                            # corners
+        m.cbox("head", (lx, 43.3, -3.85), (0.25, 1.75, 0.25), SK, rot=(0, 0, 8), pivot=eye_c,
                decal={"north": edge_shade(edge, 0.45, 1.0)})
-    m.cbox("head", (0.3, 45.35, -4.05), (4.0, 1.0, 0.75), SK, rot=(0, 0, 9))                     # brow ridge
+    m.cbox("head", (0.4, 45.35, -4.0), (4.25, 0.75, 0.75), SK, rot=(0, 0, 6))                    # brow ridge
     m.cbox("head", (-0.5, 40.9, -4.15), (1, 2.25, 1), SK, rot=(0, 12, -16))                      # twisted nose
     m.cbox("head", (-0.95, 39.95, -4.25), (1.5, 1, 1.25), SK, rot=(0, 8, -22))
     m.cbox("head", (-2.4, 41.5, -3.25), (1.25, 1.0, 1.0), SK)                                    # cheekbones

@@ -47,7 +47,7 @@
             "blind_search": "q.property('studio:blind') && q.property('studio:state') != 'asleep'"
           }
         ],
-        "scale": "6.3552"
+        "scale": "2.2949"
       },
       "spawn_egg": {
         "base_color": "#B0ACA4",

@@ -2,8 +2,8 @@
 shades of the dead. Each is built on the shared anatomical body with film-described costume on top."""
 from .core import Model
 from .human import build_human, hood
-from .materials import (skin, cloth, linen, fishnet, hair, leather, metal, human_face, crust, translucent,
-                        switch, switch_decal, flat)
+from .materials import (skin, cloth, linen, fishnet, hair, leather, metal, human_face, crust,
+                        switch, switch_decal, flat, scales, fin)
 from .parts import strands
 
 
@@ -67,17 +67,18 @@ def long_hair(m, b, mat, length=2.2, front=True, crown=True, side_len=1.2, seed=
 
 # ------------------------------------------------------------------ Circe
 def build_circe():
-    """An aged, plain-looking pagan witch living in a dilapidated house (Villains Wiki); Samantha Morton."""
+    """A plain-looking pagan witch living in a dilapidated house (Villains Wiki); Samantha Morton. The film still shows
+    a middle-aged woman with long, unkempt dark brown hair going grey and a dark brown wool dress."""
     m = Model("circe", 37, D=4)
-    face = human_face(iris=(128, 138, 118), brow=(108, 102, 96), lips=(156, 108, 102), eye_y=0.48, mouth_y=0.8, age=0.16)
-    b = build_human(m, 27.2, sex="f", heads=7.2, skin_color=(212, 188, 170), skin_kw={"wrinkle": 0.08, "spots": 0.08},
-                    face=face, nail=(186, 160, 140), legs=False, feet="bare", stoop=7, build=0.95)
+    face = human_face(iris=(112, 128, 140), brow=(80, 64, 52), lips=(156, 108, 102), eye_y=0.48, mouth_y=0.8, age=0.08)
+    b = build_human(m, 27.2, sex="f", heads=7.2, skin_color=(214, 188, 168), skin_kw={"wrinkle": 0.04, "spots": 0.03},
+                    face=face, nail=(186, 160, 140), legs=False, feet="bare", stoop=3, build=0.95)
     hh = b.hh
-    DRESS = cloth((98, 88, 70), folds=0.12, grime=0.32, patch=(78, 70, 56), tatter=0.0)
+    DRESS = cloth((84, 72, 58), folds=0.12, grime=0.32, patch=(70, 62, 50), tatter=0.0)
     SKIRT = cloth((86, 78, 64), folds=0.14, grime=0.35, patch=(70, 62, 52))
     SHAWL = cloth((70, 62, 56), folds=0.08, weave=False, grime=0.15)
     APRON = cloth((120, 108, 86), folds=0.1, grime=0.4, patch=(96, 84, 66))
-    HAIR = hair((150, 146, 140), tips=0.9, streak=(96, 92, 88))
+    HAIR = hair((86, 68, 54), tips=0.9, streak=(148, 142, 134))
     gown(m, b, DRESS, flare=0.5, tatter=0.5, fold_mat=SKIRT)
     m.cbox("hips", (0, b.y_hip - 0.6 * hh, -(b.chest_d + 0.45 * hh) / 2 - 0.06 * hh), (b.hip_w * 0.8, 2.1 * hh, 0.08 * hh), APRON)
     sleeves(m, b, DRESS, to="elbow")
@@ -93,19 +94,42 @@ def build_circe():
 
 # ------------------------------------------------------------------ Siren
 def build_siren():
-    """'Ordinary human silhouettes, distant and haze-shrouded in mist' (Villains Wiki). Rendered half-transparent."""
+    """The Sirens are mermaids in Nolan's film ("the Sirens are mermaids", Collider), seen as pale bodies lying on the
+    sea rocks in the mist (film still) and singing a song that lures a man off the ship. Evil: ash-pale skin, black
+    eyes, a singing mouth, long wet hair and a scaled fish tail. Posed reclining on the rocks, propped on one arm."""
     m = Model("siren", 23, D=4)
-    A = 196
-    face = human_face(iris=(40, 40, 46), brow=(56, 54, 58), lips=(146, 116, 120), eye_y=0.5, mouth_y=0.8, mouth_open=0.06)
-    skin_t = translucent(skin((206, 202, 200), mottle=0.5), A)
-    b = build_human(m, 28.0, sex="f", heads=7.6, skin_color=(206, 202, 200), skin_override=skin_t, face=face,
-                    nail=None, legs=False, feet="bare", build=0.88)
+    face = human_face(iris=(18, 16, 20), sclera=(34, 32, 38), brow=(44, 42, 48), lips=(150, 126, 130),
+                      kohl=(96, 98, 106), eye_y=0.5, mouth_y=0.8, mouth_open=0.14)
+    SK = skin((200, 205, 208), mottle=0.6)
+    b = build_human(m, 28.0, sex="f", heads=7.6, skin_color=(200, 205, 208), skin_override=SK, face=face,
+                    nail=None, legs=False, feet="none", build=0.86)
     hh = b.hh
-    SHIFT = translucent(linen((200, 200, 198), bleach=0.05), A)
-    FOLD = translucent(linen((176, 176, 176), bleach=0.0), A)
-    HAIR = translucent(hair((36, 34, 38), tips=1.0), A)
-    gown(m, b, SHIFT, flare=0.38, tatter=0.0, fold_mat=FOLD)
-    long_hair(m, b, HAIR, length=3.0, side_len=2.0, seed=9, count=8)
+    HAIR = hair((30, 30, 34), tips=1.0)
+    SC = scales()
+    FIN = fin()
+    long_hair(m, b, HAIR, length=2.6, side_len=2.2, seed=9, count=8)
+    # scales begin at the hips
+    m.cbox("hips", (0, b.y_hip - 0.15 * hh, 0.02 * hh), (b.hip_w + 0.2 * hh, 1.0 * hh, b.chest_d + 0.2 * hh), SC)
+    m.cbox("waist", (0, b.y_waist - 0.05 * hh, 0), (b.waist_w + 0.12 * hh, 0.3 * hh, b.chest_d * 0.92 + 0.12 * hh), SC)
+    # sit her down on the rock: the hips come down to the tail's height
+    m.shift(0, -(b.y_hip - 2.6), 0)
+    # the tail lies along the rock behind her, curling to one side, the fluke lifted
+    segs = ((4.75, 3.5, 5.5, 0), (4.25, 3.0, 5.0, 18), (3.5, 2.5, 4.5, 20), (2.75, 2.0, 4.0, 22), (2.0, 1.5, 3.0, 14))
+    parent, z, y = "hips", -1.0, 1.8
+    for i, (w, h, L, turn) in enumerate(segs):
+        name = f"tail_{i}"
+        m.bone(name, parent, (0, y, z), (25 if i == 4 else 0, turn, 0))
+        m.cbox(name, (0, y, z + L / 2), (w, h, L + (0.75 if i < len(segs) - 1 else 0)), SC)
+        if i in (1, 2):
+            m.cbox(name, (0, y + h / 2 + 0.4, z + L / 2), (0.25, 0.75, L * 0.8), FIN)                   # dorsal fin
+        parent, z, y = name, z + L, y - (h - segs[min(i + 1, len(segs) - 1)][1]) / 2
+    for sx in (-1, 1):                                                                                     # the fluke
+        m.cube("tail_4", (sx * 0.4 - (3.75 if sx < 0 else 0.0), y - 0.25, z - 0.75), (3.75, 0.5, 4.25), FIN,
+               rot=(0, -sx * 28, 0), pivot=(0, y, z - 0.75))
+    # pose: leaning back, one arm propped on the rock, the other reaching out to the sailors
+    for name, r in (("waist", (-8, 0, 0)), ("head", (12, -10, 0)), ("arm_l", (26, 0, -12)), ("arm_r", (-58, 0, 8)),
+                    ("forearm_r", (-22, 0, 0))):
+        m.index[name]["rotation"] = [float(v) for v in r]
     return m, b
 
 
@@ -171,24 +195,26 @@ def build_athena():
 
 # ------------------------------------------------------------------ Tiresias
 def build_tiresias():
-    """The blind prophet who 'appears from underneath the sand' of Hades (James Remar)."""
+    """The blind prophet who 'appears from underneath the sand' of Hades (James Remar). The film still shows a heavy
+    dark shroud drawn over his head and shoulders and a face caked in black sand, with short grey stubble."""
     m = Model("tiresias", 71, D=4)
     SAND = (34, 32, 31)
-    face = human_face(blind=True, brow=(150, 146, 140), lips=(120, 100, 96), eye_y=0.48, mouth_y=0.8, age=0.2,
-                      beard=(150, 146, 138), beard_from=0.66, sand=SAND)
+    face = human_face(blind=True, brow=(96, 90, 84), lips=(120, 100, 96), eye_y=0.48, mouth_y=0.8, age=0.2,
+                      beard=(104, 98, 92), beard_from=0.7, sand=SAND)
     b = build_human(m, 29.0, sex="m", heads=7.4, skin_color=(150, 144, 136), skin_kw={"wrinkle": 0.12},
                     skin_override=crust(skin((150, 144, 136), wrinkle=0.12), SAND, 0.5), face=face,
                     nail=None, legs=False, feet="bare", stoop=14, build=0.9)
     hh = b.hh
-    ROBE = crust(cloth((70, 64, 58), folds=0.12, grime=0.3, tatter=0.0), SAND, 0.6)
-    HAIR = crust(hair((168, 164, 156), tips=1.0), SAND, 0.35)
-    gown(m, b, ROBE, flare=0.5, tatter=0.8)
-    sleeves(m, b, ROBE, to="wrist", wide=0.1)
-    long_hair(m, b, HAIR, length=1.9, side_len=1.3, seed=21, count=6)
+    ROBE = crust(cloth((40, 34, 30), folds=0.14, grime=0.3, tatter=0.0), SAND, 0.5)
+    SHROUD = crust(cloth((34, 29, 26), folds=0.18, weave=False, grime=0.2), SAND, 0.4)
+    gown(m, b, ROBE, flare=0.55, tatter=0.8)
+    sleeves(m, b, ROBE, to="wrist", wide=0.12)
+    hood(m, b, SHROUD, extra=0.26, length=1.35)
     hc = b.head_c
-    strands(m, "head", -0.22 * hh, 0.22 * hh, hc[1] - 0.3 * hh, b.face_z - 0.06 * hh, (0.9 * hh, 1.5 * hh), 0.1 * hh, 0.1 * hh,
-            HAIR, 5, seed=4)
-    m.cbox("head", (0, hc[1] - 0.45 * hh, b.face_z - 0.05 * hh), (0.5 * hh, 0.35 * hh, 0.12 * hh), HAIR)
+    m.cbox("head", (0, hc[1] + b.head_h / 2 + 0.3 * hh, hc[2] - 0.08 * hh), (b.head_w + 0.62 * hh, 0.14 * hh, 0.3 * hh), SHROUD)
+    # the shroud falls over the shoulders like a cape
+    m.cbox("chest", (0, b.y_sh - 0.3 * hh, 0.05 * hh), (b.chest_w + 0.55 * hh, 0.7 * hh, b.chest_d + 0.5 * hh), SHROUD)
+    m.cbox("chest", (0, b.y_sh - 1.2 * hh, b.chest_d / 2 + 0.25 * hh), (b.chest_w + 0.5 * hh, 1.6 * hh, 0.12 * hh), SHROUD)
     return m, b
 
 

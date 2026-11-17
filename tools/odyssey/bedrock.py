@@ -70,7 +70,7 @@ def interact(event, text, cooldown=1.0, extra_filters=None):
 
 # ================================================================== entities
 def bp_cyclops():
-    c = base(["cyclops", "giant", "monster"], 3.0, 6.0, 600, 9)
+    c = base(["cyclops", "giant", "monster"], 1.8, 6.4, 600, 9)
     c.update({
         "minecraft:movement": {"value": 0.26}, "minecraft:movement.basic": {}, "minecraft:jump.static": {},
         "minecraft:navigation.generic": {"is_amphibious": True, "can_path_over_water": False, "can_swim": False,
@@ -182,9 +182,11 @@ def bp_sister():
 
 
 def bp_siren():
-    c = base(["siren"], 0.6, 1.8, 100, 999)
+    # a mermaid lying on the sea rocks: she does not move from them, breathes in water and air, cannot be harmed
+    c = base(["siren", "mermaid"], 1.0, 1.2, 100, 999)
     c.update(static())
-    c.update({"minecraft:damage_sensor": INVULNERABLE})
+    c.update({"minecraft:damage_sensor": INVULNERABLE,
+              "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True}})
     return entity("studio:siren", None, c)
 
 
