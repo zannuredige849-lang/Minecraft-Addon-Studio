@@ -107,10 +107,12 @@ def walk(k, leg=26, knee=30, arm=16, bob=0.4, roll=3, legs=("thigh", "shin"), ar
 
 
 def human_idle(head_amp=10, breathe=1.2):
-    return A({"chest": rot(f"math.sin(q.life_time*60)*{breathe}"),
-              "head": rot("math.sin(q.life_time*28)*3", f"math.sin(q.life_time*17)*{head_amp}"),
-              "arm_r": rot("math.sin(q.life_time*40)*2", 0, "math.sin(q.life_time*23)*1.5"),
-              "arm_l": rot("-math.sin(q.life_time*40)*2", 0, "-math.sin(q.life_time*23)*1.5")})
+    """Standing and alive: slow breathing, a shifting of weight, the head turning to look, arms swaying a little."""
+    return A({"chest": rot(f"math.sin(q.life_time*60)*{breathe}*1.8", "math.sin(q.life_time*21)*2.5", "math.sin(q.life_time*33)*1.3"),
+              "head": rot("math.sin(q.life_time*28)*4", f"math.sin(q.life_time*17)*{head_amp}*1.3+math.sin(q.life_time*43)*2"),
+              "arm_r": rot("math.sin(q.life_time*40)*4.5", 0, "3+math.sin(q.life_time*23)*3"),
+              "arm_l": rot("-math.sin(q.life_time*40)*4.5", 0, "-3-math.sin(q.life_time*23)*3"),
+              "hips": {"position": ["math.sin(q.life_time*33)*0.14", "math.sin(q.life_time*60)*0.08", 0]}})
 
 
 def stand_legs(times, thigh, shin, foot=None):

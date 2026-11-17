@@ -45,6 +45,24 @@ BLOCKS = {
     "poppy": ("poppy", {}), "terracotta": ("terracotta", {}), "tuff": ("tuff", {}), "calcite": ("calcite", {}),
     "white_concrete": ("white_concrete", {}),
 }
+# Blocks Amulet's universal format has no plain name for are given the way its Bedrock translator knows them
+# (namespace, name, properties); an untranslated block would be written as an unknown block and show up as dirt.
+SPECIAL = {
+    "planks": ("minecraft", "planks", {"wood_type": "oak"}),
+    "spruce_planks": ("minecraft", "planks", {"wood_type": "spruce"}),
+    "log": ("universal_minecraft", "log", {"axis": "y", "material": "oak", "stripped": "false"}),
+    "spruce_log": ("universal_minecraft", "log", {"axis": "y", "material": "spruce", "stripped": "false"}),
+    "dark_log": ("universal_minecraft", "log", {"axis": "y", "material": "dark_oak", "stripped": "false"}),
+    "leaves": ("minecraft", "leaves", {"old_leaf_type": "oak", "persistent_bit": "1", "update_bit": "0"}),
+    "spruce_leaves": ("minecraft", "leaves", {"old_leaf_type": "spruce", "persistent_bit": "1", "update_bit": "0"}),
+    "fence": ("universal_minecraft", "fence", {"material": "oak", "east": "false", "north": "false", "south": "false", "west": "false"}),
+    "black_powder": ("minecraft", "concrete_powder", {"color": "black"}),
+    "white_concrete": ("minecraft", "concrete", {"color": "white"}),
+    "dandelion": ("universal_minecraft", "plant", {"plant_type": "dandelion"}),
+    "poppy": ("minecraft", "red_flower", {"flower_type": "poppy"}),
+    "mossy_bricks": ("universal_minecraft", "stone_bricks", {"variant": "mossy"}),
+}
+BLOCKS.pop("polished_andesite", None)
 NAMES = list(BLOCKS)
 IDX = {n: i for i, n in enumerate(NAMES)}
 MAP_COLORS = {"water": (40, 90, 150), "sand": (226, 214, 156), "grass": (92, 140, 70), "stone": (130, 130, 130),
@@ -100,20 +118,30 @@ class Canvas:
         return n / 1.75
 
     # ---- terrain
-    def island(self, R, peak, plateau, Y, ox=0, oz=0, wobble=0.12, amp=1.6):
-        """Raise a roughly round island: flat at Y inside the plateau, rolling up to `peak`, falling into the sea and then
-        sloping away under water to the deep floor, so no shelf ends in a square step at the edge of the canvas."""
+    def island(self, R, peak, plateau, Y, ox=0, oz=0, wobble=0.12, amp=1.6, hills=2):
+        """Raise a roughly round island: flat at Y inside the plateau, falling gently to the shore, with a few hills out on
+        the slopes (never around the plateau, which would make it a crater), then sloping away under water to the deep
+        floor so no shelf ends in a square step at the edge of the canvas."""
         dx, dz = self.X - (self.cx + ox), self.Z - (self.cz + oz)
         d, ang = np.hypot(dx, dz), np.arctan2(dz, dx)
         wob = 1 + wobble * np.sin(3 * ang + self.phase[0]) + 0.5 * wobble * np.sin(5 * ang + self.phase[1])
         de = d / wob
-        t = np.clip(1 - (de / R) ** 2, 0, 1)
-        land = (WP.SEA - 3) + (peak - (WP.SEA - 3)) * t ** 1.2
-        f = smooth((de - plateau) / 10.0)
-        land = np.where(de < plateau, Y, Y * (1 - f) + land * f + self.noise(18.0) * amp * f)
-        sea = np.clip(WATER_TOP - (de - 0.9 * R) * 0.55, SEA_FLOOR, WATER_TOP)
-        w = smooth((de - 0.86 * R) / (0.08 * R))
-        h = land * (1 - w) + sea * w
+        coast = 0.86 * R
+        prof = smooth((de - plateau) / max(coast - plateau, 1.0))
+        land = Y - (Y - WATER_TOP) * prof
+        lo, hi = plateau + 8, coast - 10
+        bumps = np.zeros_like(d)
+        if hi > lo + 6 and peak > Y:
+            for _ in range(hills):
+                a_, dist = self.rng.uniform(0, 6.28), self.rng.uniform(lo, hi)
+                hx, hz = self.cx + ox + math.cos(a_) * dist, self.cz + oz + math.sin(a_) * dist
+                hr, hh = max(10.0, (hi - lo) * 0.9), (peak - Y) * self.rng.uniform(0.6, 1.0)
+                bumps = np.maximum(bumps, hh * smooth(1 - np.hypot(self.X - hx, self.Z - hz) / hr))
+        inland = smooth((coast - de) / (0.25 * R)) * smooth((de - plateau) / 8.0)       # flat plateau, calm shore
+        h_land = land + (bumps + self.noise(18.0) * amp) * inland
+        sea = np.clip(WATER_TOP - (de - coast) * 0.55, SEA_FLOOR, WATER_TOP)
+        w = smooth((de - coast) / (0.06 * R))
+        h = h_land * (1 - w) + sea * w
         self.H = np.maximum(self.H, np.rint(h).astype(int))
         return d, wob
 
@@ -263,7 +291,7 @@ class Canvas:
 # ================================================================== the places
 def site_ogygia(c):
     Y = c.p["y"]
-    c.island(R=44, peak=71, plateau=17, Y=Y)
+    c.island(R=44, peak=71, plateau=26, Y=Y)
     c.finish_terrain()
     c.clear(c.cx, c.cz, 10); c.clear(c.cx + 7, c.cz + 5, 6)
     # the shrine: a stone dais with the lodestone that tells the script this is the map
@@ -281,7 +309,7 @@ def site_ogygia(c):
 
 def site_troy(c):
     Y = c.p["y"]
-    c.island(R=38, peak=66, plateau=22, Y=Y, wobble=0.07, amp=0.6)
+    c.island(R=38, peak=64, plateau=24, Y=Y, wobble=0.07, amp=0.6, hills=0)
     c.finish_terrain(top=np.full_like(c.H, IDX["sand"]), sub=IDX["sand"])
     c.clear(c.cx, c.cz, 9)
     c.box(c.cx - 6, Y - 1, c.cz - 6, c.cx + 6, Y, c.cz + 6, "planks")            # the horse's platform
@@ -300,7 +328,7 @@ def site_troy(c):
 
 def site_cyclops(c):
     Y = c.p["y"]
-    c.island(R=76, peak=80, plateau=17, Y=Y, ox=18, oz=0, wobble=0.1)
+    c.island(R=76, peak=80, plateau=26, Y=Y, ox=18, oz=0, wobble=0.1)
     # the hill he lives in, to the west: steep sides, a high top, and a cave in its east foot
     d = np.hypot(c.X - (c.cx - 30), c.Z - c.cz)
     k = smooth((36 - d) / 12.0)
@@ -321,7 +349,7 @@ def site_cyclops(c):
 
 def site_telepylus(c):
     Y = c.p["y"]
-    c.island(R=60, peak=84, plateau=15, Y=Y, wobble=0.1)
+    c.island(R=70, peak=84, plateau=32, Y=Y, wobble=0.1, hills=5)
     d = np.hypot(c.X - (c.cx + 8), c.Z - (c.cz + 44))                                          # the harbour, cut into the south
     c.H = np.where(d < 21, np.minimum(c.H, WP.SEA - 3 + (d / 21) * 2), c.H)
     c.finish_terrain(top=np.where(c.H <= WP.SEA + 1, IDX["sand"], IDX["podzol"]), sub=IDX["dirt"])
@@ -339,7 +367,7 @@ def site_telepylus(c):
 
 def site_aeaea(c):
     Y = c.p["y"]
-    c.island(R=46, peak=69, plateau=22, Y=Y, wobble=0.09, amp=1.0)
+    c.island(R=46, peak=69, plateau=26, Y=Y, wobble=0.09, amp=1.0)
     c.finish_terrain()
     c.clear(c.cx, c.cz + 4, 8)
     c.clear(c.cx - 12, c.cz - 8, 8)
@@ -352,7 +380,7 @@ def site_aeaea(c):
 
 def site_hades(c):
     Y = c.p["y"]
-    c.island(R=46, peak=67, plateau=24, Y=Y, wobble=0.1, amp=0.8)
+    c.island(R=46, peak=67, plateau=26, Y=Y, wobble=0.1, amp=0.8)
     # the river Oceanus: a channel from the south sea up into the island
     ch = (np.abs(c.X - (c.cx + 22)) < 5) & (c.Z > c.cz - 6)
     c.H = np.where(ch, np.minimum(c.H, WP.SEA - 4), c.H)
@@ -412,7 +440,7 @@ def site_strait(c):
 
 def site_thrinacia(c):
     Y = c.p["y"]
-    c.island(R=58, peak=70, plateau=24, Y=Y, wobble=0.08, amp=1.2)
+    c.island(R=58, peak=70, plateau=26, Y=Y, wobble=0.08, amp=1.2)
     c.finish_terrain()
     c.clear(c.cx, c.cz, 19)
     for k in range(6):                                                                          # the altar of the sun
@@ -425,7 +453,7 @@ def site_thrinacia(c):
 
 def site_ithaca(c):
     Y = c.p["y"]
-    c.island(R=46, peak=72, plateau=20, Y=Y, wobble=0.09)
+    c.island(R=46, peak=72, plateau=26, Y=Y, wobble=0.09)
     c.finish_terrain()
     c.clear(c.cx + 4, c.cz + 6, 7)
     x0, z0 = c.cx - 12, c.cz - 22                                                               # home: a white house with columns
@@ -522,8 +550,12 @@ def write_level(path, canvases, log=print):
     dim = "minecraft:overworld"
     pal = level.block_palette
     def universal(k):
-        name, props = BLOCKS[k]
-        return Block("universal_minecraft", name, {a: amulet_nbt.StringTag(b) for a, b in props.items()})
+        ns, name, props = SPECIAL.get(k, ("universal_minecraft",) + BLOCKS[k])
+        return Block(ns, name, {a: amulet_nbt.StringTag(b) for a, b in props.items()})
+    bedrock = level.translation_manager.get_version("bedrock", (1, 21, 0))
+    untranslated = [k for k in NAMES if bedrock.block.from_universal(universal(k))[0].namespace != "minecraft"]
+    if untranslated:
+        raise SystemExit(f"these blocks do not translate to Bedrock and would show up as dirt: {untranslated}")
     ids = np.array([pal.get_add_block(universal(k)) for k in NAMES], dtype=np.uint32)
     sea = np.full((16, NY, 16), IDX["air"], np.uint8)
     sea[:, 0, :] = IDX["bedrock"]
@@ -620,14 +652,14 @@ def verify_world(path, log=print):
     m = WP.MARKER
     if block(m["x"], m["y"], m["z"]) != m["block"].replace("minecraft:", ""):
         problems.append(f"no {m['block']} at the marker position {m}")
-    solid_not = {"air", "water", "oak_leaves", "spruce_leaves", "short_grass", "dandelion", "poppy"}
+    solid_not = {"air", "water", "leaves", "oak_leaves", "spruce_leaves", "short_grass", "dandelion", "poppy", "plant", "red_flower"}
     for s in WP.SITES:
         for typ, dx, dz in s["creatures"]:
             x, y, z = s["x"] + dx, s["y"], s["z"] + dz
             if block(x, y, z) in solid_not:
                 problems.append(f"{s['id']}: {typ} would stand on {block(x, y, z)} at {(x, y, z)}")
             top = HEADROOM.get(typ, 3)
-            blocked = [yy for yy in range(y + 1, y + 1 + top) if block(x, yy, z) not in ("air", "dandelion", "poppy")]
+            blocked = [yy for yy in range(y + 1, y + 1 + top) if block(x, yy, z) not in ("air", "plant", "red_flower")]
             if blocked:
                 problems.append(f"{s['id']}: {typ} at {(x, y, z)} has no room above (blocked at y={blocked[0]}: {block(x, blocked[0], z)})")
     # the sea connects the places: flood fill open water, 16 blocks at a time, from Ogygia and see what can be reached
