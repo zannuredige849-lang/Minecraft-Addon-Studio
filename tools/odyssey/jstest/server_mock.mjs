@@ -182,11 +182,15 @@ class Dimension {
   }
 }
 const dims = { "minecraft:overworld": new Dimension("overworld"), "minecraft:nether": new Dimension("nether"), "minecraft:the_end": new Dimension("end") };
+const worldDp = {};
 export const world = {
   getDimension: (id) => dims[id],
   getAllPlayers: () => dims["minecraft:overworld"].getPlayers({}),
   getEntity: (id) => entities.get(id),
   getTimeOfDay: () => timeOfDay,
+  getAbsoluteTime: () => tick,
+  getDynamicProperty: (k) => worldDp[k],
+  setDynamicProperty: (k, v) => { worldDp[k] = v; },
   afterEvents: { entitySpawn: ev("entitySpawn"), entityHitEntity: ev("entityHitEntity"), entityHurt: ev("entityHurt"),
     entityDie: ev("entityDie"), dataDrivenEntityTrigger: ev("dataDrivenEntityTrigger"), itemCompleteUse: ev("itemCompleteUse"),
     playerSpawn: ev("playerSpawn"), playerLeave: ev("playerLeave") },
@@ -194,3 +198,4 @@ export const world = {
 export const spawn = (t, l, dimId = "minecraft:overworld") => dims[dimId].spawnEntity(t, l);
 export const all = () => [...entities.values()];
 export const clearAll = () => { for (const e of [...entities.values()]) e.alive = false; entities.clear(); };
+export const forgetWorld = () => { for (const k of Object.keys(worldDp)) delete worldDp[k]; };

@@ -10,8 +10,6 @@ import { fogOff, fogOn, hear, tell, title } from "../lib/fx.js";
 let active = false, checked = -1e9;
 const FOG_TAG = "odyssey_site";
 const siteOf = new Map();            // player id -> site id they are in now
-const lastSpawn = new Map();         // "site:type" -> tick of the last spawn
-const gone = new Map();              // "site:type" -> tick at which it was found missing
 
 /** Is this the map? (Checked now and then until it is.) */
 export function mapActive(force = false) {
@@ -76,10 +74,34 @@ export function tickJourney() {
   }
 }
 
-/**
- * Keep every place's creatures alive while a player is near (close enough that the place is loaded): the missing ones
- * are spawned, and one that was killed comes back ten minutes later.
- */
+// ---------------------------------------------------------------- the creatures of each place
+// A place's creatures are spawned the first time a player comes near (the world remembers that), and one that is killed
+// comes back ten minutes later (world time, so a restart does not forget it). Deaths are what is counted, not what is
+// loaded: a creature that wanders off, or is not loaded, is never mistaken for a dead one.
+const worldTime = () => { try { return typeof world.getAbsoluteTime === "function" ? world.getAbsoluteTime() : now(); } catch { return now(); } };
+const readDeaths = () => { try { return JSON.parse(world.getDynamicProperty("odyssey:deaths") ?? "[]"); } catch { return []; } };
+const writeDeaths = (list) => { try { world.setDynamicProperty("odyssey:deaths", JSON.stringify(list.slice(-64))); } catch { } };
+const flagKey = (s, type) => `odyssey:site:${s.id}:${type}`;
+
+/** A creature died: if it belongs to a place, that place will make a new one in ten minutes. */
+export function onCreatureDied(e) {
+  if (!mapActive()) return;
+  const type = e.typeId, loc = e.location;
+  const s = SITES.find((x) => x.creatures.some((c) => c[0] === type) && flat(loc, x) < x.r + 150);
+  if (!s) return;
+  const list = readDeaths();
+  list.push([s.id, type, worldTime()]);
+  writeDeaths(list);
+}
+
+function spawnSpot(dim, s, type, i, spots) {
+  const [dx, dz] = spots[i % spots.length];
+  const e = dim.spawnEntity(type, { x: s.x + dx, y: s.y + 1, z: s.z + dz });
+  if (e) { try { e.setDynamicProperty("studio:site", s.id); } catch { } }
+  return e;
+}
+
+/** Called every few seconds: keep every place populated while a player is near enough for it to be loaded. */
 export function tickSites() {
   if (!mapActive()) return;
   const dim = world.getDimension("minecraft:overworld");
@@ -90,19 +112,19 @@ export function tickSites() {
       const wanted = new Map();
       for (const [type, dx, dz] of s.creatures) wanted.set(type, [...(wanted.get(type) ?? []), [dx, dz]]);
       for (const [type, spots] of wanted) {
-        const have = near(dim, center, s.r + 15, type).filter(valid).length, key = `${s.id}:${type}`;
-        if (have > 0) gone.delete(key);
-        if (have >= spots.length) continue;
-        if (have === 0 && lastSpawn.has(key)) {                      // it was here and now it is not: killed
-          if (!gone.has(key)) gone.set(key, now());
-          if (now() - gone.get(key) < RESPAWN_TICKS) continue;
-          gone.delete(key);
+        const flag = flagKey(s, type);
+        if (!world.getDynamicProperty(flag)) {                                      // first visit: everything is here
+          for (let i = 0; i < spots.length; i++) spawnSpot(dim, s, type, i, spots);
+          world.setDynamicProperty(flag, true);
+          continue;
         }
-        for (let i = have; i < spots.length; i++) {
-          const [dx, dz] = spots[i];
-          const e = dim.spawnEntity(type, { x: s.x + dx, y: s.y + 1, z: s.z + dz });
-          if (e) lastSpawn.set(key, now());
-        }
+        const deaths = readDeaths();
+        const due = deaths.filter((d) => d[0] === s.id && d[1] === type && worldTime() - d[2] >= RESPAWN_TICKS);
+        if (!due.length) continue;
+        const have = near(dim, center, s.r + 150, type).filter(valid).length;
+        let missing = Math.min(due.length, Math.max(0, spots.length - have));
+        for (let i = 0; i < missing; i++) spawnSpot(dim, s, type, have + i, spots);
+        writeDeaths(deaths.filter((d) => !due.includes(d)));                          // answered, whether or not one was needed
       }
     });
   }

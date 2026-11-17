@@ -67,6 +67,7 @@
           }
         ]
       },
+      "minecraft:persistent": {},
       "minecraft:breathable": {
         "total_supply": 300,
         "suffocate_time": 0,

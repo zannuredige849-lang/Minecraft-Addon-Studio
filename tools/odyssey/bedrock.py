@@ -126,6 +126,7 @@ def bp_laestrygonian():
         "minecraft:damage_sensor": {"triggers": [NO_FALL, {"cause": "entity_attack", "deals_damage": True, "damage_multiplier": 0.5}]},
         "minecraft:follow_range": {"value": 40, "max": 48},
         "minecraft:attack": {"damage": 3},                  # the weapon moves are the script's (slash, impale, crush, cleave)
+        "minecraft:persistent": {},
     })
     calm = ai_wander(6, 7)
     calm["minecraft:behavior.hurt_by_target"] = {"priority": 1, "alert_same_type": True}
@@ -142,7 +143,7 @@ def bp_laestrygonian():
 def bp_child():
     c = base(["laestrygonian_child", "laestrygonian"], 0.6, 1.9, 30, 20)
     c.update(walker(0.3))
-    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}})
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:persistent": {}})
     c.update(ai_wander(6, 5))
     groups = {"studio:fleeing": {"minecraft:behavior.avoid_mob_type": {"priority": 1, "entity_types": [
         {"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 24, "walk_speed_multiplier": 1.4,
@@ -182,7 +183,7 @@ def bp_siren():
     # a mermaid lying on the sea rocks: she does not move from them, breathes in water and air, cannot be harmed
     c = base(["siren", "mermaid"], 1.0, 1.2, 100, 999)
     c.update(static())
-    c.update({"minecraft:damage_sensor": INVULNERABLE,
+    c.update({"minecraft:damage_sensor": INVULNERABLE, "minecraft:persistent": {},
               "minecraft:breathable": {"total_supply": 300, "suffocate_time": 0, "breathes_water": True, "breathes_air": True}})
     return entity("studio:siren", {"studio:anim": enum_prop(enum_values("siren"))}, c)
 
@@ -240,7 +241,7 @@ def bp_tiresias():
 def bp_cattle():
     c = base(["sun_cattle", "cattle"], 1.2, 1.7, 20, 14)
     c.update(walker(0.2))
-    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True},
+    c.update({"minecraft:pushable": {"is_pushable": True, "is_pushable_by_piston": True}, "minecraft:persistent": {},
               "minecraft:behavior.float": {"priority": 0},
               "minecraft:behavior.panic": {"priority": 1, "speed_multiplier": 1.4}})
     c.update(ai_wander(6, 7, 0.8))

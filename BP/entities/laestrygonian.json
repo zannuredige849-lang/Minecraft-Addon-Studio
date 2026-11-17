@@ -93,7 +93,8 @@
       },
       "minecraft:attack": {
         "damage": 3
-      }
+      },
+      "minecraft:persistent": {}
     },
     "component_groups": {
       "studio:calm": {

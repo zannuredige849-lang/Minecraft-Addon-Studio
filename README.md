@@ -67,10 +67,43 @@ place closes in on the player who is there and not on the others, and a player w
 Natural spawns: Laestrygonians (groups of 2–3) and their child in taigas, Sirens on stony shores, the cattle of Apollo on
 plains. Everything else comes from spawn eggs or `/summon`. Charybdis also forms on its own near Scylla.
 
+### The map
+
+![The voyage on the open sea](docs/odyssey-map.png)
+
+`The_Odyssey_v<version>.mcworld` is a survival world with both packs inside: one open sea and, about 300 blocks apart
+(roughly 40 seconds by boat), a place for each part of the film. You start on Ogygia with the crew's supplies (two boats,
+wax and a burning stake) and sail the voyage; the title of each place appears as you reach it, and its fog closes in on
+you alone.
+
+| Place | What is built | Who lives there |
+|---|---|---|
+| **Ogygia** | Calypso's island: a stone shrine with the lodestone that marks the map, a lotus pool, her house | Calypso |
+| **Troy** | A beach with the walls and towers of Troy and the platform of the horse | the 11-block Trojan Horse |
+| **The Cyclops** | Hills with a 46-block cave and the stone that closes it, a sheepfold | Polyphemus and his flock |
+| **Telepylus** | A harbour under cliffs, a quay, houses built for giants, a spruce forest, thick fog | the Laestrygonian child, then the giants |
+| **Aeaea** | A meadow with Circe's cottage and the pigs' pen | Circe, her sister, three pigs |
+| **Hades** | A plain of black sand, the altar for the blood, the river Oceanus running in from the sea, dark fog | three sheep to sacrifice |
+| **The Sirens** | Sea stacks in the mist, three rocks to lie on | three Sirens |
+| **Scylla and Charybdis** | A strait between two headlands, with Scylla's cave at the foot of one | Scylla; Charybdis forms in the water |
+| **Thrinacia** | Rolling pasture and an altar of the sun | six of Apollo's cattle |
+| **Ithaca** | A white house with columns | Athena |
+
+There are no natural spawns in the map. A place's creatures appear when a player first comes near (the world remembers
+that), and one that is killed returns ten minutes later. The script only does this when it finds the lodestone at the
+marker position, so in an ordinary world the add-on behaves as before. Build the world (it needs
+[Amulet](https://github.com/Amulet-Team/Amulet-Core), which runs on Python 3.12 or older):
+
+    python3.12 -m venv .venv && .venv/bin/pip install amulet-core
+    .venv/bin/python -m tools.odyssey.world        # writes dist/The_Odyssey_v<version>.mcworld, then reads it back and
+                                                   # checks the marker, the ground and headroom at every spawn, and that
+                                                   # every place can be reached by boat
+
 ### Install and test
 
-On a phone or PC, open the `.mcaddon` file (build it with `python3 -m tools.odyssey.package`) and Minecraft imports both
-packs; then enable **Odyssey Creatures BP** on a world (it adds the resource pack itself). For development, copy `BP/` into
+On a phone or PC, open the `.mcworld` file (the map; the packs are inside it, so there is nothing else to enable) or
+the `.mcaddon` file (build it with `python3 -m tools.odyssey.package`) and Minecraft imports it. After a `.mcaddon`,
+enable **Odyssey Creatures BP** on a world (it adds the resource pack itself). For development, copy `BP/` into
 `development_behavior_packs` and `RP/` into `development_resource_packs` instead.
 The script uses the stable `@minecraft/server` 1.11.0 API, so no experimental toggles are needed.
 

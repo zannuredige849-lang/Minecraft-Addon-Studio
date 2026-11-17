@@ -1,6 +1,6 @@
 // Mechanics tests for the add-on's script against a strict mock of @minecraft/server.
 //   node --import ./tools/odyssey/jstest/register.mjs tools/odyssey/jstest/test.mjs
-import { spawn, fire, runTicks, setTime, setBlock, ItemStack, all, clearAll, log, sounds, world } from "@minecraft/server";
+import { spawn, fire, runTicks, setTime, setBlock, ItemStack, all, clearAll, forgetWorld, log, sounds, world } from "@minecraft/server";
 import { MOVES, PATHS } from "../../../BP/scripts/data/moves.js";
 await import("../../../BP/scripts/main.js");
 
@@ -11,7 +11,7 @@ const player = (x, z, name = "Odysseus", y = 64) => { const p = spawn("minecraft
 const key = (m) => (typeof m === "string" ? m : (m.bar ?? m).rawtext?.[0]?.translate);
 const said = (p, k) => p.messages.some((m) => key(m) === k);
 const cmds = (re) => log.filter((l) => re.test(l));
-const reset = () => { clearAll(); log.length = 0; sounds.length = 0; setTime(6000); Math.random = () => 0.9; };
+const reset = () => { clearAll(); forgetWorld(); log.length = 0; sounds.length = 0; setTime(6000); Math.random = () => 0.9; };
 const hit = (a, v) => fire("entityHitEntity", { damagingEntity: a, hitEntity: v });
 const hurtBy = (v, a, d = 2) => fire("entityHurt", { hurtEntity: v, damage: d, damageSource: { damagingEntity: a } });
 const handAt = (cy, t, label = "hand", move = "cyclops.devour") => {          // where the path says the hand is at tick t
@@ -476,6 +476,30 @@ reset();
   ok(all().filter((e) => e.typeId === "studio:sun_cattle").length === 0, "killed cattle do not return at once");
   runTicks(12100);
   ok(all().filter((e) => e.typeId === "studio:sun_cattle").length === 6, "but they do after ten minutes");
+}
+
+// ================================================================ the places keep their creatures
+reset();
+{
+  setBlock(0, 64, 0, "minecraft:lodestone");
+  const P = player(0, 3, "Visitor");
+  runTicks(100);
+  const calypsos = () => all().filter((e) => e.typeId === "studio:calypso");
+  ok(calypsos().length === 1, "Calypso is on Ogygia when the first visitor comes");
+  calypsos()[0].teleport({ x: 900, y: 64, z: 900 });
+  runTicks(13000);
+  ok(calypsos().length === 1, "a creature that wanders off is not mistaken for a dead one");
+  player(2, 2, "Second"); runTicks(100);
+  ok(calypsos().length === 1, "a second visitor does not make a second one");
+  calypsos()[0].applyDamage(100, {});
+  const twin = spawn("studio:calypso", { x: 5, y: 64, z: 5 });
+  runTicks(12100);
+  ok(calypsos().length === 1 && calypsos()[0] === twin, "a place makes no new one while another stands there");
+  twin.applyDamage(100, {});
+  runTicks(200);
+  ok(calypsos().length === 0, "but not at once when the last one dies");
+  runTicks(12000);
+  ok(calypsos().length === 1 && calypsos()[0].getDynamicProperty("studio:site") === "ogygia", "it returns ten minutes later");
 }
 
 // ================================================================ several players at once

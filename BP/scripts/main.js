@@ -45,6 +45,7 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity: v, damageSource }) => safe
 world.afterEvents.entityDie.subscribe(({ deadEntity: e, damageSource }) => safe("die", () => {
   const killer = damageSource?.damagingEntity;
   if (e?.id) dropAllOf(e.id);
+  if (e?.typeId && !isPlayer(e)) safe("site", () => journey.onCreatureDied(e));
   if (valid(e)) cancel(e);
   if (isPlayer(e)) {
     circe.endCurse(e, false);

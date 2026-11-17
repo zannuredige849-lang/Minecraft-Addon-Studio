@@ -58,6 +58,7 @@
         "is_pushable": true,
         "is_pushable_by_piston": true
       },
+      "minecraft:persistent": {},
       "minecraft:behavior.float": {
         "priority": 0
       },
