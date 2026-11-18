@@ -1,0 +1,360 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.ship_crew.idle": {
+      "loop": true,
+      "bones": {
+        "chest": {
+          "rotation": [
+            "math.sin(q.life_time*45)*1.5",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(q.life_time*24)*3",
+            "math.sin(q.life_time*16)*8",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "math.sin(q.life_time*36)*3",
+            0,
+            3
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-math.sin(q.life_time*36)*3",
+            0,
+            -3
+          ]
+        }
+      }
+    },
+    "animation.ship_crew.row": {
+      "loop": true,
+      "bones": {
+        "hips": {
+          "position": [
+            0,
+            -5.5,
+            0
+          ]
+        },
+        "thigh_r": {
+          "rotation": [
+            -72,
+            -8,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            -72,
+            8,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            52,
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            52,
+            0,
+            0
+          ]
+        },
+        "waist": {
+          "rotation": [
+            "math.sin(q.life_time*180)*18",
+            0,
+            0
+          ]
+        },
+        "chest": {
+          "rotation": [
+            "math.sin(q.life_time*180)*14",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "-math.sin(q.life_time*180)*8",
+            0,
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "-68-math.sin(q.life_time*180)*28",
+            -10,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-68-math.sin(q.life_time*180)*28",
+            10,
+            0
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            "-24+math.cos(q.life_time*180)*22",
+            0,
+            0
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            "-24+math.cos(q.life_time*180)*22",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.ship_crew.brace": {
+      "loop": true,
+      "bones": {
+        "hips": {
+          "position": [
+            0,
+            -3.5,
+            0
+          ]
+        },
+        "thigh_r": {
+          "rotation": [
+            -32,
+            -10,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            -32,
+            10,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            32,
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            32,
+            0,
+            0
+          ]
+        },
+        "chest": {
+          "rotation": [
+            16,
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            -12,
+            "math.sin(q.life_time*90)*10",
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            -55,
+            0,
+            18
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            -55,
+            0,
+            -18
+          ]
+        }
+      }
+    },
+    "animation.ship_crew.cheer": {
+      "loop": false,
+      "animation_length": 1.6,
+      "bones": {
+        "arm_r": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -135,
+              0,
+              12
+            ],
+            "1.20": [
+              -135,
+              0,
+              12
+            ],
+            "1.60": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "arm_l": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -45,
+              0,
+              -12
+            ],
+            "1.20": [
+              -45,
+              0,
+              -12
+            ],
+            "1.60": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "head": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -14,
+              0,
+              0
+            ],
+            "1.20": [
+              -14,
+              0,
+              0
+            ],
+            "1.60": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.ship_crew.hurt": {
+      "loop": false,
+      "animation_length": 0.55,
+      "bones": {
+        "chest": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -12,
+              4,
+              0
+            ],
+            "0.30": [
+              4,
+              -2,
+              0
+            ],
+            "0.55": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "head": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -10,
+              -5,
+              0
+            ],
+            "0.55": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "arm_r": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -20,
+              0,
+              12
+            ],
+            "0.55": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "arm_l": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -20,
+              0,
+              -12
+            ],
+            "0.55": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

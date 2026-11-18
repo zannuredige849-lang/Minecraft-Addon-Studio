@@ -1,0 +1,27 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "studio:aegis_copper_plate",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "studio_aegis_copper_plate"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.studio:aegis_copper_plate.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": false,
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 8
+      }
+    }
+  }
+}

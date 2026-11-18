@@ -1,0 +1,148 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.scylla.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "lunge": "q.property('studio:anim') == 'lunge'"
+            },
+            {
+              "snatch": "q.property('studio:anim') == 'snatch'"
+            },
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "rend": "q.property('studio:anim') == 'rend'"
+            },
+            {
+              "recoil": "q.property('studio:anim') == 'recoil'"
+            }
+          ]
+        },
+        "lunge": {
+          "animations": [
+            "lunge"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "snatch": "q.property('studio:anim') == 'snatch'"
+            },
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "rend": "q.property('studio:anim') == 'rend'"
+            },
+            {
+              "recoil": "q.property('studio:anim') == 'recoil'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'lunge'"
+            }
+          ]
+        },
+        "snatch": {
+          "animations": [
+            "snatch"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "lunge": "q.property('studio:anim') == 'lunge'"
+            },
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "rend": "q.property('studio:anim') == 'rend'"
+            },
+            {
+              "recoil": "q.property('studio:anim') == 'recoil'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'snatch'"
+            }
+          ]
+        },
+        "devour": {
+          "animations": [
+            "devour"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "lunge": "q.property('studio:anim') == 'lunge'"
+            },
+            {
+              "snatch": "q.property('studio:anim') == 'snatch'"
+            },
+            {
+              "rend": "q.property('studio:anim') == 'rend'"
+            },
+            {
+              "recoil": "q.property('studio:anim') == 'recoil'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'devour'"
+            }
+          ]
+        },
+        "rend": {
+          "animations": [
+            "rend"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "lunge": "q.property('studio:anim') == 'lunge'"
+            },
+            {
+              "snatch": "q.property('studio:anim') == 'snatch'"
+            },
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "recoil": "q.property('studio:anim') == 'recoil'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'rend'"
+            }
+          ]
+        },
+        "recoil": {
+          "animations": [
+            "recoil"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "lunge": "q.property('studio:anim') == 'lunge'"
+            },
+            {
+              "snatch": "q.property('studio:anim') == 'snatch'"
+            },
+            {
+              "devour": "q.property('studio:anim') == 'devour'"
+            },
+            {
+              "rend": "q.property('studio:anim') == 'rend'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'recoil'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

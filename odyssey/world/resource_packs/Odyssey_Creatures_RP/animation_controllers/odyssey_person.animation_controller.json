@@ -1,0 +1,101 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.odyssey_person.moves": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "point": "q.property('studio:anim') == 'point'"
+            },
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            }
+          ]
+        },
+        "point": {
+          "animations": [
+            "point"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'point'"
+            }
+          ]
+        },
+        "cheer": {
+          "animations": [
+            "cheer"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "point": "q.property('studio:anim') == 'point'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'cheer'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "point": "q.property('studio:anim') == 'point'"
+            },
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'hurt'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.odyssey_person.legs": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "walking": "q.modified_move_speed > 0.08"
+            }
+          ]
+        },
+        "walking": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.05"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

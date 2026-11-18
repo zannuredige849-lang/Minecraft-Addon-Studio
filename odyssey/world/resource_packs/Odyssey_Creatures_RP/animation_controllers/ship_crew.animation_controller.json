@@ -1,0 +1,110 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ship_crew.moves": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
+              "row": "q.property('studio:anim') == 'row'"
+            }
+          ]
+        },
+        "row": {
+          "animations": [
+            "row"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'row'"
+            }
+          ]
+        },
+        "brace": {
+          "animations": [
+            "brace"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "row": "q.property('studio:anim') == 'row'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'brace'"
+            }
+          ]
+        },
+        "cheer": {
+          "animations": [
+            "cheer"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
+              "row": "q.property('studio:anim') == 'row'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'cheer'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
+              "row": "q.property('studio:anim') == 'row'"
+            },
+            {
+              "idle": "q.property('studio:anim') != 'hurt'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

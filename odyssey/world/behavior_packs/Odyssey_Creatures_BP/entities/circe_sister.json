@@ -1,0 +1,98 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:circe_sister",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "flap"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "circe_sister",
+          "bird",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.4,
+        "height": 0.5
+      },
+      "minecraft:health": {
+        "value": 6,
+        "max": 6
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:nameable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 18,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:persistent": {},
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  }
+                ]
+              },
+              "event": "studio:seized",
+              "target": "self"
+            },
+            "cooldown": 2,
+            "interact_text": "action.interact.studio.seize"
+          }
+        ]
+      }
+    },
+    "component_groups": {
+      "studio:seized": {
+        "minecraft:persistent": {}
+      }
+    },
+    "events": {
+      "studio:seized": {
+        "add": {
+          "component_groups": [
+            "studio:seized"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.charybdis.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "swirl"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "surge": "q.property('studio:anim') == 'surge'"
+            },
+            {
+              "gulp": "q.property('studio:anim') == 'gulp'"
+            }
+          ]
+        },
+        "surge": {
+          "animations": [
+            "surge"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "gulp": "q.property('studio:anim') == 'gulp'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'surge'"
+            }
+          ]
+        },
+        "gulp": {
+          "animations": [
+            "gulp"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "surge": "q.property('studio:anim') == 'surge'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'gulp'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

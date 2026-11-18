@@ -1,0 +1,58 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "The Odyssey (2026) BP v3.0.0",
+    "description": "Character selection, chronological 9-chapter campaign, individual journals, travel guides & cinematic system (v3.0.0)",
+    "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a01",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a02",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fbedd6c4-155f-4727-a2af-6c3f98fe6a0d",
+      "entry": "scripts/main.js",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a03",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
+    }
+  ]
+}

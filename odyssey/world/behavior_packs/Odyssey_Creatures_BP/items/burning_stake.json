@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "studio:burning_stake",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "studio_burning_stake"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.studio:burning_stake.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": {
+        "value": 6
+      }
+    }
+  }
+}

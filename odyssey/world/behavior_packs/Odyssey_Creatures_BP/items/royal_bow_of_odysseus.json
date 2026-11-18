@@ -1,0 +1,37 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "studio:royal_bow_of_odysseus",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "studio_royal_bow_of_odysseus"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.studio:royal_bow_of_odysseus.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": {
+        "value": 11
+      },
+      "minecraft:food": {
+        "nutrition": 0,
+        "saturation_modifier": 0.0,
+        "can_always_eat": true,
+        "using_converts_to": "studio:royal_bow_of_odysseus"
+      },
+      "minecraft:use_animation": "bow",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.45,
+        "movement_modifier": 0.75
+      }
+    }
+  }
+}

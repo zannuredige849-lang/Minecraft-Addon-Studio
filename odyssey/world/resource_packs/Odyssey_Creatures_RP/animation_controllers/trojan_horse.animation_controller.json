@@ -1,0 +1,52 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.trojan_horse.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "rear"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "hatch": "q.property('studio:anim') == 'hatch'"
+            },
+            {
+              "sally": "q.property('studio:anim') == 'sally'"
+            }
+          ]
+        },
+        "hatch": {
+          "animations": [
+            "hatch"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "sally": "q.property('studio:anim') == 'sally'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'hatch'"
+            }
+          ]
+        },
+        "sally": {
+          "animations": [
+            "sally"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "hatch": "q.property('studio:anim') == 'hatch'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'sally'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

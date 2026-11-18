@@ -1,0 +1,138 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.studio_cyclops": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.blinded"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.property('studio:blind')]"
+      ]
+    },
+    "controller.render.studio_laestrygonian": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "sword": "query.property('studio:weapon') == 0"
+        },
+        {
+          "glaive": "query.property('studio:weapon') == 1"
+        },
+        {
+          "mace": "query.property('studio:weapon') == 2"
+        },
+        {
+          "scimitar": "query.property('studio:weapon') == 3"
+        }
+      ]
+    },
+    "controller.render.studio_shade": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.agamemnon",
+            "Texture.sinon"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.property('studio:variant')]"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "helmet": "query.property('studio:variant') != 2"
+        },
+        {
+          "crest": "query.property('studio:variant') == 0"
+        },
+        {
+          "plume": "query.property('studio:variant') == 1"
+        }
+      ]
+    },
+    "controller.render.studio_greek_ship": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.damaged",
+            "Texture.damaged"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.property('studio:damage_state')]"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "damage_cracks": "query.property('studio:damage_state') >= 1"
+        }
+      ]
+    },
+    "controller.render.studio_odyssey_person": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.telemachus",
+            "Texture.mentor",
+            "Texture.eumaeus",
+            "Texture.guide_scout",
+            "Texture.guide_fisher",
+            "Texture.guide_shepherd",
+            "Texture.odysseus"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.property('studio:variant')]"
+      ]
+    }
+  }
+}

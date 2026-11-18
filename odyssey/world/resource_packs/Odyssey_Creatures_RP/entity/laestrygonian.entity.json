@@ -1,0 +1,55 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:laestrygonian",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/laestrygonian"
+      },
+      "geometry": {
+        "default": "geometry.laestrygonian"
+      },
+      "render_controllers": [
+        "controller.render.studio_laestrygonian"
+      ],
+      "animations": {
+        "idle": "animation.laestrygonian.idle",
+        "walk": "animation.laestrygonian.walk",
+        "slash": "animation.laestrygonian.slash",
+        "impale": "animation.laestrygonian.impale",
+        "crush": "animation.laestrygonian.crush",
+        "cleave": "animation.laestrygonian.cleave",
+        "smash": "animation.laestrygonian.smash",
+        "moves": "controller.animation.laestrygonian.moves",
+        "steps": "controller.animation.laestrygonian.steps",
+        "hurt": "animation.laestrygonian.hurt"
+      },
+      "sound_effects": {
+        "blade_ring": "odyssey.laestrygonian.blade_ring",
+        "boat_smash": "odyssey.laestrygonian.boat_smash",
+        "cleave_whoosh": "odyssey.laestrygonian.cleave_whoosh",
+        "debris": "odyssey.laestrygonian.debris",
+        "fling": "odyssey.laestrygonian.fling",
+        "mace_slam": "odyssey.laestrygonian.mace_slam",
+        "slash_whoosh": "odyssey.laestrygonian.slash_whoosh",
+        "stab": "odyssey.laestrygonian.stab",
+        "step": "odyssey.laestrygonian.step",
+        "thrust": "odyssey.laestrygonian.thrust"
+      },
+      "scripts": {
+        "animate": [
+          "moves",
+          "steps"
+        ],
+        "scale": "0.8931"
+      },
+      "spawn_egg": {
+        "base_color": "#B2B6BE",
+        "overlay_color": "#4A4E58"
+      }
+    }
+  }
+}

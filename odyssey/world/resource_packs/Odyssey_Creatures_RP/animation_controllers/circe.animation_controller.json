@@ -1,0 +1,234 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.circe.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle",
+            {
+              "yielded": "q.property('studio:yielded')"
+            }
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk",
+            {
+              "yielded": "q.property('studio:yielded')"
+            }
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "serve": {
+          "animations": [
+            "serve"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'serve'"
+            }
+          ]
+        },
+        "scream": {
+          "animations": [
+            "scream"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'scream'"
+            }
+          ]
+        },
+        "mold": {
+          "animations": [
+            "mold"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'mold'"
+            }
+          ]
+        },
+        "counsel": {
+          "animations": [
+            "counsel",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'counsel'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "serve": "q.property('studio:anim') == 'serve'"
+            },
+            {
+              "scream": "q.property('studio:anim') == 'scream'"
+            },
+            {
+              "mold": "q.property('studio:anim') == 'mold'"
+            },
+            {
+              "counsel": "q.property('studio:anim') == 'counsel'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'hurt'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.circe.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) >= 0.15"
+            },
+            {
+              "b": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*120) >= 0.15"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

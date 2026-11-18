@@ -1,0 +1,49 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:greek_ship",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/greek_ship",
+        "damaged": "textures/entity/greek_ship_damaged"
+      },
+      "geometry": {
+        "default": "geometry.greek_ship"
+      },
+      "animations": {
+        "idle_float": "animation.greek_ship.idle_float",
+        "sailing_forward": "animation.greek_ship.sailing_forward",
+        "turning_left": "animation.greek_ship.turning_left",
+        "turning_right": "animation.greek_ship.turning_right",
+        "storm_motion": "animation.greek_ship.storm_motion",
+        "hurt_shake": "animation.greek_ship.hurt_shake",
+        "sails_furled": "animation.greek_ship.sails_furled",
+        "sails_deploy": "animation.greek_ship.sails_deploy",
+        "sails_billow": "animation.greek_ship.sails_billow",
+        "oars_idle": "animation.greek_ship.oars_idle",
+        "oars_rowing": "animation.greek_ship.oars_rowing",
+        "oars_reverse": "animation.greek_ship.oars_reverse",
+        "hull": "controller.animation.greek_ship.hull",
+        "sails": "controller.animation.greek_ship.sails",
+        "oars": "controller.animation.greek_ship.oars"
+      },
+      "scripts": {
+        "animate": [
+          "hull",
+          "sails",
+          "oars"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.studio_greek_ship"
+      ],
+      "spawn_egg": {
+        "base_color": "#3d2817",
+        "overlay_color": "#9c261c"
+      }
+    }
+  }
+}

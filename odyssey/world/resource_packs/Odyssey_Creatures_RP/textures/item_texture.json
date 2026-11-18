@@ -1,0 +1,69 @@
+{
+  "resource_pack_name": "odyssey",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "studio_beeswax": {
+      "textures": "textures/items/beeswax"
+    },
+    "studio_burning_stake": {
+      "textures": "textures/items/burning_stake"
+    },
+    "studio_circe_stew": {
+      "textures": "textures/items/circe_stew"
+    },
+    "studio_lotus_flower": {
+      "textures": "textures/items/lotus_flower"
+    },
+    "studio_odyssey_astrolabe": {
+      "textures": "textures/items/odyssey_astrolabe"
+    },
+    "studio_ship_helm_horn": {
+      "textures": "textures/items/ship_helm_horn"
+    },
+    "studio_ship_repair_kit": {
+      "textures": "textures/items/ship_repair_kit"
+    },
+    "studio_driftwood_club": {
+      "textures": "textures/items/driftwood_club"
+    },
+    "studio_copper_xiphos": {
+      "textures": "textures/items/copper_xiphos"
+    },
+    "studio_copper_dory": {
+      "textures": "textures/items/copper_dory"
+    },
+    "studio_copper_hoplon": {
+      "textures": "textures/items/copper_hoplon"
+    },
+    "studio_copper_cuirass": {
+      "textures": "textures/items/copper_cuirass"
+    },
+    "studio_laestrygonian_cleaver": {
+      "textures": "textures/items/laestrygonian_cleaver"
+    },
+    "studio_copper_helm": {
+      "textures": "textures/items/copper_helm"
+    },
+    "studio_moly_herb": {
+      "textures": "textures/items/moly_herb"
+    },
+    "studio_sacrificial_copper_knife": {
+      "textures": "textures/items/sacrificial_copper_knife"
+    },
+    "studio_tiresias_staff": {
+      "textures": "textures/items/tiresias_staff"
+    },
+    "studio_aegis_copper_plate": {
+      "textures": "textures/items/aegis_copper_plate"
+    },
+    "studio_apollo_sun_talisman": {
+      "textures": "textures/items/apollo_sun_talisman"
+    },
+    "studio_royal_bow_of_odysseus": {
+      "textures": "textures/items/royal_bow_of_odysseus"
+    },
+    "studio_spear_of_telemachus": {
+      "textures": "textures/items/spear_of_telemachus"
+    }
+  }
+}

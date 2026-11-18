@@ -1,0 +1,152 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.sun_cattle.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "graze": {
+          "animations": [
+            "graze"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'graze'"
+            }
+          ]
+        },
+        "low": {
+          "animations": [
+            "low",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'low'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "graze": "q.property('studio:anim') == 'graze'"
+            },
+            {
+              "low": "q.property('studio:anim') == 'low'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'hurt'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.sun_cattle.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*240) >= 0.15"
+            },
+            {
+              "b": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*240) <= -0.15"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*240) <= -0.15"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*240) >= 0.15"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

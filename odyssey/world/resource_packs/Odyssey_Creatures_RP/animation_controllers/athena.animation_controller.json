@@ -1,0 +1,187 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.athena.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "bless": "q.property('studio:anim') == 'bless'"
+            },
+            {
+              "appear": "q.property('studio:anim') == 'appear'"
+            },
+            {
+              "vanish": "q.property('studio:anim') == 'vanish'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "bless": "q.property('studio:anim') == 'bless'"
+            },
+            {
+              "appear": "q.property('studio:anim') == 'appear'"
+            },
+            {
+              "vanish": "q.property('studio:anim') == 'vanish'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "bless": {
+          "animations": [
+            "bless",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "appear": "q.property('studio:anim') == 'appear'"
+            },
+            {
+              "vanish": "q.property('studio:anim') == 'vanish'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'bless'"
+            }
+          ]
+        },
+        "appear": {
+          "animations": [
+            "appear"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "bless": "q.property('studio:anim') == 'bless'"
+            },
+            {
+              "vanish": "q.property('studio:anim') == 'vanish'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'appear'"
+            }
+          ]
+        },
+        "vanish": {
+          "animations": [
+            "vanish"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "bless": "q.property('studio:anim') == 'bless'"
+            },
+            {
+              "appear": "q.property('studio:anim') == 'appear'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'vanish'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "bless": "q.property('studio:anim') == 'bless'"
+            },
+            {
+              "appear": "q.property('studio:anim') == 'appear'"
+            },
+            {
+              "vanish": "q.property('studio:anim') == 'vanish'"
+            },
+            {
+              "default": "q.property('studio:anim') != 'hurt'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.athena.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) >= 0.15"
+            },
+            {
+              "b": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*120) >= 0.15"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

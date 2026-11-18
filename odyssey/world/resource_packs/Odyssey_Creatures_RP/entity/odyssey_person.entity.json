@@ -1,0 +1,47 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:odyssey_person",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "telemachus": "textures/entity/people/telemachus",
+        "mentor": "textures/entity/people/mentor",
+        "eumaeus": "textures/entity/people/eumaeus",
+        "guide_scout": "textures/entity/people/guide_scout",
+        "guide_fisher": "textures/entity/people/guide_fisher",
+        "guide_shepherd": "textures/entity/people/guide_shepherd",
+        "odysseus": "textures/entity/people/odysseus"
+      },
+      "geometry": {
+        "default": "geometry.ship_crew"
+      },
+      "animations": {
+        "idle": "animation.ship_crew.idle",
+        "cheer": "animation.ship_crew.cheer",
+        "hurt": "animation.ship_crew.hurt",
+        "walk": "animation.odyssey_person.walk",
+        "point": "animation.odyssey_person.point",
+        "look": "animation.odyssey_person.look",
+        "moves": "controller.animation.odyssey_person.moves",
+        "legs": "controller.animation.odyssey_person.legs"
+      },
+      "scripts": {
+        "animate": [
+          "moves",
+          "legs",
+          "look"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.studio_odyssey_person"
+      ],
+      "spawn_egg": {
+        "base_color": "#6f7f8f",
+        "overlay_color": "#c08a50"
+      }
+    }
+  }
+}

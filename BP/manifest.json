@@ -1,0 +1,16 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Pixel Slime BP",
+    "description": "Adds studio:pixel_slime",
+    "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a01",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    { "type": "data", "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a02", "version": [1, 0, 0] }
+  ],
+  "dependencies": [
+    { "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a03", "version": [1, 0, 0] }
+  ]
+}
