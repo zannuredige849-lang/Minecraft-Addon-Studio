@@ -1,0 +1,248 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.shade.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "rise": {
+          "animations": [
+            "rise"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "sink": {
+          "animations": [
+            "sink"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak_sinon": {
+          "animations": [
+            "speak_sinon",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak_agamemnon": {
+          "animations": [
+            "speak_agamemnon",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "grasp": {
+          "animations": [
+            "grasp"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "speak_sinon": "q.property('studio:anim') == 'speak_sinon'"
+            },
+            {
+              "speak_agamemnon": "q.property('studio:anim') == 'speak_agamemnon'"
+            },
+            {
+              "grasp": "q.property('studio:anim') == 'grasp'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

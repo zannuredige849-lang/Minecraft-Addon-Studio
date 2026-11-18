@@ -1,0 +1,161 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.calypso.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "offer": "q.property('studio:anim') == 'offer'"
+            },
+            {
+              "embrace": "q.property('studio:anim') == 'embrace'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "offer": "q.property('studio:anim') == 'offer'"
+            },
+            {
+              "embrace": "q.property('studio:anim') == 'embrace'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "offer": {
+          "animations": [
+            "offer",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "embrace": "q.property('studio:anim') == 'embrace'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "embrace": {
+          "animations": [
+            "embrace",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "offer": "q.property('studio:anim') == 'offer'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "offer": "q.property('studio:anim') == 'offer'"
+            },
+            {
+              "embrace": "q.property('studio:anim') == 'embrace'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.calypso.steps": {
+      "initial_state": "still",
+      "states": {
+        "still": {
+          "transitions": [
+            {
+              "a": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) >= 0.15"
+            },
+            {
+              "b": "q.modified_move_speed > 0.06 && math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "a": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "b": "math.sin(q.modified_distance_moved*120) <= -0.15"
+            }
+          ]
+        },
+        "b": {
+          "sound_effects": [
+            {
+              "effect": "step"
+            }
+          ],
+          "transitions": [
+            {
+              "still": "q.modified_move_speed < 0.03"
+            },
+            {
+              "a": "math.sin(q.modified_distance_moved*120) >= 0.15"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

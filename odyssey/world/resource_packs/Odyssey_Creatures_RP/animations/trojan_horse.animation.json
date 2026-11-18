@@ -1,0 +1,120 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.trojan_horse.rear": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "math.sin(q.life_time*30)*0.8",
+            0,
+            "math.cos(q.life_time*22)*0.5"
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(q.life_time*40)*2",
+            0,
+            0
+          ]
+        }
+      },
+      "animation_length": 4.0,
+      "sound_effects": {
+        "1.80": {
+          "effect": "creak"
+        }
+      }
+    },
+    "animation.trojan_horse.hatch": {
+      "loop": false,
+      "bones": {
+        "hatch": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              82,
+              0,
+              0
+            ],
+            "1.00": [
+              82,
+              0,
+              0
+            ],
+            "1.50": [
+              82,
+              0,
+              0
+            ],
+            "2.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "animation_length": 2.0,
+      "sound_effects": {
+        "0.35": {
+          "effect": "hatch_open"
+        }
+      }
+    },
+    "animation.trojan_horse.sally": {
+      "loop": false,
+      "bones": {
+        "hatch": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.50": [
+              0,
+              0,
+              0
+            ],
+            "1.10": [
+              88,
+              0,
+              0
+            ],
+            "2.20": [
+              88,
+              0,
+              0
+            ],
+            "2.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": [
+            "math.sin(q.anim_time*1500)*1.6",
+            0,
+            "math.sin(q.anim_time*1100)*1.6"
+          ]
+        }
+      },
+      "animation_length": 2.8,
+      "sound_effects": {
+        "0.00": {
+          "effect": "shudder"
+        },
+        "0.55": {
+          "effect": "hatch_open"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:trojan_horse",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/trojan_horse"
+      },
+      "geometry": {
+        "default": "geometry.trojan_horse"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "rear": "animation.trojan_horse.rear",
+        "hatch": "animation.trojan_horse.hatch",
+        "sally": "animation.trojan_horse.sally",
+        "moves": "controller.animation.trojan_horse.moves"
+      },
+      "sound_effects": {
+        "creak": "odyssey.trojan_horse.creak",
+        "hatch_open": "odyssey.trojan_horse.hatch_open",
+        "shudder": "odyssey.trojan_horse.shudder"
+      },
+      "scripts": {
+        "animate": [
+          "moves"
+        ],
+        "scale": "3.609"
+      },
+      "spawn_egg": {
+        "base_color": "#96704A",
+        "overlay_color": "#5A4028"
+      }
+    }
+  }
+}

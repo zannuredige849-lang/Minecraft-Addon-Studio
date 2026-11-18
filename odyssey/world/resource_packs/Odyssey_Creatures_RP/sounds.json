@@ -1,0 +1,118 @@
+{
+  "entity_sounds": {
+    "entities": {
+      "studio:cyclops": {
+        "events": {
+          "ambient": "odyssey.cyclops.breath",
+          "hurt": "odyssey.cyclops.hurt",
+          "death": "odyssey.cyclops.death",
+          "step": "odyssey.cyclops.step"
+        }
+      },
+      "studio:laestrygonian": {
+        "events": {
+          "ambient": "odyssey.laestrygonian.breath",
+          "hurt": "odyssey.laestrygonian.hurt",
+          "death": "odyssey.laestrygonian.death",
+          "step": "odyssey.laestrygonian.step"
+        }
+      },
+      "studio:laestrygonian_child": {
+        "events": {
+          "ambient": "odyssey.laestrygonian_child.laugh",
+          "hurt": "mob.villager.hurt",
+          "death": "mob.villager.death",
+          "step": "odyssey.laestrygonian_child.step"
+        }
+      },
+      "studio:circe": {
+        "events": {
+          "ambient": "odyssey.circe.murmur",
+          "hurt": "mob.witch.hurt",
+          "death": "mob.witch.death",
+          "step": "odyssey.circe.step"
+        }
+      },
+      "studio:circe_sister": {
+        "events": {
+          "ambient": "odyssey.circe_sister.chirp",
+          "hurt": "odyssey.circe_sister.screech"
+        }
+      },
+      "studio:calypso": {
+        "events": {
+          "ambient": "odyssey.calypso.sigh",
+          "hurt": "odyssey.calypso.sigh",
+          "death": "odyssey.calypso.sigh",
+          "step": "odyssey.calypso.step"
+        }
+      },
+      "studio:athena": {
+        "events": {
+          "ambient": "odyssey.athena.chime",
+          "hurt": "odyssey.athena.shimmer",
+          "death": "odyssey.athena.shimmer",
+          "step": "odyssey.athena.step"
+        }
+      },
+      "studio:shade": {
+        "events": {
+          "ambient": "odyssey.shade.moan",
+          "hurt": "odyssey.shade.hurt",
+          "death": "odyssey.shade.death"
+        }
+      },
+      "studio:tiresias": {
+        "events": {
+          "ambient": "odyssey.tiresias.voice",
+          "hurt": "odyssey.tiresias.voice",
+          "death": "odyssey.tiresias.sink"
+        }
+      },
+      "studio:siren": {
+        "events": {
+          "ambient": "odyssey.siren.beckon_breath",
+          "hurt": "odyssey.siren.drag_hiss",
+          "death": "odyssey.siren.drag_hiss"
+        }
+      },
+      "studio:scylla": {
+        "events": {
+          "ambient": "odyssey.scylla.hiss",
+          "hurt": "odyssey.scylla.roar",
+          "death": "odyssey.scylla.roar"
+        }
+      },
+      "studio:charybdis": {
+        "events": {
+          "ambient": "odyssey.charybdis.roar"
+        }
+      },
+      "studio:sun_cattle": {
+        "events": {
+          "ambient": "odyssey.sun_cattle.low",
+          "hurt": "odyssey.sun_cattle.low",
+          "death": "mob.cow.death",
+          "step": "odyssey.sun_cattle.step"
+        }
+      },
+      "studio:trojan_horse": {
+        "events": {
+          "ambient": "odyssey.trojan_horse.creak"
+        }
+      },
+      "studio:greek_ship": {
+        "events": {
+          "ambient": "odyssey.ship.hull_creak",
+          "hurt": "odyssey.ship.damage_crack"
+        }
+      },
+      "studio:ship_crew": {
+        "events": {
+          "hurt": "mob.villager.hurt",
+          "death": "mob.villager.death"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "studio:apollo_sun_talisman",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "studio_apollo_sun_talisman"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.studio:apollo_sun_talisman.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": false,
+      "minecraft:food": {
+        "nutrition": 0,
+        "saturation_modifier": 0.0,
+        "can_always_eat": true
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.45,
+        "movement_modifier": 0.75
+      }
+    }
+  }
+}

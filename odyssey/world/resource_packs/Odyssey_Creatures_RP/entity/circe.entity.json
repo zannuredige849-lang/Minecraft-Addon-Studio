@@ -1,0 +1,49 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:circe",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/circe"
+      },
+      "geometry": {
+        "default": "geometry.circe"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.circe.idle",
+        "walk": "animation.circe.walk",
+        "yielded": "animation.circe.yielded",
+        "serve": "animation.circe.serve",
+        "scream": "animation.circe.scream",
+        "mold": "animation.circe.mold",
+        "counsel": "animation.circe.counsel",
+        "moves": "controller.animation.circe.moves",
+        "steps": "controller.animation.circe.steps",
+        "hurt": "animation.circe.hurt"
+      },
+      "sound_effects": {
+        "ladle": "odyssey.circe.ladle",
+        "murmur": "odyssey.circe.murmur",
+        "scream": "odyssey.circe.scream",
+        "squelch": "odyssey.circe.squelch",
+        "step": "odyssey.circe.step"
+      },
+      "scripts": {
+        "animate": [
+          "moves",
+          "steps"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#62584A",
+        "overlay_color": "#968F86"
+      }
+    }
+  }
+}

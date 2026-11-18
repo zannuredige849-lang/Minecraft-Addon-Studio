@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "studio:aegis_copper_plate",
+      "materials": {
+        "default": "armor"
+      },
+      "textures": {
+        "default": "textures/items/aegis_copper_plate"
+      },
+      "geometry": {
+        "default": "geometry.studio_copper_armor"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

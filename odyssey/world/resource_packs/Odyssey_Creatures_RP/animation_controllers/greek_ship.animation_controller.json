@@ -1,0 +1,210 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.greek_ship.hull": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle_float"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "storm": "q.property('studio:storm')"
+            },
+            {
+              "turn_left": "q.property('studio:turn_state') == -1 && q.property('studio:speed_state') != 0"
+            },
+            {
+              "turn_right": "q.property('studio:turn_state') == 1 && q.property('studio:speed_state') != 0"
+            },
+            {
+              "sailing": "q.property('studio:speed_state') != 0"
+            }
+          ]
+        },
+        "sailing": {
+          "animations": [
+            "sailing_forward"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "storm": "q.property('studio:storm')"
+            },
+            {
+              "turn_left": "q.property('studio:turn_state') == -1"
+            },
+            {
+              "turn_right": "q.property('studio:turn_state') == 1"
+            },
+            {
+              "idle": "q.property('studio:speed_state') == 0"
+            }
+          ]
+        },
+        "turn_left": {
+          "animations": [
+            "turning_left"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "storm": "q.property('studio:storm')"
+            },
+            {
+              "turn_right": "q.property('studio:turn_state') == 1"
+            },
+            {
+              "sailing": "q.property('studio:turn_state') == 0 && q.property('studio:speed_state') != 0"
+            },
+            {
+              "idle": "q.property('studio:speed_state') == 0"
+            }
+          ]
+        },
+        "turn_right": {
+          "animations": [
+            "turning_right"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "storm": "q.property('studio:storm')"
+            },
+            {
+              "turn_left": "q.property('studio:turn_state') == -1"
+            },
+            {
+              "sailing": "q.property('studio:turn_state') == 0 && q.property('studio:speed_state') != 0"
+            },
+            {
+              "idle": "q.property('studio:speed_state') == 0"
+            }
+          ]
+        },
+        "storm": {
+          "animations": [
+            "storm_motion"
+          ],
+          "blend_transition": 0.3,
+          "transitions": [
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "sailing": "!q.property('studio:storm') && q.property('studio:speed_state') != 0"
+            },
+            {
+              "idle": "!q.property('studio:storm')"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt_shake"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "storm": "q.property('studio:anim') == 'none' && q.property('studio:storm')"
+            },
+            {
+              "sailing": "q.property('studio:anim') == 'none' && q.property('studio:speed_state') != 0"
+            },
+            {
+              "idle": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.greek_ship.sails": {
+      "initial_state": "furled",
+      "states": {
+        "furled": {
+          "animations": [
+            "sails_furled"
+          ],
+          "blend_transition": 0.35,
+          "transitions": [
+            {
+              "billow": "q.property('studio:sail_deployed')"
+            }
+          ]
+        },
+        "billow": {
+          "animations": [
+            "sails_billow"
+          ],
+          "blend_transition": 0.35,
+          "transitions": [
+            {
+              "furled": "!q.property('studio:sail_deployed')"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.greek_ship.oars": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "oars_idle"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "rowing": "q.property('studio:speed_state') == 1 || q.property('studio:speed_state') == 2"
+            },
+            {
+              "reverse": "q.property('studio:speed_state') == 3"
+            }
+          ]
+        },
+        "rowing": {
+          "animations": [
+            "oars_rowing"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "reverse": "q.property('studio:speed_state') == 3"
+            },
+            {
+              "idle": "q.property('studio:speed_state') == 0"
+            }
+          ]
+        },
+        "reverse": {
+          "animations": [
+            "oars_reverse"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "rowing": "q.property('studio:speed_state') == 1 || q.property('studio:speed_state') == 2"
+            },
+            {
+              "idle": "q.property('studio:speed_state') == 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

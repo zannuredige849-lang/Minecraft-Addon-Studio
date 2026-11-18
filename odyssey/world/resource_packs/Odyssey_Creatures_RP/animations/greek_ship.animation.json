@@ -1,0 +1,611 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.greek_ship.idle_float": {
+      "loop": true,
+      "bones": {
+        "hull": {
+          "rotation": [
+            "math.sin(q.life_time*45)*1.1",
+            0,
+            "math.cos(q.life_time*36)*1.4"
+          ],
+          "position": [
+            0,
+            "math.sin(q.life_time*45)*0.35",
+            0
+          ]
+        },
+        "rudder_l": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*30)*3",
+            0
+          ]
+        },
+        "rudder_r": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*30)*3",
+            0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.sailing_forward": {
+      "loop": true,
+      "bones": {
+        "hull": {
+          "rotation": [
+            "-1.8+math.sin(q.life_time*75)*1.6",
+            0,
+            "math.cos(q.life_time*55)*1.8"
+          ],
+          "position": [
+            0,
+            "0.4+math.sin(q.life_time*75)*0.45",
+            0
+          ]
+        },
+        "mast": {
+          "rotation": [
+            "-1.2+math.sin(q.life_time*75)*0.8",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.turning_left": {
+      "loop": true,
+      "bones": {
+        "hull": {
+          "rotation": [
+            "-1.2+math.sin(q.life_time*70)*1.4",
+            0,
+            "3.8+math.cos(q.life_time*55)*1.2"
+          ]
+        },
+        "rudder_l": {
+          "rotation": [
+            0,
+            26,
+            0
+          ]
+        },
+        "rudder_r": {
+          "rotation": [
+            0,
+            26,
+            0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.turning_right": {
+      "loop": true,
+      "bones": {
+        "hull": {
+          "rotation": [
+            "-1.2+math.sin(q.life_time*70)*1.4",
+            0,
+            "-3.8+math.cos(q.life_time*55)*1.2"
+          ]
+        },
+        "rudder_l": {
+          "rotation": [
+            0,
+            -26,
+            0
+          ]
+        },
+        "rudder_r": {
+          "rotation": [
+            0,
+            -26,
+            0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.storm_motion": {
+      "loop": true,
+      "bones": {
+        "hull": {
+          "rotation": [
+            "math.sin(q.life_time*110)*4.8",
+            0,
+            "math.cos(q.life_time*85)*6.2"
+          ],
+          "position": [
+            0,
+            "math.sin(q.life_time*110)*1.2",
+            0
+          ]
+        },
+        "mast": {
+          "rotation": [
+            "math.sin(q.life_time*110)*2.5",
+            0,
+            "math.cos(q.life_time*85)*3.0"
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.hurt_shake": {
+      "loop": false,
+      "animation_length": 0.5,
+      "bones": {
+        "hull": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              3.5,
+              0,
+              -5.0
+            ],
+            "0.22": [
+              -2.5,
+              0,
+              4.0
+            ],
+            "0.35": [
+              1.2,
+              0,
+              -2.0
+            ],
+            "0.50": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.greek_ship.sails_furled": {
+      "loop": true,
+      "bones": {
+        "sail_upper": {
+          "scale": [
+            1.0,
+            0.18,
+            1.2
+          ],
+          "rotation": [
+            -12,
+            0,
+            0
+          ]
+        },
+        "sail_mid": {
+          "scale": [
+            1.0,
+            0.05,
+            1.0
+          ]
+        },
+        "sail_lower": {
+          "scale": [
+            1.0,
+            0.05,
+            1.0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.sails_deploy": {
+      "loop": false,
+      "animation_length": 0.8,
+      "bones": {
+        "sail_upper": {
+          "scale": {
+            "0.00": [
+              1.0,
+              0.18,
+              1.2
+            ],
+            "0.40": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "0.80": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "rotation": {
+            "0.00": [
+              -12,
+              0,
+              0
+            ],
+            "0.80": [
+              -14,
+              0,
+              0
+            ]
+          }
+        },
+        "sail_mid": {
+          "scale": {
+            "0.00": [
+              1.0,
+              0.05,
+              1.0
+            ],
+            "0.60": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "0.80": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.80": [
+              -16,
+              0,
+              0
+            ]
+          }
+        },
+        "sail_lower": {
+          "scale": {
+            "0.00": [
+              1.0,
+              0.05,
+              1.0
+            ],
+            "0.80": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.80": [
+              18,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.greek_ship.sails_billow": {
+      "loop": true,
+      "bones": {
+        "yard": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*40)*2.5",
+            0
+          ]
+        },
+        "sail_upper": {
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            "-14-math.sin(q.life_time*85)*2.5",
+            0,
+            0
+          ]
+        },
+        "sail_mid": {
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            "-16-math.sin(q.life_time*85-30)*3.2",
+            0,
+            0
+          ]
+        },
+        "sail_lower": {
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            "18+math.sin(q.life_time*85-60)*3.5",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.oars_idle": {
+      "loop": true,
+      "bones": {
+        "oar_l_0": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+0)*1.5"
+          ]
+        },
+        "oar_r_0": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+0)*1.5"
+          ]
+        },
+        "oar_l_1": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+8)*1.5"
+          ]
+        },
+        "oar_r_1": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+8)*1.5"
+          ]
+        },
+        "oar_l_2": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+16)*1.5"
+          ]
+        },
+        "oar_r_2": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+16)*1.5"
+          ]
+        },
+        "oar_l_3": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+24)*1.5"
+          ]
+        },
+        "oar_r_3": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+24)*1.5"
+          ]
+        },
+        "oar_l_4": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+32)*1.5"
+          ]
+        },
+        "oar_r_4": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+32)*1.5"
+          ]
+        },
+        "oar_l_5": {
+          "rotation": [
+            0,
+            0,
+            "12+math.sin(q.life_time*35+40)*1.5"
+          ]
+        },
+        "oar_r_5": {
+          "rotation": [
+            0,
+            0,
+            "-12-math.sin(q.life_time*35+40)*1.5"
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.oars_rowing": {
+      "loop": true,
+      "bones": {
+        "oar_l_0": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+0)*28",
+            "math.cos(q.life_time*180+0)*12"
+          ]
+        },
+        "oar_r_0": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+0)*28",
+            "-math.cos(q.life_time*180+0)*12"
+          ]
+        },
+        "oar_l_1": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+8)*28",
+            "math.cos(q.life_time*180+8)*12"
+          ]
+        },
+        "oar_r_1": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+8)*28",
+            "-math.cos(q.life_time*180+8)*12"
+          ]
+        },
+        "oar_l_2": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+16)*28",
+            "math.cos(q.life_time*180+16)*12"
+          ]
+        },
+        "oar_r_2": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+16)*28",
+            "-math.cos(q.life_time*180+16)*12"
+          ]
+        },
+        "oar_l_3": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+24)*28",
+            "math.cos(q.life_time*180+24)*12"
+          ]
+        },
+        "oar_r_3": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+24)*28",
+            "-math.cos(q.life_time*180+24)*12"
+          ]
+        },
+        "oar_l_4": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+32)*28",
+            "math.cos(q.life_time*180+32)*12"
+          ]
+        },
+        "oar_r_4": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+32)*28",
+            "-math.cos(q.life_time*180+32)*12"
+          ]
+        },
+        "oar_l_5": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*180+40)*28",
+            "math.cos(q.life_time*180+40)*12"
+          ]
+        },
+        "oar_r_5": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*180+40)*28",
+            "-math.cos(q.life_time*180+40)*12"
+          ]
+        }
+      }
+    },
+    "animation.greek_ship.oars_reverse": {
+      "loop": true,
+      "bones": {
+        "oar_l_0": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+0)*22",
+            "math.cos(q.life_time*150+0)*10"
+          ]
+        },
+        "oar_r_0": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+0)*22",
+            "-math.cos(q.life_time*150+0)*10"
+          ]
+        },
+        "oar_l_1": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+8)*22",
+            "math.cos(q.life_time*150+8)*10"
+          ]
+        },
+        "oar_r_1": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+8)*22",
+            "-math.cos(q.life_time*150+8)*10"
+          ]
+        },
+        "oar_l_2": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+16)*22",
+            "math.cos(q.life_time*150+16)*10"
+          ]
+        },
+        "oar_r_2": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+16)*22",
+            "-math.cos(q.life_time*150+16)*10"
+          ]
+        },
+        "oar_l_3": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+24)*22",
+            "math.cos(q.life_time*150+24)*10"
+          ]
+        },
+        "oar_r_3": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+24)*22",
+            "-math.cos(q.life_time*150+24)*10"
+          ]
+        },
+        "oar_l_4": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+32)*22",
+            "math.cos(q.life_time*150+32)*10"
+          ]
+        },
+        "oar_r_4": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+32)*22",
+            "-math.cos(q.life_time*150+32)*10"
+          ]
+        },
+        "oar_l_5": {
+          "rotation": [
+            0,
+            "-math.sin(q.life_time*150+40)*22",
+            "math.cos(q.life_time*150+40)*10"
+          ]
+        },
+        "oar_r_5": {
+          "rotation": [
+            0,
+            "math.sin(q.life_time*150+40)*22",
+            "-math.cos(q.life_time*150+40)*10"
+          ]
+        }
+      }
+    }
+  }
+}

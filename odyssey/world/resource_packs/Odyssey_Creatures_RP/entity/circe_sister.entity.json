@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "studio:circe_sister",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/circe_sister"
+      },
+      "geometry": {
+        "default": "geometry.circe_sister"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "animations": {
+        "idle": "animation.circe_sister.idle",
+        "flap": "animation.circe_sister.flap",
+        "moves": "controller.animation.circe_sister.moves"
+      },
+      "sound_effects": {
+        "screech": "odyssey.circe_sister.screech"
+      },
+      "scripts": {
+        "animate": [
+          "moves"
+        ]
+      }
+    }
+  }
+}

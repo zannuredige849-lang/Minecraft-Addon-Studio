@@ -1,0 +1,58 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:ship_crew",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "row",
+            "brace",
+            "cheer",
+            "hurt"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "ship_crew",
+          "ithacan",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.55,
+        "height": 1.8
+      },
+      "minecraft:health": {
+        "value": 40,
+        "max": 40
+      },
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 0.85
+      },
+      "minecraft:persistent": {},
+      "minecraft:behavior.look_at_player": {
+        "priority": 5,
+        "look_distance": 12,
+        "probability": 0.5
+      }
+    }
+  }
+}

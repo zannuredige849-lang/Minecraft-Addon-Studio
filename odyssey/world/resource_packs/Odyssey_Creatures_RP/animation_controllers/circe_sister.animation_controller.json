@@ -1,0 +1,32 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.circe_sister.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "flap": "q.property('studio:anim') == 'flap'"
+            }
+          ]
+        },
+        "flap": {
+          "animations": [
+            "flap"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

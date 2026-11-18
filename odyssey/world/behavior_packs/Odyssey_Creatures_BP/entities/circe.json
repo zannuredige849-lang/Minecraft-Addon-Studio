@@ -1,0 +1,159 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:circe",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "serve",
+            "scream",
+            "mold",
+            "counsel",
+            "hurt"
+          ],
+          "default": "none",
+          "client_sync": true
+        },
+        "studio:yielded": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "circe",
+          "witch_goddess",
+          "studio_odyssey",
+          "mob"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.75
+      },
+      "minecraft:health": {
+        "value": 40,
+        "max": 40
+      },
+      "minecraft:physics": {},
+      "minecraft:nameable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 30,
+        "range": 10,
+        "event_name": "ambient"
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "can_pass_doors": true,
+        "can_float": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 5,
+        "look_distance": 14,
+        "probability": 0.5
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 6
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "bool_property",
+                    "subject": "self",
+                    "domain": "studio:yielded",
+                    "value": false
+                  }
+                ]
+              },
+              "event": "studio:offer_stew",
+              "target": "self"
+            },
+            "cooldown": 5,
+            "interact_text": "action.interact.studio.stew"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "bool_property",
+                    "subject": "self",
+                    "domain": "studio:yielded",
+                    "value": true
+                  }
+                ]
+              },
+              "event": "studio:counsel",
+              "target": "self"
+            },
+            "cooldown": 5,
+            "interact_text": "action.interact.studio.counsel"
+          }
+        ]
+      },
+      "minecraft:knockback_resistance": {
+        "value": 0.65
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      }
+    },
+    "events": {
+      "studio:offer_stew": {
+        "set_property": {
+          "studio:anim": "none"
+        }
+      },
+      "studio:counsel": {
+        "set_property": {
+          "studio:anim": "none"
+        }
+      },
+      "studio:yield": {
+        "set_property": {
+          "studio:yielded": true,
+          "studio:anim": "none"
+        }
+      }
+    }
+  }
+}

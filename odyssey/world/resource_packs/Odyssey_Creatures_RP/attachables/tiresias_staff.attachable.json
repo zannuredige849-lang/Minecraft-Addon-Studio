@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "studio:tiresias_staff",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/tiresias_staff"
+      },
+      "geometry": {
+        "default": "geometry.studio_hand_weapon"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

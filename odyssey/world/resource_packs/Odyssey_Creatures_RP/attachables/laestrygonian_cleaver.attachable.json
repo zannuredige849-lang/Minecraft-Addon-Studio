@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "studio:laestrygonian_cleaver",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/laestrygonian_cleaver"
+      },
+      "geometry": {
+        "default": "geometry.studio_hand_weapon"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

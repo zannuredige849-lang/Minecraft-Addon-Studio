@@ -1,0 +1,151 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.tiresias.moves": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
+            }
+          ]
+        },
+        "rise": {
+          "animations": [
+            "rise"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "speak": {
+          "animations": [
+            "speak",
+            {
+              "walk": "q.modified_move_speed > 0.04"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "sink": {
+          "animations": [
+            "sink"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "rise": "q.property('studio:anim') == 'rise'"
+            },
+            {
+              "speak": "q.property('studio:anim') == 'speak'"
+            },
+            {
+              "sink": "q.property('studio:anim') == 'sink'"
+            },
+            {
+              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
+            },
+            {
+              "default": "q.property('studio:anim') == 'none'"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

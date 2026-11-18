@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "studio:spear_of_telemachus",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/spear_of_telemachus"
+      },
+      "geometry": {
+        "default": "geometry.studio_hand_weapon"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

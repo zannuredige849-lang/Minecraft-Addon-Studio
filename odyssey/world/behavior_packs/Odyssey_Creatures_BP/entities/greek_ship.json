@@ -1,0 +1,224 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "studio:greek_ship",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "studio:speed_state": {
+          "type": "int",
+          "range": [
+            0,
+            3
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "studio:turn_state": {
+          "type": "int",
+          "range": [
+            -1,
+            1
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "studio:sail_deployed": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        },
+        "studio:storm": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        },
+        "studio:damage_state": {
+          "type": "int",
+          "range": [
+            0,
+            2
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "studio:anim": {
+          "type": "enum",
+          "values": [
+            "none",
+            "hurt"
+          ],
+          "default": "none",
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "greek_ship",
+          "boat",
+          "studio_odyssey",
+          "inanimate"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 3.0,
+        "height": 1.35
+      },
+      "minecraft:custom_hit_test": {
+        "hitboxes": [
+          {
+            "width": 3.2,
+            "height": 1.6,
+            "pivot": [
+              0,
+              0.8,
+              0
+            ]
+          },
+          {
+            "width": 2.8,
+            "height": 1.8,
+            "pivot": [
+              0,
+              1.0,
+              -2.8
+            ]
+          },
+          {
+            "width": 2.8,
+            "height": 2.0,
+            "pivot": [
+              0,
+              1.2,
+              2.8
+            ]
+          }
+        ]
+      },
+      "minecraft:health": {
+        "value": 300,
+        "max": 300
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:persistent": {},
+      "minecraft:rideable": {
+        "seat_count": 8,
+        "crouching_skip_interact": true,
+        "family_types": [
+          "player",
+          "ship_crew",
+          "calypso",
+          "athena",
+          "circe"
+        ],
+        "interact_text": "action.interact.studio.board_ship",
+        "pull_in_entities": false,
+        "seats": [
+          {
+            "position": [
+              0.0,
+              1.48,
+              -3.1
+            ]
+          },
+          {
+            "position": [
+              0.0,
+              1.22,
+              1.8
+            ]
+          },
+          {
+            "position": [
+              -0.95,
+              1.22,
+              0.4
+            ]
+          },
+          {
+            "position": [
+              0.95,
+              1.22,
+              0.4
+            ]
+          },
+          {
+            "position": [
+              -1.05,
+              1.12,
+              1.2
+            ]
+          },
+          {
+            "position": [
+              1.05,
+              1.12,
+              1.2
+            ]
+          },
+          {
+            "position": [
+              -1.05,
+              1.12,
+              -0.8
+            ]
+          },
+          {
+            "position": [
+              1.05,
+              1.12,
+              -0.8
+            ]
+          }
+        ]
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_sneaking",
+                    "subject": "other",
+                    "value": true
+                  }
+                ]
+              },
+              "event": "studio:ship_interact",
+              "target": "self"
+            },
+            "cooldown": 1,
+            "interact_text": "action.interact.studio.ship_command"
+          }
+        ]
+      }
+    },
+    "events": {
+      "studio:ship_interact": {
+        "set_property": {
+          "studio:anim": "none"
+        }
+      }
+    }
+  }
+}

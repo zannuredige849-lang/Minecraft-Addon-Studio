@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "studio:copper_helm",
+      "materials": {
+        "default": "armor"
+      },
+      "textures": {
+        "default": "textures/items/copper_helm"
+      },
+      "geometry": {
+        "default": "geometry.studio_copper_armor"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}
