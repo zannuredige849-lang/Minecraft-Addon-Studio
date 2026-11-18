@@ -109,6 +109,30 @@
           "damage_cracks": "query.property('studio:damage_state') >= 1"
         }
       ]
+    },
+    "controller.render.studio_odyssey_person": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.telemachus",
+            "Texture.mentor",
+            "Texture.eumaeus",
+            "Texture.guide_scout",
+            "Texture.guide_fisher",
+            "Texture.guide_shepherd",
+            "Texture.odysseus"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.property('studio:variant')]"
+      ]
     }
   }
 }

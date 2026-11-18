@@ -1,0 +1,145 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.odyssey_person.walk": {
+      "loop": true,
+      "anim_time_update": "q.anim_time + q.delta_time * math.clamp(q.modified_move_speed * 6.0, 0.6, 2.0)",
+      "bones": {
+        "thigh_r": {
+          "rotation": [
+            "math.sin(q.anim_time*380)*28",
+            0,
+            0
+          ]
+        },
+        "thigh_l": {
+          "rotation": [
+            "-math.sin(q.anim_time*380)*28",
+            0,
+            0
+          ]
+        },
+        "shin_r": {
+          "rotation": [
+            "math.max(0, -math.sin(q.anim_time*380))*20",
+            0,
+            0
+          ]
+        },
+        "shin_l": {
+          "rotation": [
+            "math.max(0, math.sin(q.anim_time*380))*20",
+            0,
+            0
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            "-math.sin(q.anim_time*380)*22",
+            0,
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "math.sin(q.anim_time*380)*22",
+            0,
+            0
+          ]
+        },
+        "chest": {
+          "rotation": [
+            2,
+            "math.sin(q.anim_time*380)*3",
+            0
+          ]
+        }
+      }
+    },
+    "animation.odyssey_person.point": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 2.0,
+      "bones": {
+        "arm_r": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -95,
+              -12,
+              8
+            ],
+            "1.7": [
+              -95,
+              -12,
+              8
+            ],
+            "2.0": [
+              -20,
+              0,
+              0
+            ]
+          }
+        },
+        "forearm_r": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -8,
+              0,
+              0
+            ],
+            "2.0": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "head": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              0,
+              -15,
+              0
+            ],
+            "1.7": [
+              0,
+              -15,
+              0
+            ],
+            "2.0": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.odyssey_person.look": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            "-q.target_x_rotation*0.8",
+            "-q.target_y_rotation*0.8",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

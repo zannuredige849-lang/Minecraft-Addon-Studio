@@ -4,16 +4,21 @@
     "description": {
       "identifier": "studio:copper_helm",
       "materials": {
-        "default": "armor"
+        "default": "armor",
+        "enchanted": "armor_enchanted"
       },
       "textures": {
-        "default": "textures/items/copper_helm"
+        "default": "textures/models/armor/copper_helm",
+        "enchanted": "textures/misc/enchanted_actor_glint"
       },
       "geometry": {
-        "default": "geometry.studio_copper_armor"
+        "default": "geometry.studio_corinthian_helm"
+      },
+      "scripts": {
+        "parent_setup": "variable.helmet_layer_visible = 0.0;"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.armor"
       ]
     }
   }

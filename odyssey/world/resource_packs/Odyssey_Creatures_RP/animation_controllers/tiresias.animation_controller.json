@@ -47,6 +47,9 @@
             },
             {
               "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
             }
           ]
         },
@@ -66,10 +69,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'rise'"
             }
           ]
         },
@@ -92,10 +92,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'speak'"
             }
           ]
         },
@@ -115,10 +112,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'sink'"
             }
           ]
         },
@@ -138,10 +132,7 @@
               "sink": "q.property('studio:anim') == 'sink'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'hurt'"
             }
           ]
         }

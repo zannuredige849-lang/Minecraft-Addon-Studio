@@ -59,6 +59,9 @@
             },
             {
               "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
             }
           ]
         },
@@ -84,10 +87,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'slash'"
             }
           ]
         },
@@ -113,10 +113,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'impale'"
             }
           ]
         },
@@ -142,10 +139,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'crush'"
             }
           ]
         },
@@ -171,10 +165,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'cleave'"
             }
           ]
         },
@@ -200,10 +191,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'smash'"
             }
           ]
         },
@@ -229,10 +217,7 @@
               "smash": "q.property('studio:anim') == 'smash'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'hurt'"
             }
           ]
         }

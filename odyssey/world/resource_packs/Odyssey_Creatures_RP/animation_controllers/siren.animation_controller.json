@@ -34,7 +34,7 @@
               "drag": "q.property('studio:anim') == 'drag'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'sing'"
             }
           ]
         },
@@ -51,7 +51,7 @@
               "drag": "q.property('studio:anim') == 'drag'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'beckon'"
             }
           ]
         },
@@ -68,7 +68,7 @@
               "beckon": "q.property('studio:anim') == 'beckon'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'drag'"
             }
           ]
         }

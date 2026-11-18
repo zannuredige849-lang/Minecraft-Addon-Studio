@@ -28,7 +28,7 @@
               "sally": "q.property('studio:anim') == 'sally'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'hatch'"
             }
           ]
         },
@@ -42,7 +42,7 @@
               "hatch": "q.property('studio:anim') == 'hatch'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'sally'"
             }
           ]
         }

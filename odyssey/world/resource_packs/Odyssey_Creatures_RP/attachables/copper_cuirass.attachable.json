@@ -4,16 +4,21 @@
     "description": {
       "identifier": "studio:copper_cuirass",
       "materials": {
-        "default": "armor"
+        "default": "armor",
+        "enchanted": "armor_enchanted"
       },
       "textures": {
-        "default": "textures/items/copper_cuirass"
+        "default": "textures/models/armor/copper_cuirass",
+        "enchanted": "textures/misc/enchanted_actor_glint"
       },
       "geometry": {
-        "default": "geometry.studio_copper_armor"
+        "default": "geometry.studio_copper_chest"
+      },
+      "scripts": {
+        "parent_setup": "variable.chest_layer_visible = 0.0;"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.armor"
       ]
     }
   }

@@ -22,7 +22,7 @@
           "blend_transition": 0.1,
           "transitions": [
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'flap'"
             }
           ]
         }

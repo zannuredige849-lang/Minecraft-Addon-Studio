@@ -40,7 +40,7 @@
               "brace": "q.property('studio:anim') == 'brace'"
             },
             {
-              "idle": "q.property('studio:anim') == 'none'"
+              "idle": "q.property('studio:anim') != 'row'"
             }
           ]
         },
@@ -54,10 +54,13 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
               "row": "q.property('studio:anim') == 'row'"
             },
             {
-              "idle": "q.property('studio:anim') == 'none'"
+              "idle": "q.property('studio:anim') != 'brace'"
             }
           ]
         },
@@ -68,10 +71,16 @@
           "blend_transition": 0.15,
           "transitions": [
             {
+              "hurt": "q.property('studio:anim') == 'hurt'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
               "row": "q.property('studio:anim') == 'row'"
             },
             {
-              "idle": "q.property('studio:anim') == 'none'"
+              "idle": "q.property('studio:anim') != 'cheer'"
             }
           ]
         },
@@ -82,10 +91,16 @@
           "blend_transition": 0.08,
           "transitions": [
             {
+              "cheer": "q.property('studio:anim') == 'cheer'"
+            },
+            {
+              "brace": "q.property('studio:anim') == 'brace'"
+            },
+            {
               "row": "q.property('studio:anim') == 'row'"
             },
             {
-              "idle": "q.property('studio:anim') == 'none'"
+              "idle": "q.property('studio:anim') != 'hurt'"
             }
           ]
         }

@@ -41,6 +41,9 @@
             },
             {
               "default": "q.modified_move_speed < 0.03"
+            },
+            {
+              "default": "q.modified_move_speed < 0.03"
             }
           ]
         },
@@ -60,10 +63,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'offer'"
             }
           ]
         },
@@ -83,10 +83,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'embrace'"
             }
           ]
         },
@@ -103,10 +100,7 @@
               "embrace": "q.property('studio:anim') == 'embrace'"
             },
             {
-              "walk": "q.property('studio:anim') == 'none' && q.modified_move_speed > 0.05"
-            },
-            {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'hurt'"
             }
           ]
         }

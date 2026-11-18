@@ -1277,6 +1277,42 @@
           "load_on_low_memory": true
         }
       ]
+    },
+    "odyssey.laestrygonian.clang": {
+      "category": "hostile",
+      "min_distance": 8.0,
+      "max_distance": 56.0,
+      "sounds": [
+        {
+          "name": "sounds/odyssey/laestrygonian/blade_ring",
+          "volume": 1.0,
+          "load_on_low_memory": true
+        }
+      ]
+    },
+    "odyssey.laestrygonian.impale": {
+      "category": "hostile",
+      "min_distance": 8.0,
+      "max_distance": 56.0,
+      "sounds": [
+        {
+          "name": "sounds/odyssey/laestrygonian/stab",
+          "volume": 1.0,
+          "load_on_low_memory": true
+        }
+      ]
+    },
+    "odyssey.tiresias.prophecy": {
+      "category": "neutral",
+      "min_distance": 8.0,
+      "max_distance": 44.0,
+      "sounds": [
+        {
+          "name": "sounds/odyssey/tiresias/voice",
+          "volume": 0.9,
+          "load_on_low_memory": true
+        }
+      ]
     }
   }
 }

@@ -76,7 +76,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'devour'"
             }
           ]
         },
@@ -108,7 +108,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'kick'"
             }
           ]
         },
@@ -140,7 +140,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'stomp'"
             }
           ]
         },
@@ -172,7 +172,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'throw'"
             }
           ]
         },
@@ -204,7 +204,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'cry'"
             }
           ]
         },
@@ -236,7 +236,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'tend'"
             }
           ]
         },
@@ -268,7 +268,7 @@
               "hurt": "q.property('studio:anim') == 'hurt'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'wake'"
             }
           ]
         },
@@ -300,7 +300,7 @@
               "wake": "q.property('studio:anim') == 'wake'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'hurt'"
             }
           ]
         }

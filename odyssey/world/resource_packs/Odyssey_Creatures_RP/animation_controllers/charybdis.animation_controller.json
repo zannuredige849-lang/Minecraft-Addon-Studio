@@ -28,7 +28,7 @@
               "gulp": "q.property('studio:anim') == 'gulp'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'surge'"
             }
           ]
         },
@@ -42,7 +42,7 @@
               "surge": "q.property('studio:anim') == 'surge'"
             },
             {
-              "default": "q.property('studio:anim') == 'none'"
+              "default": "q.property('studio:anim') != 'gulp'"
             }
           ]
         }
