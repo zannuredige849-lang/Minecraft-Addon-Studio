@@ -11,7 +11,19 @@ export const NOT_PREY = new Set(["studio:scylla", "studio:charybdis", "studio:bo
 let pausedTicksOffset = 0;
 export const advancePauseOffset = (n = 1) => { pausedTicksOffset += n; };
 export const rawNow = () => system.currentTick;
-export const now = () => system.currentTick - pausedTicksOffset;
+
+// Game clock that survives reloads. system.currentTick restarts at 0 every session, but cooldowns and "until" times
+// are saved on players and entities as dynamic properties; measured against a restarted tick they could stay locked
+// for hours (or a curse could last forever). The clock continues from the value saved in the previous session.
+let clockBase;
+function base() {
+  if (clockBase === undefined) {
+    try { clockBase = Number(world.getDynamicProperty("odyssey:clock") ?? 0) - system.currentTick; } catch { return 0; }  // world not ready yet: don't cache
+  }
+  return clockBase;
+}
+export const now = () => base() + system.currentTick - pausedTicksOffset;
+system.runInterval(() => { try { world.setDynamicProperty("odyssey:clock", now()); } catch { } }, 100);
 export const valid = (e) => { try { return !!e && (typeof e.isValid === "function" ? e.isValid() : e.isValid); } catch { return false; } };
 export const warn = (where, err) => { try { console.warn(`[odyssey] ${where}: ${err && err.message ? err.message : err}`); } catch { } };
 /** Run fn, report (never throw) any error. */

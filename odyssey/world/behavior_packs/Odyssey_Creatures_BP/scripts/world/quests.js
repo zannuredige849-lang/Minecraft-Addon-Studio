@@ -73,12 +73,19 @@ export function questEvent(p, eventId) {
     if (c.id > ch) break;
     for (const o of c.objectives) {
       if (o.done !== eventId || isDone(o.id)) continue;
-      if (p && o.scope !== "shared" && !objectiveFor(o, role)) continue;
+      if (p && o.scope !== "shared" && !objectiveFor(o, role) && !o.anyone && !noHolderOnline(o.scope)) continue;
       changed = markDone(o.id) || changed;
     }
   }
   if (changed) checkChapter();
   return changed;
+}
+
+/** Is nobody who could do this objective online? (then anyone may do it, so a player leaving never blocks the story) */
+export function noHolderOnline(scope) {
+  if (scope === "shared") return false;
+  const roles = scope === "support" ? ["companion", "eumaeus"] : [scope];
+  return !world.getAllPlayers().some((p) => valid(p) && roles.includes(roleOf(p)));
 }
 
 /** NPC stand-ins (solo Telemachus) finish their objectives automatically, with a line of narration. */
@@ -95,6 +102,9 @@ export function checkChapter() {
   const ch = currentChapter();
   const c = chapterById(ch);
   autoCompleteNpcObjectives(c);
+  for (const o of c.objectives) {
+    if (o.fallback && !isDone(o.id) && isDone(o.fallback) && noHolderOnline(o.scope)) markDone(o.id);
+  }
   if (!c.complete.every((id) => isDone(id))) return false;
   if (ch >= FINAL_CHAPTER) {
     if (!world.getDynamicProperty("odyssey:campaign_complete")) {
@@ -131,7 +141,10 @@ export function compass(from, to) {
   return COMPASS[((Math.round(ang / (Math.PI / 4)) % 8) + 8) % 8];
 }
 
+let tickCount = 0;
 export function tickQuests() {
+  // Every ~5 s re-check the chapter, so fallbacks also apply when a player leaves (no event fires then).
+  if (++tickCount % 5 === 0 && world.getDynamicProperty("odyssey:campaign_started") === true) safe("quest.check", checkChapter);
   const ch = currentChapter();
   for (const p of world.getAllPlayers()) {
     if (!valid(p) || !roleOf(p)) continue;

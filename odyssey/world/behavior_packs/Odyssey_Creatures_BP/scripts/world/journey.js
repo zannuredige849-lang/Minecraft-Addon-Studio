@@ -115,7 +115,7 @@ export function tickSites() {
     safe("site", () => {
       const center = { x: s.x, y: s.y, z: s.z };
       // Sparta is raised from open sea, so it is built while a ship is still approaching (visible from afar).
-      if (s.id === "sparta" && playersNear(dim, center, 140).length) ensureSiteArchitecture(s.id);
+      if (s.id === "sparta" && playersNear(dim, center, 140).length) ensureSiteArchitecture(s.id);   // builds once its chunks load
       if (!playersNear(dim, center, 65).length) return;
       ensureSiteArchitecture(s.id);
       const wanted = new Map();
@@ -128,7 +128,9 @@ export function tickSites() {
           continue;
         }
         const deaths = readDeaths();
-        const due = deaths.filter((d) => d[0] === s.id && d[1] === type && worldTime() - d[2] >= RESPAWN_TICKS);
+        // Sacrifice sheep come back quickly so a lost sheep never holds up the rite of the dead for ten minutes.
+        const wait = type === "minecraft:sheep" ? 1200 : RESPAWN_TICKS;
+        const due = deaths.filter((d) => d[0] === s.id && d[1] === type && worldTime() - d[2] >= wait);
         if (!due.length) continue;
         const have = near(dim, center, s.r + 150, type).filter(valid).length;
         let missing = Math.min(due.length, Math.max(0, spots.length - have));

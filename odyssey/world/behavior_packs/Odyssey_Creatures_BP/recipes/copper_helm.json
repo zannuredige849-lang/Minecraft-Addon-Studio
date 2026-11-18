@@ -8,12 +8,15 @@
       "crafting_table"
     ],
     "pattern": [
-      "CCC",
+      "CRC",
       "C C"
     ],
     "key": {
       "C": {
         "item": "minecraft:copper_ingot"
+      },
+      "R": {
+        "item": "minecraft:red_dye"
       }
     },
     "unlock": [

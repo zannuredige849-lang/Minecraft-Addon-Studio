@@ -11,6 +11,10 @@
 //   optional  not needed to finish the chapter
 //   items   items the player needs for this step (shown in the journal)
 //   npcAuto when the role has no player, the NPC stand-in completes it automatically (Telemachus in solo play)
+//   anyone  the deed cannot be repeated once done (the Cyclops stays blind), so it counts whoever performs it
+//   fallback if nobody holding the role is online, this objective completes when the fallback objective does
+// Softlock rule (world/quests.js): a role objective can always be completed by another player while no player
+// holding that role is online, so a player leaving never blocks the campaign.
 
 export const CHAPTERS = [
   {
@@ -44,7 +48,7 @@ export const CHAPTERS = [
     objectives: [
       { id: "s3_land",    scope: "shared",     done: "reach:cyclops_landing", dest: "cyclops_landing" },
       { id: "t3_cave",    scope: "telemachus", done: "reach:cyclops_cave", dest: "cyclops_cave" },
-      { id: "o3_stake",   scope: "odysseus",   done: "cyclops_blinded", dest: "cyclops_cave", items: ["studio:burning_stake"] },
+      { id: "o3_stake",   scope: "odysseus",   done: "cyclops_blinded", dest: "cyclops_cave", items: ["studio:burning_stake"], anyone: true },
       { id: "x3_cave",    scope: "support",    done: "reach:cyclops_cave", dest: "cyclops_cave" },
     ],
     complete: ["o3_stake"],
@@ -63,7 +67,7 @@ export const CHAPTERS = [
     id: 5, site: "aeaea", title: "odyssey.ch.5.title", story: "odyssey.ch.5.story",
     objectives: [
       { id: "t5_hall",    scope: "telemachus", done: "reach:aeaea_hall", dest: "aeaea_hall" },
-      { id: "o5_circe",   scope: "odysseus",   done: "circe_yielded", dest: "aeaea_hall", items: ["studio:moly_herb"] },
+      { id: "o5_circe",   scope: "odysseus",   done: "circe_yielded", dest: "aeaea_hall", items: ["studio:moly_herb"], anyone: true },
       { id: "x5_hall",    scope: "support",    done: "reach:aeaea_hall", dest: "aeaea_hall" },
       { id: "s5_pact",    scope: "shared",     done: "vote:circe_pact", optional: true },
     ],
@@ -106,7 +110,7 @@ export const CHAPTERS = [
       { id: "t9_palace",  scope: "telemachus", done: "reach:ithaca_palace", dest: "ithaca_palace", npcAuto: true },
       { id: "e9_guide",   scope: "eumaeus",    done: "reach:ithaca_palace", dest: "ithaca_palace" },
       { id: "s9_athena",  scope: "shared",     done: "ithaca_blessed", dest: "ithaca_square" },
-      { id: "o9_bow",     scope: "odysseus",   done: "bow_trial", dest: "ithaca_palace", items: ["studio:royal_bow_of_odysseus"] },
+      { id: "o9_bow",     scope: "odysseus",   done: "bow_trial", dest: "ithaca_palace", items: ["studio:royal_bow_of_odysseus"], fallback: "s9_athena" },
     ],
     complete: ["o9_bow"],
   },

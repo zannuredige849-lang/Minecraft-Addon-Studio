@@ -71,7 +71,8 @@ export function ensureSiteArchitecture(siteId) {
   const c = SITE_CENTER[siteId];
   try {
     if (world.getDynamicProperty(flag) === true) return;
-    if (c && !loaded(dim, { x: c[0], y: 64, z: c[1] })) return;
+    // The whole footprint must be loaded (builds reach ~30 blocks from the centre), not just the centre block.
+    if (c && ![[0, 0], [32, 32], [-32, 32], [32, -32], [-32, -32]].every(([dx, dz]) => loaded(dim, { x: c[0] + dx, y: 64, z: c[1] + dz }))) return;
     world.setDynamicProperty(flag, true);
   } catch { return; }
 

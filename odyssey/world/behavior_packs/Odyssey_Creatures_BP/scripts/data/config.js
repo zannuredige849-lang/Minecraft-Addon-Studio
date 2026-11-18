@@ -64,9 +64,10 @@ export const ROLE_ORDER = ["odysseus", "telemachus", "companion", "eumaeus"];
 
 /** Starting equipment per role (the rest is earned through the campaign; see world/progression.js). */
 export const START_KITS = {
-  odysseus:   [["studio:odyssey_astrolabe", 1], ["studio:driftwood_club", 1], ["minecraft:bread", 3]],
+  // Every role carries a small boat: the galley is the main ship, but nobody can ever be stranded on an island.
+  odysseus:   [["studio:odyssey_astrolabe", 1], ["studio:driftwood_club", 1], ["minecraft:bread", 3], ["minecraft:oak_boat", 1]],
   telemachus: [["studio:odyssey_astrolabe", 1], ["minecraft:wooden_sword", 1], ["minecraft:bread", 4], ["minecraft:leather_chestplate", 1], ["minecraft:oak_boat", 1]],
-  companion:  [["studio:odyssey_astrolabe", 1], ["studio:driftwood_club", 1], ["studio:ship_repair_kit", 1], ["minecraft:bread", 3]],
+  companion:  [["studio:odyssey_astrolabe", 1], ["studio:driftwood_club", 1], ["studio:ship_repair_kit", 1], ["minecraft:bread", 3], ["minecraft:oak_boat", 1]],
   eumaeus:    [["studio:odyssey_astrolabe", 1], ["minecraft:wooden_sword", 1], ["minecraft:cooked_porkchop", 4], ["minecraft:oak_boat", 1]],
 };
 

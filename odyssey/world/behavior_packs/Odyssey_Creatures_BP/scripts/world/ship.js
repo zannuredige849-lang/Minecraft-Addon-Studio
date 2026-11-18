@@ -9,7 +9,7 @@
 //   - 3-Tier Hull & Sail Damage + Shipwright Repair Kit system (never despawns on damage)
 //   - 7-Step Action-Driven Ship Quest Chain & 4 Multi-Shot Ship Cutscenes
 import { questEvent } from "./quests.js";
-import { world } from "@minecraft/server";
+import { world, ItemStack } from "@minecraft/server";
 import {
   add, block, byId, dp, flat, heldItem, isAir, isPlayer, isWater, near, nearestPlayer,
   now, playersNear, prop, ready, riders, ridingOn, safe, setDp, setProp, valid, wait, waterSurfaceNear,
@@ -262,6 +262,8 @@ export function onUseRepairKit(p) {
   if (!valid(p)) return;
   const ship = near(p.dimension, p.location, 8, SHIP_TYPE)[0];
   if (!ship) {
+    // The kit is a food-style item and was already used up: give it back when there was nothing to repair.
+    safe("kit.refund", () => p.getComponent("minecraft:inventory")?.container?.addItem(new ItemStack(REPAIR_ITEM, 1)));
     bar(p, "odyssey.ship.no_ship_near");
     return;
   }

@@ -1,10 +1,10 @@
 // The Odyssey (2026) — Multiplayer Campaign, Odysseus & Telemachus Co-op Roles,
 // Checkpoints, and 6 Branching Story Decisions with Real Gameplay Consequences.
-import { world, ItemStack } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { dp, effect, flat, now, ready, safe, setDp, valid, wait } from "../lib/util.js";
 import { bar, hear, tell, title } from "../lib/fx.js";
 import { startStoryVote } from "./pause_vote.js";
-import { playSiteCutscene } from "./cinematics.js";
+import { cutsceneActive, playSiteCutscene } from "./cinematics.js";
 import { SITE_POINTS } from "../data/config.js";
 import { CHAPTERS as CAMPAIGN } from "../data/campaign.js";
 import {
@@ -197,10 +197,15 @@ export function applyBranchConsequence(decisionId, choiceId) {
   }
 }
 
-export function triggerSiteDecisionVote(siteId) {
+export function triggerSiteDecisionVote(siteId, attempt = 0) {
   const spec = STORY_DECISIONS[siteId];
   if (!spec) return false;
   if (getBranchChoice(spec.id)) return false;
+  // Never open a ballot on top of a cutscene (arrival scenes and votes are often triggered by the same event).
+  if (cutsceneActive() && attempt < 60) {
+    system.runTimeout(() => triggerSiteDecisionVote(siteId, attempt + 1), 40);
+    return true;
+  }
   return startStoryVote({
     id: spec.id,
     promptKey: spec.promptKey,

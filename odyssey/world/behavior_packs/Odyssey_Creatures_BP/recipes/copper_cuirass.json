@@ -8,13 +8,16 @@
       "crafting_table"
     ],
     "pattern": [
-      "C C",
+      "CLC",
       "CCC",
       "CCC"
     ],
     "key": {
       "C": {
         "item": "minecraft:copper_ingot"
+      },
+      "L": {
+        "item": "minecraft:leather"
       }
     },
     "unlock": [

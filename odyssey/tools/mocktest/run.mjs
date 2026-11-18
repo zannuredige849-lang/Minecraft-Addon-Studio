@@ -4,6 +4,9 @@ import * as mc from "@minecraft/server";
 import { ui } from "@minecraft/server-ui";
 const { advance, join, leave, rejoin, log, world } = mc;
 const scenario = process.argv[2];
+const warnings = [];
+const _warn = console.warn;
+console.warn = (...a) => { const m = a.join(" "); if (m.startsWith("[odyssey]")) warnings.push(m); else _warn(...a); };
 await import(process.env.SCRIPTS + "/main.js");
 mc.overworld().overrides.set("0,64,0", "minecraft:lodestone");     // the map marker journey.js looks for
 
@@ -216,6 +219,66 @@ if (scenario === "guide") {
   ok(mc.overworld().getEntities({ type: "studio:odyssey_person", tags: ["odyssey_guide"] }).length === 0, "no immediate repeat (cooldown)");
 }
 
+if (scenario === "softlock") {
+  console.log("Scenario: deeds done by the wrong role, and the Odysseus player leaving");
+  ui.responders.set("A", chooser("odysseus")); ui.responders.set("B", chooser("telemachus"));
+  const a = join("A"); const b = join("B"); await advance(500);
+  quests.setGlobalChapter(3); await finishCutscenes();
+  ev(b, "cyclops_blinded"); await advance(5);
+  ok(quests.isDone("o3_stake"), "Telemachus blinding the Cyclops still completes the (irreversible) deed");
+  ok(chapter() === 4, "chapter III ends");
+  quests.setGlobalChapter(9); await finishCutscenes();
+  leave(a); await advance(5);
+  ev(b, "talk_eumaeus"); ok(quests.isDone("o9_eumaeus"), "with Odysseus gone, Telemachus can finish Odysseus's step");
+  ev(b, "ithaca_blessed"); await advance(120);
+  ok(quests.isDone("o9_bow"), "bow trial falls back to the blessing when no Odysseus is online");
+  ok(world.getDynamicProperty("odyssey:campaign_complete") === true, "campaign can still be completed");
+}
+
+if (scenario === "mechanics") {
+  console.log("Scenario: every island, creature loop, hit/hurt/death, interaction and item use");
+  ui.responders.set("A", chooser("odysseus"));
+  const a = join("A"); await advance(500);
+  const { SITES } = await import(process.env.SCRIPTS + "/data/sites.js");
+  const dim = mc.overworld();
+  for (const site of SITES) {
+    a.location = { x: site.x + 2.5, y: 65, z: site.z + 2.5 };
+    await advance(200);
+    if (pv.getActiveVote()) { pv.castVote(a, 0); await advance(5); }
+    await advance(300);
+  }
+  const types = [...new Set(dim.entities.map((e) => e.typeId))].sort();
+  console.log("   spawned:", types.join(" "));
+  ok(["studio:cyclops", "studio:scylla", "studio:siren", "studio:circe", "studio:calypso", "studio:sun_cattle", "studio:laestrygonian"].every((t) => types.includes(t)), "every site creature spawned");
+  // combat and interactions, with the player standing next to each creature
+  for (const e of [...dim.entities]) {
+    if (!e.isValid() || e.typeId === "minecraft:player") continue;
+    a.location = { x: e.location.x + 1.5, y: e.location.y, z: e.location.z + 1.5 };
+    mc.fire("entityHitEntity", { damagingEntity: a, hitEntity: e });
+    mc.fire("entityHurt", { hurtEntity: e, damageSource: { damagingEntity: a, cause: "entityAttack" }, damage: 4 });
+    mc.fire("entityHitEntity", { damagingEntity: e, hitEntity: a });
+    for (const id of ["studio:offer_lotus", "studio:embrace", "studio:bless", "studio:talk", "studio:ship_interact", "studio:stew", "studio:counsel", "studio:seize", "studio:hide", "studio:serve"])
+      mc.fire("dataDrivenEntityTrigger", { entity: e, eventId: id });
+    await advance(40);
+    if (pv.getActiveVote()) { pv.castVote(a, 0); await advance(5); }
+  }
+  await advance(200);
+  // every custom item use
+  const items = ["beeswax", "circe_stew", "lotus_flower", "moly_herb", "odyssey_astrolabe", "ship_helm_horn", "ship_repair_kit", "copper_hoplon", "tiresias_staff", "apollo_sun_talisman", "royal_bow_of_odysseus", "spear_of_telemachus"];
+  ui.responders.set("A", () => ({ canceled: true }));
+  for (const it of items) { mc.fire("itemCompleteUse", { source: a, itemStack: new mc.ItemStack("studio:" + it, 1) }); await advance(10); }
+  // deaths
+  for (const e of [...dim.entities]) {
+    if (!e.isValid()) continue;
+    mc.fire("entityDie", { deadEntity: e, damageSource: { damagingEntity: a, cause: "entityAttack" } });
+    e.remove();
+  }
+  await advance(400);
+  ok(true, "mechanics run completed");
+}
+
+ok(warnings.length === 0, `no caught script warnings (${warnings.length})`);
+if (warnings.length) console.log([...new Set(warnings)].slice(0, 25).join("\n"));
 const errs = log.errors.filter((e) => !e.includes("no move"));
 ok(errs.length === 0, `no script errors (${errs.length})`);
 if (errs.length) console.log(errs.slice(0, 5).join("\n"));

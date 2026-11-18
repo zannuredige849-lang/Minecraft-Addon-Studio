@@ -123,7 +123,8 @@
           "ship_crew",
           "calypso",
           "athena",
-          "circe"
+          "circe",
+          "odyssey_person"
         ],
         "interact_text": "action.interact.studio.board_ship",
         "pull_in_entities": false,

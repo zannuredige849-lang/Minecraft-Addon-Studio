@@ -9,7 +9,7 @@ cp "$HERE/run.mjs" "$WORK/"
 echo '{"type":"module"}' > "$WORK/package.json"
 cd "$WORK"
 status=0
-for s in solo duo four afk disconnect leave_lobby late guide; do
+for s in solo duo four afk disconnect leave_lobby late guide mechanics softlock; do
   SCRIPTS="$WORK/scripts" node run.mjs $s 2>&1 | grep -v "^\[odyssey\]" || status=1
 done
 rm -rf "$WORK"

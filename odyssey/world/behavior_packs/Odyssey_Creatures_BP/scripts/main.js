@@ -142,8 +142,11 @@ world.afterEvents.entityDie.subscribe(({ deadEntity: e, damageSource }) => safe(
   if (!isPlayer(killer)) return;
   const type = e?.typeId;
   if (type === gods.CATTLE) {
-    story.triggerSiteDecisionVote("thrinacia");
-    gods.godsStorm(killer);
+    // Only Apollo's herd on Thrinacia counts (cattle summoned or strayed elsewhere do not start the oath vote).
+    if (flat(killer.location, POINTS.thrinacia_temple) < 120) {   // killer is valid; the dead entity may not be
+      story.triggerSiteDecisionVote("thrinacia");
+      gods.godsStorm(killer);
+    }
     return;
   }
   if (type === lae.TYPE) {
@@ -216,20 +219,7 @@ world.afterEvents.itemCompleteUse.subscribe(({ source: p, itemStack }) => safe("
   handleCustomItemUse(p, itemStack?.typeId);
 }));
 
-try {
-  world.afterEvents.itemUse?.subscribe(({ source: p, itemStack }) => safe("itemUse", () => {
-    const id = itemStack?.typeId;
-    if (id && [
-      "studio:copper_hoplon",
-      "studio:tiresias_staff",
-      "studio:apollo_sun_talisman",
-      "studio:royal_bow_of_odysseus",
-      "studio:spear_of_telemachus",
-    ].includes(id)) {
-      handleCustomItemUse(p, id);
-    }
-  }));
-} catch { }
+// Items with a use duration are handled once, on itemCompleteUse (an extra itemUse handler used to run them twice).
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => safe("playerSpawn", () => journey.onPlayerSpawn(player, initialSpawn)));
 world.afterEvents.playerLeave.subscribe(({ playerId }) => safe("playerLeave", () => {
