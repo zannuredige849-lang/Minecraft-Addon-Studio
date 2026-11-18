@@ -10,7 +10,7 @@ import { bar, burst, hear, tell } from "../lib/fx.js";
 import { busy, perform } from "../lib/moves.js";
 import { creatures } from "../lib/registry.js";
 
-export const COMPANION_TYPES = ["studio:calypso", "studio:athena", "studio:circe"];
+export const COMPANION_TYPES = ["studio:calypso", "studio:athena", "studio:circe", "studio:odyssey_person"];
 const HOSTILE_FAMILIES = new Set([
   "studio:cyclops", "studio:laestrygonian", "studio:shade", "studio:siren", "studio:scylla",
   "minecraft:zombie", "minecraft:skeleton", "minecraft:spider", "minecraft:creeper",

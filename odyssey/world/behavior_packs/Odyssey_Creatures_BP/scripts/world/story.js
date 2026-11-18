@@ -5,23 +5,17 @@ import { dp, effect, flat, now, ready, safe, setDp, valid, wait } from "../lib/u
 import { bar, hear, tell, title } from "../lib/fx.js";
 import { startStoryVote } from "./pause_vote.js";
 import { playSiteCutscene } from "./cinematics.js";
-import { SITES } from "../data/sites.js";
+import { SITE_POINTS } from "../data/config.js";
+import { CHAPTERS as CAMPAIGN } from "../data/campaign.js";
 import {
   flushRewardVault, grantProgressionReward,
   onProgressionStoryMilestone, recoverLostQuestItems,
 } from "./progression.js";
+import { currentChapter, mainObjective, questEvent, setGlobalChapter } from "./quests.js";
+import { teleportVerified } from "./selection.js";
 
-export const CHAPTERS = [
-  { id: 1, site: "ogygia",    key: "odyssey.ch.1", hint: "odyssey.ch.1.hint" },
-  { id: 2, site: "troy",      key: "odyssey.ch.2", hint: "odyssey.ch.2.hint" },
-  { id: 3, site: "cyclops",   key: "odyssey.ch.3", hint: "odyssey.ch.3.hint" },
-  { id: 4, site: "telepylus", key: "odyssey.ch.4", hint: "odyssey.ch.4.hint" },
-  { id: 5, site: "aeaea",     key: "odyssey.ch.5", hint: "odyssey.ch.5.hint" },
-  { id: 6, site: "hades",     key: "odyssey.ch.6", hint: "odyssey.ch.6.hint" },
-  { id: 7, site: "sirens",    key: "odyssey.ch.7", hint: "odyssey.ch.7.hint" },
-  { id: 8, site: "strait",    key: "odyssey.ch.8", hint: "odyssey.ch.8.hint" },
-  { id: 9, site: "ithaca",    key: "odyssey.ch.9", hint: "odyssey.ch.9.hint" },
-];
+// Chapter definitions live in data/campaign.js; this alias keeps older imports working.
+export const CHAPTERS = CAMPAIGN.map((c) => ({ id: c.id, site: c.site, key: c.title, hint: c.story }));
 
 // 6 Major Branching Decisions of the Campaign
 export const STORY_DECISIONS = {
@@ -75,42 +69,19 @@ export const STORY_DECISIONS = {
   },
 };
 
-export const getChapter = (p) => {
-  try { return world.getDynamicProperty("odyssey:global_chapter") ?? dp(p, "studio:chapter", 1); }
-  catch { return dp(p, "studio:chapter", 1); }
-};
+export const getChapter = () => currentChapter();
 
-export function setChapter(p, ch) {
-  const cur = getChapter(p);
-  if (ch > cur && ch <= 9) {
-    try { world.setDynamicProperty("odyssey:global_chapter", ch); } catch { }
-    for (const q of world.getAllPlayers()) {
-      setDp(q, "studio:chapter", ch);
-      const info = CHAPTERS.find((c) => c.id === ch);
-      if (info) {
-        tell(q, info.key);
-        tell(q, info.hint);
-        hear(q, "odyssey.athena.chime", undefined, 0.85, 1.0);
-      }
-    }
-  }
-}
+/** Chapter changes are driven by quest objectives (world/quests.js); this only moves forward. */
+export function setChapter(p, ch) { setGlobalChapter(ch); }
 
 // ------------------------------------------------------------------ 2-Player Roles: Odysseus, Telemachus & Companion
+/** Role chosen on the selection screen (data/config.js ROLES). Unassigned players read as "companion". */
 export function getPlayerRole(p) {
-  let r = dp(p, "studio:role", "");
-  if (!r) {
-    const all = world.getAllPlayers();
-    const hasOdysseus = all.some((q) => q.id !== p.id && dp(q, "studio:role", "") === "odysseus");
-    const hasTelemachus = all.some((q) => q.id !== p.id && dp(q, "studio:role", "") === "telemachus");
-    r = !hasOdysseus ? "odysseus" : (!hasTelemachus ? "telemachus" : "companion");
-    setDp(p, "studio:role", r);
-  }
-  return r;
+  return dp(p, "studio:role", "") || "companion";
 }
 
 export function cyclePlayerRole(p) {
-  const order = ["odysseus", "telemachus", "companion"];
+  const order = ["odysseus", "telemachus", "companion", "eumaeus"];
   const cur = getPlayerRole(p);
   const next = order[(order.indexOf(cur) + 1) % order.length];
   setDp(p, "studio:role", next);
@@ -128,6 +99,7 @@ export function tickRoles() {
   const ody = players.find((p) => getPlayerRole(p) === "odysseus");
   const tel = players.find((p) => getPlayerRole(p) === "telemachus");
   const coopNear = ody && tel && ody.dimension.id === tel.dimension.id && flat(ody.location, tel.location) <= 18;
+  if (!players.some((p) => dp(p, "studio:role", ""))) return;   // nobody has chosen yet (selection screen)
 
   for (const p of players) {
     const role = getPlayerRole(p);
@@ -135,6 +107,10 @@ export function tickRoles() {
       effect(p, "resistance", 60, 0);
     } else if (role === "telemachus") {
       effect(p, "speed", 60, 0);
+    } else if (role === "companion") {
+      effect(p, "haste", 60, 0);
+    } else if (role === "eumaeus") {
+      effect(p, "night_vision", 260, 0);
     }
     if (coopNear) {
       effect(p, "strength", 60, 0);
@@ -230,7 +206,7 @@ export function triggerSiteDecisionVote(siteId) {
     promptKey: spec.promptKey,
     options: spec.options,
     timeoutTicks: 900,
-    onFinish: (winnerId) => applyBranchConsequence(spec.id, winnerId),
+    onFinish: (winnerId) => { applyBranchConsequence(spec.id, winnerId); questEvent(null, `vote:${spec.id}`); },
   });
 }
 
@@ -241,13 +217,10 @@ export function setCheckpoint(p, siteId) {
 }
 
 export function respawnAtCheckpoint(p) {
-  const cid = dp(p, "studio:checkpoint", "ogygia");
-  const site = SITES.find((s) => s.id === cid);
-  if (!site) return;
-  try {
-    p.teleport({ x: site.x, y: site.y + 1, z: site.z + 3 }, { keepVelocity: false });
-    bar(p, `odyssey.site.${site.id}`);
-  } catch { }
+  const cid = dp(p, "studio:checkpoint", "");
+  const point = SITE_POINTS[cid] ?? dp(p, "studio:checkpoint_point", "");
+  if (!point) return;
+  teleportVerified(p, point, () => bar(p, `odyssey.site.${cid || "ogygia"}`));
 }
 
 export function onStoryEvent(p, eventId) {
@@ -270,37 +243,33 @@ export function onStoryEvent(p, eventId) {
       if (firstTime) tell(p, "odyssey.story.ogygia_intro");
       break;
     case "lotus_gifted":
-      if (getChapter(p) <= 1) setChapter(p, 2);
+      triggerSiteDecisionVote("ogygia");
       break;
     case "site_troy":
       if (firstTime) tell(p, "odyssey.story.troy_intro");
-      if (getChapter(p) <= 2) setChapter(p, 3);
       break;
     case "site_sparta":
       if (firstTime) tell(p, "odyssey.story.sparta_intro");
       break;
     case "horse_hidden":
       if (firstTime) tell(p, "odyssey.story.horse_memory");
-      if (getChapter(p) <= 2) setChapter(p, 3);
+      triggerSiteDecisionVote("troy");
       break;
     case "site_cyclops":
       if (firstTime) tell(p, "odyssey.story.cyclops_intro");
       break;
     case "cyclops_blinded":
       if (firstTime) tell(p, "odyssey.story.cyclops_done");
-      if (getChapter(p) <= 3) setChapter(p, 4);
       triggerSiteDecisionVote("cyclops");
       break;
     case "site_telepylus":
       if (firstTime) tell(p, "odyssey.story.telepylus_intro");
-      if (getChapter(p) <= 4) setChapter(p, 5);
       break;
     case "site_aeaea":
       if (firstTime) tell(p, "odyssey.story.aeaea_intro");
       break;
     case "circe_yielded":
       if (firstTime) tell(p, "odyssey.story.circe_done");
-      if (getChapter(p) <= 5) setChapter(p, 6);
       triggerSiteDecisionVote("aeaea");
       break;
     case "site_hades":
@@ -308,36 +277,34 @@ export function onStoryEvent(p, eventId) {
       break;
     case "hades_sacrifice":
       if (firstTime) tell(p, "odyssey.story.hades_done");
-      if (getChapter(p) <= 6) setChapter(p, 7);
       break;
     case "site_sirens":
       if (firstTime) tell(p, "odyssey.story.sirens_intro");
-      if (getChapter(p) <= 7) setChapter(p, 8);
       break;
     case "site_strait":
       if (firstTime) tell(p, "odyssey.story.strait_intro");
-      if (getChapter(p) <= 8) setChapter(p, 9);
+      triggerSiteDecisionVote("strait");
       break;
     case "site_thrinacia":
       if (firstTime) tell(p, "odyssey.story.thrinacia_intro");
+      triggerSiteDecisionVote("thrinacia");
       break;
     case "site_ithaca":
       if (firstTime) tell(p, "odyssey.story.ithaca_intro");
       break;
     case "ithaca_blessed":
       if (firstTime) tell(p, "odyssey.story.ithaca_complete");
-      setChapter(p, 9);
       break;
     default:
       break;
   }
+  questEvent(p, eventId);
 }
 
 export function tellChapterGuidance(p, npcType) {
   if (!valid(p) || !ready(p, "studio:cd_guidance")) return;
   wait(p, "studio:cd_guidance", 60);
-  const ch = getChapter(p);
-  const info = CHAPTERS.find((c) => c.id === ch) ?? CHAPTERS[0];
+  const ch = getChapter();
   if (npcType === "studio:athena") {
     tell(p, `odyssey.athena.guide.${ch}`);
   } else if (npcType === "studio:calypso") {
@@ -345,5 +312,6 @@ export function tellChapterGuidance(p, npcType) {
   } else if (npcType === "studio:circe") {
     tell(p, ch <= 6 ? "odyssey.circe.guide.hades" : "odyssey.circe.guide.strait");
   }
-  bar(p, info.hint);
+  const o = mainObjective(p);
+  if (o) bar(p, `odyssey.q.${o.id}`);
 }

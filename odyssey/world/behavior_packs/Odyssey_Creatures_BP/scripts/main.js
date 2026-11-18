@@ -1,4 +1,4 @@
-// The Odyssey (2026) v2.0.0 — Complete World Expansion & Cinematic Overhaul.
+// The Odyssey (2026) v3.0.0 — character selection, chronological campaign, journals, travel guides, cinematics.
 import { world, system } from "@minecraft/server";
 import { refresh, track } from "./lib/registry.js";
 import { busy, cancel, perform, tickMoves } from "./lib/moves.js";
@@ -21,6 +21,42 @@ import * as music from "./world/music.js";
 import * as story from "./world/story.js";
 import * as ship from "./world/ship.js";
 import * as progression from "./world/progression.js";
+import * as selection from "./world/selection.js";
+import * as quests from "./world/quests.js";
+import * as npcs from "./world/npcs.js";
+import * as guides from "./world/guides.js";
+import * as storyCine from "./world/story_cinematics.js";
+import { POINTS } from "./data/config.js";
+import { flat } from "./lib/util.js";
+
+// ------------------------------------------------------------------ campaign flow (quest signals -> cinematics)
+quests.onQuestSignal((ev, data) => {
+  if (ev === "chapter_end") {
+    storyCine.playChapterEnd(data.chapter, () => {
+      // After the prologue the tale of the voyage begins: everyone who started on Ithaca joins Odysseus's party.
+      if (data.next === 2) regroupWithOdysseus();
+    });
+  } else if (ev === "campaign_complete") {
+    storyCine.playFinale(() => {
+      for (const p of world.getAllPlayers()) safe("finale", () => p.onScreenDisplay.setTitle({ rawtext: [{ translate: "odyssey.finale.end" }] }, { subtitle: { rawtext: [{ translate: "odyssey.finale.end.sub" }] }, fadeInDuration: 20, stayDuration: 100, fadeOutDuration: 40 }));
+    });
+  }
+});
+
+function regroupWithOdysseus() {
+  const ody = world.getAllPlayers().find((p) => quests.roleOf(p) === "odysseus");
+  for (const p of world.getAllPlayers()) {
+    if (!valid(p) || p.id === ody?.id) continue;
+    const role = quests.roleOf(p);
+    if (role !== "telemachus" && role !== "eumaeus") continue;
+    story.setCheckpoint(p, "ogygia");
+    selection.teleportVerified(p, "ogygia_harbor", () => p.sendMessage({ rawtext: [{ translate: "odyssey.regroup" }] }));
+  }
+}
+
+pauseVote.onVoteStart((vote) => {
+  for (const p of world.getAllPlayers()) system.runTimeout(() => safe("vote.form", () => menu.openVote(p, vote)), 10);
+});
 
 const NPC_HURT_SOUNDS = {
   "studio:calypso": "odyssey.calypso.sigh",
@@ -128,6 +164,7 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((ev) => safe("trigger", () =
   else if (e.typeId === gods.CALYPSO && id === "studio:offer_lotus") gods.offerLotus(e);
   else if (e.typeId === gods.CALYPSO && id === "studio:embrace") gods.embrace(e);
   else if (e.typeId === gods.ATHENA && id === "studio:bless") gods.bless(e);
+  else if (e.typeId === npcs.PERSON && id === "studio:talk") npcs.onPersonTalk(e);
   else if (e.typeId === ship.SHIP_TYPE && id === "studio:ship_interact") {
     const p = e.dimension.getPlayers({ location: e.location, maxDistance: 7 })[0];
     if (p) ship.onUseShipHorn(p);
@@ -138,7 +175,7 @@ function handleCustomItemUse(p, itemId) {
   if (!isPlayer(p) || !itemId) return;
   switch (itemId) {
     case "studio:beeswax":
-      if (progression.checkItemPrerequisite(p, itemId)) siren.onWax(p);
+      if (progression.checkItemPrerequisite(p, itemId)) { siren.onWax(p); quests.questEvent(p, "wax_used"); }
       break;
     case "studio:circe_stew":
       if (progression.checkItemPrerequisite(p, itemId)) circe.onItemStew(p);
@@ -159,10 +196,14 @@ function handleCustomItemUse(p, itemId) {
     case "studio:ship_repair_kit":
       if (progression.checkItemPrerequisite(p, itemId)) ship.onUseRepairKit(p);
       break;
+    case "studio:royal_bow_of_odysseus":
+      progression.onUseProgressionItem(p, itemId);
+      // The trial of the bow: strung in the palace hall during the homecoming chapter.
+      if (quests.currentChapter() === 9 && flat(p.location, POINTS.ithaca_palace) < 12) quests.questEvent(p, "bow_trial");
+      break;
     case "studio:copper_hoplon":
     case "studio:tiresias_staff":
     case "studio:apollo_sun_talisman":
-    case "studio:royal_bow_of_odysseus":
     case "studio:spear_of_telemachus":
       progression.onUseProgressionItem(p, itemId);
       break;
@@ -194,6 +235,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => safe("play
 world.afterEvents.playerLeave.subscribe(({ playerId }) => safe("playerLeave", () => {
   journey.onPlayerLeave(playerId);
   pauseVote.onVotePlayerLeave(playerId);
+  selection.onSelectionLeave(playerId);
   dropAllOf(playerId);
 }));
 
@@ -227,7 +269,10 @@ system.runInterval(() => {
 
 system.runInterval(() => {
   safe("music", () => music.tickMusic(pauseVote.isWorldPaused() || pauseVote.isCinematicActive()));
+  safe("selection", selection.tickSelection);
   if (pauseVote.isWorldPaused()) return;
+  safe("quests", quests.tickQuests);
+  safe("eumaeus", npcs.tickPlayerEumaeus);
   safe("roles", story.tickRoles);
   safe("sirens", siren.tickSirens);
   safe("horses", gods.tickHorses);
@@ -244,4 +289,17 @@ system.runInterval(() => {
 system.runInterval(() => {
   if (pauseVote.isWorldPaused()) return;
   safe("sites", journey.tickSites);
+  safe("storyNpcs", npcs.tickStoryNpcs);
 }, 80);
+
+system.runInterval(() => {
+  if (pauseVote.isWorldPaused()) return;
+  safe("guides", guides.tickGuides);
+}, 40);
+
+system.runInterval(() => {
+  if (pauseVote.isWorldPaused()) return;
+  safe("guidesFast", guides.tickGuidesFast);
+}, 10);
+
+system.runTimeout(() => safe("guides.clear", guides.clearStaleGuides), 60);

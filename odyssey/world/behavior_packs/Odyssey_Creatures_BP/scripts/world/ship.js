@@ -8,6 +8,7 @@
 //   - Controlled water buoyancy, bow wake/oar splash particles, and automatic pier docking stop
 //   - 3-Tier Hull & Sail Damage + Shipwright Repair Kit system (never despawns on damage)
 //   - 7-Step Action-Driven Ship Quest Chain & 4 Multi-Shot Ship Cutscenes
+import { questEvent } from "./quests.js";
 import { world } from "@minecraft/server";
 import {
   add, block, byId, dp, flat, heldItem, isAir, isPlayer, isWater, near, nearestPlayer,
@@ -77,6 +78,7 @@ function shipLocalToWorld(ship, localF, localUp, localR) {
 // ------------------------------------------------------------------ 7-Step Interactive Ship Quest Chain
 export function advanceShipQuest(p, stepId) {
   if (!valid(p) || !isPlayer(p)) return;
+  safe("ship.quest", () => questEvent(p, stepId));
   const flag = `studio:ship_q_${stepId}`;
   if (dp(p, flag, false)) return;
   setDp(p, flag, true);
@@ -140,7 +142,7 @@ export function playShipCutscene(kind, player) {
 }
 
 // ------------------------------------------------------------------ Spawn & Crew Initialization
-export function ensureHarborShip(dim, x = 0, y = 64, z = -35) {
+export function ensureHarborShip(dim, x = 0, y = 62, z = -44) {
   if (near(dim, { x, y, z }, 45, SHIP_TYPE).length > 0) return;
   safe("spawn_ship", () => {
     const s = dim.spawnEntity(SHIP_TYPE, { x, y: y + 0.2, z });

@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "The Odyssey (2026) RP v2.2.0",
-    "description": "3D Copper Weapons & Armor Attachables, Greek Ship, 17 Creatures & 105 Custom Sounds (v2.2.0)",
+    "name": "The Odyssey (2026) RP v3.0.0",
+    "description": "Creatures, copper armor, Ithacan people (Telemachus, Mentor, Eumaeus, guides), selection portraits & sounds (v3.0.0)",
     "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a03",
     "version": [
-      2,
-      2,
+      3,
+      0,
       0
     ],
     "min_engine_version": [
@@ -20,8 +20,8 @@
       "type": "resources",
       "uuid": "3f0c1b7a-5d2e-4c1a-9a63-0b7d2f6e1a04",
       "version": [
-        2,
-        2,
+        3,
+        0,
         0
       ]
     }

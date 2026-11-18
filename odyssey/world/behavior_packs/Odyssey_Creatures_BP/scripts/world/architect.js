@@ -3,6 +3,12 @@
 // coastal beacon towers, and secret underground passages at each campaign site when loaded.
 import { world } from "@minecraft/server";
 import { runCommand, safe } from "../lib/util.js";
+import { groundY, loaded } from "../lib/terrain.js";
+
+const SITE_CENTER = {
+  ogygia: [0, 0], troy: [-150, -260], sparta: [-260, -90], cyclops: [300, -150], telepylus: [560, 60], aeaea: [520, 360],
+  hades: [260, 520], sirens: [-40, 480], strait: [-300, 380], thrinacia: [-480, 130], ithaca: [-420, -200],
+};
 
 function fill(dim, x1, y1, z1, x2, y2, z2, blockName) {
   runCommand(dim, `fill ${x1} ${y1} ${z1} ${x2} ${y2} ${z2} ${blockName}`);
@@ -58,19 +64,23 @@ function buildHarborPier(dim, x, y, z, dirX, dirZ, length = 14) {
 }
 
 export function ensureSiteArchitecture(siteId) {
-  const flag = `odyssey:arch_v22_${siteId}`;
+  // v3.0: builds again once (new Ogygia and Cyclops piers, Strait beacon on the cliff), and only once the site's
+  // chunks are loaded - /fill silently does nothing in unloaded chunks, which used to leave sites half built forever.
+  const flag = `odyssey:arch_v30_${siteId}`;
+  const dim = world.getDimension("minecraft:overworld");
+  const c = SITE_CENTER[siteId];
   try {
     if (world.getDynamicProperty(flag) === true) return;
+    if (c && !loaded(dim, { x: c[0], y: 64, z: c[1] })) return;
     world.setDynamicProperty(flag, true);
   } catch { return; }
 
-  const dim = world.getDimension("minecraft:overworld");
   safe(`arch.${siteId}`, () => {
     switch (siteId) {
       case "ogygia":
         // Calypso's Sanctuary Pavilion, lotus pools, and harbor pier
         buildDoricTemple(dim, -12, 64, -10, 5, 5, "quartz_pillar", "smooth_quartz", "quartz_block");
-        buildHarborPier(dim, 0, 64, -18, 0, -1, 14);
+        buildHarborPier(dim, 0, 64, -18, 0, -1, 21); // reaches open water (shore ends near z=-37)
         // Secret grotto passage beneath Ogygia
         fill(dim, -14, 60, -12, -10, 62, -8, "air");
         setb(dim, -12, 60, -10, "glowstone");
@@ -98,7 +108,7 @@ export function ensureSiteArchitecture(siteId) {
 
       case "cyclops":
         // Expanded sheepfold fence, shepherd's hearth, and cliffside escape path
-        buildHarborPier(dim, 275, 64, -150, -1, 0, 14);
+        buildHarborPier(dim, 373, 63, -150, 1, 0, 12); // east shore; the old west pier ran into the mountain
         fill(dim, 310, 66, -158, 326, 66, -142, "grass_block");
         setb(dim, 314, 67, -154, "glowstone");
         break;
@@ -145,8 +155,12 @@ export function ensureSiteArchitecture(siteId) {
 
       case "strait":
         // Strait navigation pharos beacons on either side of the channel
-        fill(dim, -318, 64, 365, -316, 72, 367, "stone_bricks");
-        setb(dim, -317, 73, 366, "glowstone");
+        {
+          // West beacon stands on the Scylla cliff (ground ~y=110 here), not buried inside it.
+          const gy = groundY(dim, -317, 366) ?? 63;
+          fill(dim, -318, gy + 1, 365, -316, gy + 9, 367, "stone_bricks");
+          setb(dim, -317, gy + 10, 366, "glowstone");
+        }
         fill(dim, -284, 64, 395, -282, 72, 397, "stone_bricks");
         setb(dim, -283, 73, 396, "glowstone");
         break;
@@ -187,6 +201,7 @@ export function ensureSiteArchitecture(siteId) {
     };
     const cpos = chests[siteId];
     if (cpos) {
+      if (siteId === "strait") cpos[1] = (groundY(dim, cpos[0], cpos[2]) ?? 64) + 1;   // on the cliff top
       setb(dim, cpos[0], cpos[1], cpos[2], "chest");
     }
   });

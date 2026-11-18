@@ -5,7 +5,7 @@ import { DIMENSIONS, valid, warn } from "./util.js";
 
 const TYPES = ["studio:cyclops", "studio:laestrygonian", "studio:laestrygonian_child", "studio:circe", "studio:circe_sister",
   "studio:siren", "studio:scylla", "studio:charybdis", "studio:shade", "studio:tiresias", "studio:sun_cattle", "studio:calypso",
-  "studio:athena", "studio:trojan_horse", "studio:boulder", "studio:greek_ship", "studio:ship_crew"];
+  "studio:athena", "studio:trojan_horse", "studio:boulder", "studio:greek_ship", "studio:ship_crew", "studio:odyssey_person"];
 const cache = new Map(TYPES.map((t) => [t, []]));
 
 export function refresh() {

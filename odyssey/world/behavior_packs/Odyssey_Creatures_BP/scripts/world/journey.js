@@ -5,10 +5,14 @@ import { world, ItemStack } from "@minecraft/server";
 import { MARKER, SITES, FOGS, RESPAWN_TICKS } from "../data/sites.js";
 import { dp, flat, near, now, playersNear, safe, setDp, valid } from "../lib/util.js";
 import { fogOff, fogOn, hear, tell, title } from "../lib/fx.js";
-import { getPlayerRole, onStoryEvent, respawnAtCheckpoint } from "./story.js";
+import { onStoryEvent, respawnAtCheckpoint } from "./story.js";
 import { ensureSiteArchitecture } from "./architect.js";
 import { ensureHarborShip } from "./ship.js";
-import { flushRewardVault, grantProgressionReward, recoverLostQuestItems } from "./progression.js";
+import { flushRewardVault, recoverLostQuestItems } from "./progression.js";
+import { spawnSpotFor } from "../lib/terrain.js";
+import { campaignStarted, onSelectionJoin } from "./selection.js";
+import { recoverPlayerCamera } from "./cinematics.js";
+import { resetGuideTimers } from "./guides.js";
 
 let active = false, checked = -1e9;
 const FOG_TAG = "odyssey_site";
@@ -28,39 +32,25 @@ export function mapActive(force = false) {
   return active;
 }
 
-function giveKit(p) {
-  if (dp(p, "studio:kit", false)) return;
-  setDp(p, "studio:kit", true);
-  setDp(p, "studio:unlock_astrolabe", true);
-  setDp(p, "studio:unlock_driftwood_club", true);
-  // Tier 1 Starting Equipment Only (Castaway Gear on Ogygia — later items unlock progressively!)
-  grantProgressionReward(p, "studio:odyssey_astrolabe", 1, { uniqueKey: "start_astrolabe", role: "both", silent: true });
-  grantProgressionReward(p, "studio:driftwood_club", 1, { uniqueKey: "start_club", role: "both", silent: true });
-  const inv = p.getComponent("minecraft:inventory")?.container;
-  for (const [id, n] of [["minecraft:leather_chestplate", 1], ["minecraft:bread", 3]]) {
-    safe("kit", () => inv?.addItem(new ItemStack(id, n)));
-  }
-  tell(p, "odyssey.kit");
-  const role = getPlayerRole(p);
-  tell(p, `odyssey.role.${role}`);
-}
-
 export function onPlayerSpawn(p, initialSpawn) {
   if (!mapActive(true)) return;
   setDp(p, "studio:journey", true);
   siteOf.delete(p.id);
-  if (initialSpawn || !dp(p, "studio:titled", false)) {
-    setDp(p, "studio:titled", true);
+  if (initialSpawn) {
+    recoverPlayerCamera(p);          // never stay stuck on a cutscene camera after a disconnect
+    resetGuideTimers(p);
+    ensureHarborShip(p.dimension, 0, 62, -44);
+    // Nothing story-related starts before the character selection is complete (world/selection.js).
+    if (!campaignStarted()) { onSelectionJoin(p); return; }
+    if (!dp(p, "studio:role", "")) { onSelectionJoin(p); return; }
     title(p, "odyssey.title", "odyssey.subtitle");
-    giveKit(p);
-    ensureSiteArchitecture("ogygia");
-    ensureHarborShip(p.dimension, 0, 64, -35);
-    onStoryEvent(p, "site_ogygia");
-  } else {
-    respawnAtCheckpoint(p);
     recoverLostQuestItems(p, { notifyIfNone: false });
     flushRewardVault(p, { manual: false });
+    return;
   }
+  respawnAtCheckpoint(p);
+  recoverLostQuestItems(p, { notifyIfNone: false });
+  flushRewardVault(p, { manual: false });
 }
 export function onPlayerLeave(id) { siteOf.delete(id); }
 
@@ -74,7 +64,7 @@ const siteAt = (p) => {
 };
 
 export function tickJourney() {
-  if (!mapActive()) return;
+  if (!mapActive() || !campaignStarted()) return;
   for (const p of world.getAllPlayers()) {
     safe("journey", () => {
       const site = siteAt(p), was = siteOf.get(p.id);
@@ -111,17 +101,21 @@ export function onCreatureDied(e) {
 
 function spawnSpot(dim, s, type, i, spots) {
   const [dx, dz] = spots[i % spots.length];
-  const e = dim.spawnEntity(type, { x: s.x + dx, y: s.y + 1, z: s.z + dz });
+  // Terrain-aware: the old fixed y (site y + 1) put the Scylla inside her cliff and others under hills.
+  const loc = spawnSpotFor(dim, type, s.x + dx, s.z + dz) ?? { x: s.x + dx, y: s.y + 1, z: s.z + dz };
+  const e = dim.spawnEntity(type, loc);
   if (e) { try { e.setDynamicProperty("studio:site", s.id); } catch { } }
   return e;
 }
 
 export function tickSites() {
-  if (!mapActive()) return;
+  if (!mapActive() || !campaignStarted()) return;
   const dim = world.getDimension("minecraft:overworld");
   for (const s of SITES) {
     safe("site", () => {
       const center = { x: s.x, y: s.y, z: s.z };
+      // Sparta is raised from open sea, so it is built while a ship is still approaching (visible from afar).
+      if (s.id === "sparta" && playersNear(dim, center, 140).length) ensureSiteArchitecture(s.id);
       if (!playersNear(dim, center, 65).length) return;
       ensureSiteArchitecture(s.id);
       const wanted = new Map();

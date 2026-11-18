@@ -366,7 +366,7 @@ export const DISCOVERY_CHESTS = [
   {
     id: "chest_strait_pharos",
     site: "strait",
-    x: -317, y: 65, z: 368,
+    x: -317, y: 109, z: 368,   // cliff top (verified in the world db; y=65 was inside the rock)
     minChapter: 8,
     rewards: [
       { itemId: "studio:aegis_copper_plate", amount: 1, role: "odysseus", uniqueKey: "strait_aegis" },

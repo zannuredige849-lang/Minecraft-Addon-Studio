@@ -18,8 +18,11 @@ export const STATE_PAUSE     = "GLOBAL_PAUSE";
 const PAUSABLE_TYPES = [
   "studio:cyclops", "studio:laestrygonian", "studio:laestrygonian_child", "studio:circe",
   "studio:siren", "studio:scylla", "studio:charybdis", "studio:shade", "studio:tiresias",
-  "studio:sun_cattle", "studio:calypso", "studio:athena"
+  "studio:sun_cattle", "studio:calypso", "studio:athena", "studio:odyssey_person", "studio:circe_sister"
 ];
+const voteStartListeners = [];
+/** Register a callback run when a story vote opens (the menu uses it to put the ballot on every screen). */
+export const onVoteStart = (fn) => voteStartListeners.push(fn);
 
 let worldState = STATE_NORMAL;
 let activeVote = null; // { id, promptKey, options: [{labelKey, id}], votes: Map<playerId, int>, startedAt, timeoutTicks, onFinish }
@@ -99,6 +102,7 @@ export function startStoryVote({ id, promptKey, options, timeoutTicks = 900, onF
     tell(p, "odyssey.vote.howto");
     hear(p, "odyssey.athena.chime", undefined, 0.9, 1.0);
   }
+  for (const fn of voteStartListeners) safe("vote.start", () => fn(activeVote));
   return true;
 }
 
@@ -186,6 +190,16 @@ export function tickPauseAndVote() {
             try { e.clearVelocity?.(); } catch { }
           }
         }
+      }
+      // Vanilla hostiles near players are held too, and players cannot be hurt while the game waits for them.
+      for (const p of world.getAllPlayers()) {
+        effect(p, "resistance", 12, 255);
+        try {
+          for (const m of p.dimension.getEntities({ location: p.location, maxDistance: 48, families: ["monster"] })) {
+            effect(m, "slowness", 10, 255);
+            effect(m, "weakness", 10, 255);
+          }
+        } catch { }
       }
     }
   }
